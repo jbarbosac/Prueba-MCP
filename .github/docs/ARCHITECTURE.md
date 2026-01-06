@@ -291,18 +291,108 @@ products/
 
 ---
 
+## ADR-009: Arquitectura de agentes en 3 capas (Padre + Hijos)
+
+**Fecha:** 2026-01-06  
+**Estado:** ✅ Aceptado  
+**Contexto:** Se requiere diferenciar entre roles estratégicos (QA Lead, PM, PO) y roles tácticos (QA ejecutores de cada portal). Los líderes necesitan visión global comparativa sin necesariamente ejecutar casos de prueba específicos.
+
+### Decisión
+Implementar arquitectura de **3 capas** con 1 agente padre y N agentes hijos:
+
+```
+QA_LEAD_Assistant (PADRE)
+    ↓ delega a
+PM_QA_Assistant (HIJO) | BGR_QA_Assistant (HIJO)
+```
+
+**Agente Padre (QA_LEAD_Assistant):**
+- **Usuario:** Líderes de QA, PM, PO, Scrum Masters
+- **Responsabilidad:** Visión estratégica global
+- **Capacidades:**
+  - Análisis comparativo PM vs BGR
+  - Consultas estratégicas consolidadas
+  - Reportes y métricas globales
+  - Delegación a agentes especializados
+- **NO puede:** Crear test cases ni ejecutar MCP de escritura
+
+**Agentes Hijos (PM_QA_Assistant / BGR_QA_Assistant):**
+- **Usuario:** QA ejecutores de cada célula/portal
+- **Responsabilidad:** Ejecución táctica especializada
+- **Capacidades:**
+  - Generación de casos de prueba específicos
+  - Creación directa en Azure DevOps via MCP
+  - Validaciones especializadas por portal
+- **NO puede:** Responder preguntas de otro portal
+
+### Razones
+✅ **Separación de roles:** Líderes vs ejecutores tienen necesidades diferentes  
+✅ **Optimización tokens:** Padre no carga toda documentación técnica  
+✅ **Especialización:** Hijos mantienen expertise profundo de su portal  
+✅ **Escalabilidad:** Agregar nuevo portal = agregar nuevo agente hijo  
+✅ **Prevención errores:** Delegación evita confusión entre PM/BGR  
+✅ **Claridad organizacional:** Usuario sabe exactamente qué agente usar  
+
+### Consecuencias
+✅ Líderes obtienen respuestas estratégicas rápidas sin carga técnica  
+✅ QA ejecutores mantienen herramientas especializadas y potentes  
+✅ Documentación comparativa centralizada (PM_vs_BGR_COMPARISON.md)  
+✅ Flujo de delegación claro desde padre a hijos  
+⚠️ 3 agentes requieren mantenimiento (vs 2 anteriormente)  
+⚠️ Usuario debe elegir agente correcto según rol  
+
+### Alternativas consideradas
+- ❌ Agente único multimodal: Demasiado complejo, propenso a errores
+- ❌ Agente padre que ejecuta: Sobrecarga de tokens, lento para líderes
+- ❌ Solo agentes hijos: Líderes deben alternar entre PM/BGR manualmente
+
+### Implementación
+1. ✅ Crear `QA_LEAD_Assistant.agent.md` con alcance estratégico
+2. ✅ Crear documento `PM_vs_BGR_COMPARISON.md` con tablas comparativas
+3. ✅ Actualizar README.md con arquitectura de 3 capas
+4. ✅ Documentar ADR-009 en ARCHITECTURE.md
+5. ⏳ Capacitar usuarios sobre cuándo usar cada agente
+
+### Ejemplos de delegación
+
+**Caso 1: Pregunta estratégica (usa PADRE)**
+```
+Usuario Lead: "¿Cuál es la diferencia entre emisión PM y BGR?"
+QA_LEAD: [Responde con tabla comparativa del documento]
+```
+
+**Caso 2: Ejecución táctica (PADRE delega a HIJO)**
+```
+Usuario Lead: "Genera 5 casos de vuelos para PM"
+QA_LEAD: "Para generar casos específicos de PM, 
+          debes usar el agente PM_QA_Assistant.
+          ¿Quieres que te prepare el contexto?"
+```
+
+**Caso 3: QA ejecutor (usa HIJO directamente)**
+```
+Usuario QA PM: "Genera caso vuelos PM SABRE ida y vuelta"
+PM_QA_Assistant: [Crea caso directamente en Azure DevOps]
+```
+
+### Estado
+✅ Implementado completamente en v1.1.0 (2026-01-06)
+
+---
+
 ## Historial de Cambios
 
 | ADR | Versión | Fecha | Cambio |
 |-----|---------|-------|--------|
-| ADR-001 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-002 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-003 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-004 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-005 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-006 | 1.0.0 | 2026-01-05 | Inicial |
-| ADR-007 | Propuesto | 2026-01-05 | Propuesto para v1.1.0 |
-| ADR-008 | 1.0.0 | 2026-01-05 | Inicial |
+| ADR-001 | 1.0.0 | 2026-01-05 | Inicial - Arquitectura modular Markdown |
+| ADR-002 | 1.0.0 | 2026-01-05 | Inicial - Separación PM/BGR independiente |
+| ADR-003 | 1.0.0 | 2026-01-05 | Inicial - Duplicación reglas ISTQB |
+| ADR-004 | 1.0.0 | 2026-01-05 | Inicial - Modelo pago en cada producto |
+| ADR-005 | 1.0.0 | 2026-01-05 | Inicial - Creación secuencial test cases |
+| ADR-006 | 1.0.0 | 2026-01-05 | Inicial - Inicio obligatorio desde login |
+| ADR-007 | Propuesto | 2026-01-05 | Propuesto para v1.1.0 - Metadata YAML |
+| ADR-008 | 1.0.0 | 2026-01-05 | Inicial - Estructura carpetas plana |
+| ADR-009 | 1.1.0 | 2026-01-06 | Arquitectura 3 capas (Padre + Hijos) |
 
 ---
 
@@ -333,6 +423,6 @@ products/
 
 ---
 
-**Última actualización:** 2026-01-05  
-**Versión:** 1.0.0  
+**Última actualización:** 2026-01-06  
+**Versión:** 1.1.0  
 **Mantenido por:** QA Team Ultragroup

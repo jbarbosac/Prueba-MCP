@@ -19,12 +19,13 @@
 
 ## 🎯 Descripción General
 
-Este sistema proporciona agentes QA especializados que:
-- ✅ Generan casos de prueba E2E completos según ISTQB
+Este sistema proporciona **arquitectura de agentes QA en 3 capas** que:
+- ✅ **Agente Padre (QA_LEAD):** Visión global, análisis comparativo, consultas estratégicas
+- ✅ **Agentes Hijos (PM/BGR):** Generan casos de prueba E2E completos según ISTQB
 - ✅ Crean test cases directamente en Azure DevOps Test Plans **mediante herramientas MCP**
 - ✅ Mantienen trazabilidad con User Stories (HU)
 - ✅ Aplican validaciones específicas por portal y producto
-- ✅ Optimizan uso de tokens mediante arquitectura modular
+- ✅ Optimizan uso de tokens mediante arquitectura modular y delegación inteligente
 
 > **IMPORTANTE:** Todas las operaciones de Azure DevOps (crear casos, actualizar campos, agregar a suites, obtener HU) se ejecutan **exclusivamente mediante herramientas MCP** (Model Context Protocol). No se requiere intervención manual.
 
@@ -47,8 +48,9 @@ Este sistema proporciona agentes QA especializados que:
 │   └── portal-template.md        (Para agregar portales)
 │
 ├── agents/                        ← Agentes QA (*.agent.md)
-│   ├── PM_QA_Assistant.agent.md  (Agente Pichincha Miles)
-│   └── BGR_QA_Assistant.agent.md (Agente BGR Miles)
+│   ├── QA_LEAD_Assistant.agent.md (Agente PADRE - Visión global)
+│   ├── PM_QA_Assistant.agent.md  (Agente HIJO - Pichincha Miles)
+│   └── BGR_QA_Assistant.agent.md (Agente HIJO - BGR Miles)
 │
 ├── shared/                        ← Reglas compartidas
 │   ├── SHARED_QA_RULES.md        (Fundamentos ISTQB + Azure DevOps)
@@ -99,14 +101,39 @@ Este sistema proporciona agentes QA especializados que:
 
 ### 1. Seleccionar el agente correcto
 
-| Portal | Agente | Cuándo usar |
-|--------|--------|-------------|
-| **Pichincha Miles** | `PM_QA_Assistant` | URL pichinchamiles-ec.preprodppm.com, 100% millas + fee |
-| **BGR Miles** | `BGR_QA_Assistant` | URL bgrmiles-ec.preprodppm.com, slider millas/plata |
+| Rol/Necesidad | Agente | Cuándo usar |
+|---------------|--------|-------------|
+| **QA Lead / PM / PO** | `QA_LEAD_Assistant` | Visión global, comparaciones, análisis estratégico |
+| **QA Pichincha Miles** | `PM_QA_Assistant` | Crear casos PM, ejecutar pruebas pichinchamiles-ec |
+| **QA BGR Miles** | `BGR_QA_Assistant` | Crear casos BGR, ejecutar pruebas bgrmiles-ec |
 
-### 2. Preparar información
+### 2. Arquitectura de 3 Capas
 
-Antes de generar casos, ten listo:
+```
+┌─────────────────────────────────────────────────────┐
+│         QA_LEAD_Assistant (Agente Padre)            │
+│  - Visión global PM + BGR                           │
+│  - Análisis comparativo                             │
+│  - Consultas estratégicas                           │
+│  - Delegación a agentes especializados              │
+└────────────────┬────────────────────────────────────┘
+                 │
+         ┌───────┴───────┐
+         │               │
+    ┌────▼─────┐   ┌────▼─────┐
+    │ PM_QA    │   │ BGR_QA   │
+    │ Assistant│   │ Assistant│
+    │          │   │          │
+    │ Ejecuta  │   │ Ejecuta  │
+    │ casos PM │   │ casos BGR│
+    └──────────┘   └──────────┘
+```
+
+### 3. Preparar información (QA ejecutores)
+
+### 3. Preparar información (QA ejecutores)
+
+Antes de generar casos con **PM_QA_Assistant** o **BGR_QA_Assistant**, ten listo:
 - ✅ `planId` (ID del Test Plan en Azure DevOps)
 - ✅ `suiteId` (ID del Test Suite donde crear los casos)
 - ✅ HU o contexto del caso a probar
@@ -119,7 +146,7 @@ https://dev.azure.com/ultragrouplaorg/ultragroupla/_testPlans/define?planId=1215
                                                                          planId      suiteId
 ```
 
-### 3. Solicitar generación de casos
+### 4. Solicitar generación de casos (QA ejecutores)
 
 **Ejemplo para PM Vuelos:**
 ```
@@ -131,14 +158,14 @@ https://dev.azure.com/ultragrouplaorg/ultragroupla/_testPlans/define?planId=1215
 "Genera un caso para BGR Hoteles 3 noches HotelBeds con pago Solo Millas automático"
 ```
 
-### 4. Revisar y aprobar
+### 5. Revisar y aprobar
 
 El agente presentará una tabla con los casos generados. Revisa y confirma:
 ```
 ¿Procedo a crear los {N} casos en Azure DevOps en planId=121536 suiteId=121850? (sí/no/ajusta)
 ```
 
-### 5. Validación automática
+### 6. Validación automática
 
 El agente creará los casos **UNO POR UNO** y mostrará un resumen:
 ```
