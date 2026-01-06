@@ -1,6 +1,6 @@
-# 🤖 Sistema de Agentes QA para Generación Automática de Test Cases
+# 🤖 Sistema de Agentes QA Multi-Célula para Generación Automática de Test Cases
 
-> Sistema modular de generación de casos de prueba E2E para portales de redención de millas PM (Pichincha Miles) y BGR (BGR Miles) con integración directa a Azure DevOps.
+> Sistema modular de generación de casos de prueba E2E organizado por células (Kepler, Pixel, Rocket, Skynet, Transversales) con integración directa a Azure DevOps.
 
 ---
 
@@ -8,23 +8,22 @@
 
 - [Descripción General](#descripción-general)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Portales Soportados](#portales-soportados)
+- [Células y Modelos](#células-y-modelos)
 - [Quick Start](#quick-start)
-- [Agregar Nuevo Producto](#agregar-nuevo-producto)
-- [Agregar Nuevo Portal](#agregar-nuevo-portal)
-- [Mantenimiento](#mantenimiento)
+- [Agregar Nuevo Modelo](#agregar-nuevo-modelo)
+- [Agregar Nueva Célula](#agregar-nueva-célula)
 - [Arquitectura](#arquitectura)
 
 ---
 
 ## 🎯 Descripción General
 
-Este sistema proporciona **arquitectura de agentes QA en 3 capas** que:
-- ✅ **Agente Padre (QA_LEAD):** Visión global, análisis comparativo, consultas estratégicas
-- ✅ **Agentes Hijos (PM/BGR):** Generan casos de prueba E2E completos según ISTQB
+Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados por células:
+- ✅ **Agente Padre (QA_LEAD):** Orquestación global de las 5 células
+- ✅ **Agentes Hijos por Célula:** Especialización por modelo/portal
+- ✅ Generan casos de prueba E2E completos según ISTQB
 - ✅ Crean test cases directamente en Azure DevOps Test Plans **mediante herramientas MCP**
 - ✅ Mantienen trazabilidad con User Stories (HU)
-- ✅ Aplican validaciones específicas por portal y producto
 - ✅ Optimizan uso de tokens mediante arquitectura modular y delegación inteligente
 
 > **IMPORTANTE:** Todas las operaciones de Azure DevOps (crear casos, actualizar campos, agregar a suites, obtener HU) se ejecutan **exclusivamente mediante herramientas MCP** (Model Context Protocol). No se requiere intervención manual.
@@ -35,65 +34,116 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** que:
 
 ```
 .github/
-├── README.md                      ← Este archivo
-├── CHANGELOG.md                   ← Historial de cambios
+├── README.md                              ← Este archivo
+├── CHANGELOG.md                           ← Historial de cambios
 │
-├── docs/                          ← Documentación técnica
-│   ├── GLOSSARY.md               (Glosario de términos)
-│   ├── ARCHITECTURE.md           (Decisiones arquitecturales)
-│   └── CONTRIBUTING.md           (Guía de contribución)
+├── docs/                                  ← Documentación técnica
+│   ├── GLOSSARY.md                       (Glosario de términos)
+│   ├── ARCHITECTURE.md                   (Decisiones arquitecturales)
+│   ├── CONTRIBUTING.md                   (Guía de contribución)
+│   └── comparisons/                      (Comparativas por célula)
+│       ├── Kepler_Models_Comparison.md
+│       ├── Pixel_Models_Comparison.md
+│       └── All_Cells_Comparison.md
 │
-├── templates/                     ← Plantillas reutilizables
-│   ├── product-template.md       (Para agregar productos)
-│   └── portal-template.md        (Para agregar portales)
+├── templates/                             ← Plantillas reutilizables
+│   ├── product-template.md               (Para agregar productos)
+│   ├── portal-template.md                (Para agregar portales)
+│   └── common-rules-template.md
 │
-├── agents/                        ← Agentes QA (*.agent.md)
-│   ├── QA_LEAD_Assistant.agent.md (Agente PADRE - Visión global)
-│   ├── PM_QA_Assistant.agent.md  (Agente HIJO - Pichincha Miles)
-│   └── BGR_QA_Assistant.agent.md (Agente HIJO - BGR Miles)
+├── agents/                                ← AGENTES QA
+│   ├── QA_LEAD_Assistant.agent.md        (PADRE - Orquestador global)
+│   │
+│   ├── Kepler/                           ← CÉLULA KEPLER
+│   │   ├── README.md
+│   │   ├── PM_QA_Assistant.agent.md
+│   │   ├── BGR_QA_Assistant.agent.md
+│   │   ├── CME_QA_Assistant.agent.md
+│   │   ├── CMP_QA_Assistant.agent.md
+│   │   └── PROM_QA_Assistant.agent.md
+│   │
+│   ├── Pixel/                            ← CÉLULA PIXEL
+│   │   └── README.md                     (Listo para agregar modelos)
+│   │
+│   ├── Rocket/                           ← CÉLULA ROCKET
+│   │   └── README.md                     (Listo para agregar modelos)
+│   │
+│   ├── Skynet/                           ← CÉLULA SKYNET
+│   │   └── README.md                     (Listo para agregar modelos)
+│   │
+│   └── Transversales/                    ← CÉLULA TRANSVERSALES
+│       └── README.md                     (Listo para agregar modelos)
 │
-├── shared/                        ← Reglas compartidas
-│   ├── SHARED_QA_RULES.md        (Fundamentos ISTQB + Azure DevOps)
-│   ├── PM_COMMON_RULES.md        (Reglas comunes PM)
-│   └── BGR_COMMON_RULES.md       (Reglas comunes BGR)
+├── shared/                                ← REGLAS COMPARTIDAS
+│   ├── SHARED_QA_RULES.md                (Universal - Todas las células)
+│   │
+│   ├── Kepler/
+│   │   ├── PM_COMMON_RULES.md
+│   │   ├── BGR_COMMON_RULES.md
+│   │   └── [otros modelos...]
+│   │
+│   ├── Pixel/                            (Listo para agregar)
+│   ├── Rocket/                           (Listo para agregar)
+│   ├── Skynet/                           (Listo para agregar)
+│   └── Transversales/                    (Listo para agregar)
 │
-├── products/                      ← Flujos E2E por producto
-│   ├── PM_VUELOS.md              (Pichincha Miles - Vuelos)
-│   ├── PM_HOTELES.md             (Pichincha Miles - Hoteles)
-│   ├── PM_AUTOS.md               (Pichincha Miles - Autos)
-│   ├── PM_ACTIVIDADES.md         (Pichincha Miles - Actividades)
-│   ├── PM_DISNEY.md              (Pichincha Miles - Disney)
-│   ├── BGR_VUELOS.md             (BGR Miles - Vuelos)
-│   ├── BGR_HOTELES.md            (BGR Miles - Hoteles)
-│   ├── BGR_AUTOS.md              (BGR Miles - Autos)
-│   ├── BGR_ACTIVIDADES.md        (BGR Miles - Actividades)
-│   └── BGR_DISNEY.md             (BGR Miles - Disney)
+├── products/                              ← FLUJOS E2E POR PRODUCTO
+│   ├── Kepler/
+│   │   ├── PM/
+│   │   │   ├── PM_VUELOS.md
+│   │   │   ├── PM_HOTELES.md
+│   │   │   └── ...
+│   │   ├── BGR/
+│   │   │   ├── BGR_VUELOS.md
+│   │   │   └── ...
+│   │   └── [otros modelos]/
+│   │
+│   ├── Pixel/                            (Listo para agregar)
+│   ├── Rocket/                           (Listo para agregar)
+│   ├── Skynet/                           (Listo para agregar)
+│   └── Transversales/                    (Listo para agregar)
 │
-└── imagenes/                      ← Recursos visuales
-    ├── PM/                        (Pantallas Pichincha Miles)
-    │   └── vuelos/               (11 capturas del flujo)
-    └── BGR/                       (Pantallas BGR Miles)
+└── imagenes/                              ← Recursos visuales
+    ├── Kepler/
+    │   ├── PM/
+    │   └── BGR/
+    ├── Pixel/
+    ├── Rocket/
+    ├── Skynet/
+    └── Transversales/
 ```
 
 ---
 
-## 🌐 Portales Soportados
+## 🏢 Células y Modelos
 
-### **Pichincha Miles (PM)**
-- **URL:** https://pichinchamiles-ec.preprodppm.com/
-- **País:** Ecuador
-- **Prefijo:** [PM]
-- **Modelo:** 100% Millas + Fee (solo vuelos con tarjeta)
-- **Emisión:** Automática
-- **Agente:** `PM_QA_Assistant.agent.md`
+### **📦 Célula KEPLER** (5 modelos configurados)
 
-### **BGR Miles (BGR)**
-- **URL:** https://bgrmiles-ec.preprodppm.com/
-- **País:** Ecuador
-- **Prefijo:** [BGR]
-- **Modelo:** Slider (Solo Millas o Millas + Plata)
-- **Emisión:** Automática (100% millas) / Manual (mixto)
-- **Agente:** `BGR_QA_Assistant.agent.md`
+| Modelo | Agente | Prefijo | País | Estado |
+|--------|--------|---------|------|--------|
+| **Pichincha Miles** | Kepler/PM_QA_Assistant | [PM] | Ecuador | ✅ Activo |
+| **BGR Miles** | Kepler/BGR_QA_Assistant | [BGR] | Ecuador | ✅ Activo |
+| **Correos Millas Ecuador** | Kepler/CME_QA_Assistant | [CME] | Ecuador | ⏳ Pendiente |
+| **Correos Millas Panamá** | Kepler/CMP_QA_Assistant | [CMP] | Panamá | ⏳ Pendiente |
+| **Promerica Rewards** | Kepler/PROM_QA_Assistant | [PROM] | - | ⏳ Pendiente |
+
+[Ver detalle →](agents/Kepler/README.md)
+
+### **🎯 Célula PIXEL**
+
+**Sin modelos configurados.** [Ver cómo agregar →](agents/Pixel/README.md)
+
+### **🚀 Célula ROCKET**
+
+**Sin modelos configurados.** [Ver cómo agregar →](agents/Rocket/README.md)
+
+### **🤖 Célula SKYNET**
+
+**Sin modelos configurados.** [Ver cómo agregar →](agents/Skynet/README.md)
+
+### **🔄 Célula TRANSVERSALES**
+
+**Sin modelos configurados.** [Ver cómo agregar →](agents/Transversales/README.md)
 
 ---
 
@@ -103,30 +153,27 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** que:
 
 | Rol/Necesidad | Agente | Cuándo usar |
 |---------------|--------|-------------|
-| **QA Lead / PM / PO** | `QA_LEAD_Assistant` | Visión global, comparaciones, análisis estratégico |
-| **QA Pichincha Miles** | `PM_QA_Assistant` | Crear casos PM, ejecutar pruebas pichinchamiles-ec |
-| **QA BGR Miles** | `BGR_QA_Assistant` | Crear casos BGR, ejecutar pruebas bgrmiles-ec |
+| **QA Lead / PM / Director** | `QA_LEAD_Assistant` | Visión global, orquestación multi-célula, análisis estratégico |
+| **QA Kepler** | `Kepler/[MODELO]_QA_Assistant` | Crear casos PM, BGR, CME, CMP, Promerica |
+| **QA Pixel** | `Pixel/[MODELO]_QA_Assistant` | Crear casos de modelos Pixel |
+| **QA Rocket** | `Rocket/[MODELO]_QA_Assistant` | Crear casos de modelos Rocket |
+| **QA Skynet** | `Skynet/[MODELO]_QA_Assistant` | Crear casos de modelos Skynet |
+| **QA Transversales** | `Transversales/[MODELO]_QA_Assistant` | Crear casos de modelos Transversales |
 
-### 2. Arquitectura de 3 Capas
+### 2. Arquitectura Multi-Célula
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         QA_LEAD_Assistant (Agente Padre)            │
-│  - Visión global PM + BGR                           │
-│  - Análisis comparativo                             │
-│  - Consultas estratégicas                           │
-│  - Delegación a agentes especializados              │
-└────────────────┬────────────────────────────────────┘
-                 │
-         ┌───────┴───────┐
-         │               │
-    ┌────▼─────┐   ┌────▼─────┐
-    │ PM_QA    │   │ BGR_QA   │
-    │ Assistant│   │ Assistant│
-    │          │   │          │
-    │ Ejecuta  │   │ Ejecuta  │
-    │ casos PM │   │ casos BGR│
-    └──────────┘   └──────────┘
+                    QA_LEAD_Assistant
+                    (Orquestador Global)
+                            │
+        ┌───────────┬───────┼──────┬──────────┬──────────┐
+        │           │       │      │          │          │
+    KEPLER      PIXEL   ROCKET  SKYNET  TRANSVERSALES
+        │           │       │      │          │
+  ┌─────┴────┐      │       │      │          │
+  │  │  │  │ │      │       │      │          │
+ PM BGR CME...      │       │      │          │
+                [modelos] [modelos] [modelos] [modelos]
 ```
 
 ### 3. Preparar información (QA ejecutores)
@@ -378,6 +425,15 @@ Antes de crear casos de prueba, verificar:
 
 ---
 
+## 📚 Más Información
+
+- 📘 [Comparación entre Modelos de Kepler](docs/comparisons/Kepler_Models_Comparison.md)
+- 📋 [Reglas Comunes Compartidas](shared/SHARED_QA_RULES.md)
+- ➕ [Guía Rápida: Agregar Nuevo Modelo](docs/QUICK_ADD_MODEL.md)
+- 📝 [Historial de Cambios (CHANGELOG)](docs/CHANGELOG.md)
+
+---
+
 ## 🤝 Contribución
 
 Para agregar nuevos productos, portales o mejoras:
@@ -396,6 +452,6 @@ Uso interno Ultragroup La.
 
 ---
 
-**Última actualización:** 2026-01-05  
-**Versión:** 1.0.0  
-**Mantenido por:** QA Team Ultragroup
+**Última actualización:** 2026-01-06  
+**Versión:** 1.1.0  
+**Mantenido por:** Sistema QA Multi-Célula

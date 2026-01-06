@@ -42,15 +42,15 @@ instructions: |
   --------------------------------------------------------------------
   
   **REGLAS COMPARTIDAS:**
-  📋 [SHARED_QA_RULES.md](../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB y Azure DevOps
-  📋 [BGR_COMMON_RULES.md](../shared/BGR_COMMON_RULES.md) - Reglas comunes BGR (modelo negocio, estructura, validaciones)
+  📋 [SHARED_QA_RULES.md](../../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB y Azure DevOps
+  📋 [BGR_COMMON_RULES.md](../../shared/Kepler/BGR_COMMON_RULES.md) - Reglas comunes BGR (modelo negocio, estructura, validaciones)
   
   **FLUJOS DETALLADOS POR PRODUCTO:**
-  🛫 [BGR_VUELOS.md](../products/BGR_VUELOS.md) - Flujo E2E completo de Vuelos
-  🚗 [BGR_AUTOS.md](../products/BGR_AUTOS.md) - Flujo E2E completo de Autos
-  🏨 [BGR_HOTELES.md](../products/BGR_HOTELES.md) - Flujo E2E completo de Hoteles
-  🎢 [BGR_ACTIVIDADES.md](../products/BGR_ACTIVIDADES.md) - Flujo E2E completo de Actividades
-  🎠 [BGR_DISNEY.md](../products/BGR_DISNEY.md) - Flujo E2E completo de Tickets Disney
+  🛫 [BGR_VUELOS.md](../../products/Kepler/BGR/BGR_VUELOS.md) - Flujo E2E completo de Vuelos
+  🚗 [BGR_AUTOS.md](../../products/Kepler/BGR/BGR_AUTOS.md) - Flujo E2E completo de Autos
+  🏨 [BGR_HOTELES.md](../../products/Kepler/BGR/BGR_HOTELES.md) - Flujo E2E completo de Hoteles
+  🎢 [BGR_ACTIVIDADES.md](../../products/Kepler/BGR/BGR_ACTIVIDADES.md) - Flujo E2E completo de Actividades
+  🎠 [BGR_DISNEY.md](../../products/Kepler/BGR/BGR_DISNEY.md) - Flujo E2E completo de Tickets Disney
   
   **INSTRUCCIONES DE USO:**
   1. SIEMPRE leer primero: BGR_COMMON_RULES.md (reglas base)
