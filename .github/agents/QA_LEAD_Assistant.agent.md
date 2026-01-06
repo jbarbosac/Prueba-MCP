@@ -199,11 +199,11 @@ instructions: |
   - **Agente Especializado:** `Kepler/BGR_QA_Assistant`
   - **Productos:** Vuelos, Hoteles, Autos, Actividades, Disney
   
-  ### **Correos Millas Ecuador (CME)**
+  ### **Club Miles Ecuador (CME)**
   - **Prefijo:** [CME]
   - **Agente Especializado:** `Kepler/CME_QA_Assistant`
   
-  ### **Correos Millas Panamá (CMP)**
+  ### **Club Millas Peru (CMP)**
   - **Prefijo:** [CMP]
   - **Agente Especializado:** `Kepler/CMP_QA_Assistant`
   

@@ -151,14 +151,43 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 
 ### 1. Seleccionar el agente correcto
 
-| Rol/Necesidad | Agente | Cuándo usar |
-|---------------|--------|-------------|
-| **QA Lead / PM / Director** | `QA_LEAD_Assistant` | Visión global, orquestación multi-célula, análisis estratégico |
-| **QA Kepler** | `Kepler/[MODELO]_QA_Assistant` | Crear casos PM, BGR, CME, CMP, Promerica |
-| **QA Pixel** | `Pixel/[MODELO]_QA_Assistant` | Crear casos de modelos Pixel |
-| **QA Rocket** | `Rocket/[MODELO]_QA_Assistant` | Crear casos de modelos Rocket |
-| **QA Skynet** | `Skynet/[MODELO]_QA_Assistant` | Crear casos de modelos Skynet |
-| **QA Transversales** | `Transversales/[MODELO]_QA_Assistant` | Crear casos de modelos Transversales |
+#### 🎯 **Agente Estratégico (Liderazgo)**
+
+| Agente | Archivo | Cuándo usar |
+|--------|---------|-------------|
+| **QA Lead Assistant** | [QA_LEAD_Assistant.agent.md](agents/QA_LEAD_Assistant.agent.md) | Visión global, orquestación multi-célula, comparaciones estratégicas, análisis cross-portal |
+
+#### 🔷 **Célula KEPLER - Agentes Especializados**
+
+| Agente | Archivo | Portal/Modelo | Cuándo usar |
+|--------|---------|---------------|-------------|
+| **PM QA Assistant** | [PM_QA_Assistant.agent.md](agents/PM_QA_Assistant.agent.md) | Pichincha Miles (Ecuador) | Crear casos de prueba específicos para PM |
+| **BGR QA Assistant** | [BGR_QA_Assistant.agent.md](agents/BGR_QA_Assistant.agent.md) | BGR Miles (Ecuador) | Crear casos de prueba específicos para BGR |
+| _CME, CMP, Promerica_ | _Pendiente configurar_ | - | Ver [Kepler/README.md](agents/Kepler/README.md) |
+
+#### 🎯 **Célula PIXEL - Agentes Especializados**
+
+| Estado | Mensaje |
+|--------|---------|
+| 📦 Sin modelos configurados | Ver [Pixel/README.md](agents/Pixel/README.md) para agregar modelos |
+
+#### 🚀 **Célula ROCKET - Agentes Especializados**
+
+| Estado | Mensaje |
+|--------|---------|
+| 📦 Sin modelos configurados | Ver [Rocket/README.md](agents/Rocket/README.md) para agregar modelos |
+
+#### 🤖 **Célula SKYNET - Agentes Especializados**
+
+| Estado | Mensaje |
+|--------|---------|
+| 📦 Sin modelos configurados | Ver [Skynet/README.md](agents/Skynet/README.md) para agregar modelos |
+
+#### 🔄 **Célula TRANSVERSALES - Agentes Especializados**
+
+| Estado | Mensaje |
+|--------|---------|
+| 📦 Sin modelos configurados | Ver [Transversales/README.md](agents/Transversales/README.md) para agregar modelos |
 
 ### 2. Arquitectura Multi-Célula
 
