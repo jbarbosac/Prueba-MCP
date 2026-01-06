@@ -8,8 +8,8 @@
 
 | Modelo | Agente | Prefijo | País | URL |
 |--------|--------|---------|------|-----|
-| **Pichincha Miles** | PM_QA_Assistant.agent.md | [PM] | Ecuador | pichinchamiles-ec.preprodppm.com |
-| **BGR Miles** | BGR_QA_Assistant.agent.md | [BGR] | Ecuador | bgrmiles-ec.preprodppm.com |
+| **Pichincha Miles** | [../PM_QA_Assistant.agent.md](../PM_QA_Assistant.agent.md) | [PM] | Ecuador | pichinchamiles-ec.preprodppm.com |
+| **BGR Miles** | [../BGR_QA_Assistant.agent.md](../BGR_QA_Assistant.agent.md) | [BGR] | Ecuador | bgrmiles-ec.preprodppm.com |
 | **Correos Millas Ecuador** | CME_QA_Assistant.agent.md | [CME] | Ecuador | [URL pendiente] |
 | **Correos Millas Panamá** | CMP_QA_Assistant.agent.md | [CMP] | Panamá | [URL pendiente] |
 | **Promerica Rewards** | PROM_QA_Assistant.agent.md | [PROM] | [País] | [URL pendiente] |
