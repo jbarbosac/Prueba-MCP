@@ -1,7 +1,7 @@
 # 🏨 FLUJO E2E OBLIGATORIO PARA HOTELES - CME
 
-**Proveedor:** Correos Millas Ecuador  
-**Portal:** https://correosmillas-ec.preprodppm.com/  
+**Proveedor:** Club Millas Ecuador  
+**Portal:** https://clubmiles-ec.preprodppm.com/ 
 **Tecnología:** Angular (TypeScript/JavaScript)  
 **Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
 
@@ -17,7 +17,7 @@
 
 **Siempre incluir estos pasos desde login para el flujo de Hoteles:**
 
-1. Ingresar a la URL https://correosmillas-ec.preprodppm.com/ | Portal cargado correctamente, pantalla principal visible
+1. Ingresar a la URL https://clubmiles-ec.preprodppm.com/ | Portal cargado correctamente, pantalla principal visible
 2. Realizar login con un usuario válido | Login exitoso y acceso al home del portal
 3. Click en la opción Hoteles | Se despliega el formulario de búsqueda de hoteles
 4. Diligenciar el campo Destino | Se habilita una lista de ciudades sugeridas
