@@ -56,7 +56,73 @@ Razón:    Slider tiene mínimo obligatorio
 
 ---
 
-## 🔄 Proceso de Emisión
+## �️ Flujo E2E Completo
+
+### Pantallas del Proceso (Todas las Transacciones)
+
+```mermaid
+graph LR
+    A[Login] --> B[Home]
+    B --> C[Disponibilidad]
+    C --> D[Upsell]
+    D --> E[Resumen]
+    E --> F[Checkout]
+    F --> G[Confirmación]
+    G --> H[Admin Validación]
+```
+
+**Descripción del Flujo:**
+
+1. **Login**
+   - Usuario ingresa credenciales
+   - Autenticación en BGR Miles
+   - Acceso a portal
+
+2. **Home**
+   - Pantalla inicial de búsqueda
+   - Usuario selecciona producto (Vuelos, Hoteles, Autos, Actividades, Disney)
+   - Ingresa criterios de búsqueda
+
+3. **Disponibilidad**
+   - Resultados de búsqueda
+   - **Slider de Millas + Plata visible**
+   - Usuario ajusta % de millas vs plata
+   - Selección de opción
+
+4. **Upsell**
+   - Ofertas adicionales
+   - Upgrades disponibles
+   - Seguros, servicios extra
+
+5. **Resumen**
+   - Detalle completo de la selección
+   - Resumen de costos
+   - **Confirmación de slider:** Millas + Plata
+   - Revisión antes de checkout
+
+6. **Checkout**
+   - Datos del pasajero/usuario
+   - **Confirmación final de slider**
+   - Datos de tarjeta (si es Millas + Plata)
+   - Términos y condiciones
+
+7. **Confirmación**
+   - Código de reserva
+   - Resumen de pago:
+     - **Solo Millas:** Millas debitadas
+     - **Millas + Plata:** Millas debitadas + Monto USD
+   - Instrucciones siguientes pasos
+
+8. **Admin - Validación de Reservas**
+   - Ingreso al administrador BGR
+   - Búsqueda por código de reserva
+   - Validaciones:
+     - **Solo Millas (100%):** Estado EMITIDA automáticamente ✅
+     - **Millas + Plata:** Estado PENDIENTE → Proceso manual requerido 🔧
+
+---
+
+## �🔄 Proceso de Emisión
 
 ### ✅ Emisión Automática (Solo Millas)
 
