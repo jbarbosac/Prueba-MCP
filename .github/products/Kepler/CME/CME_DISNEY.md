@@ -1,15 +1,81 @@
 # 🎡 FLUJO E2E OBLIGATORIO PARA DISNEY - CME
 
-**Proveedor:** Club Millas Ecuador  
-**Portal:** https://clubmiles-ec.preprodppm.com/  
+**Proveedor:** Club Miles Ecuador  
+**Portal Test:** https://clubmiles-ec.developppm.com/  
+**Portal Demo:** https://clubmiles-ec.preprodppm.com/  
 **Tecnología:** React (JavaScript/TypeScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Métodos de pago:** Solo Millas (100%) o Millas+Plata (Copago con Slider en CheckOut, mínimo 20%)  
+**Fee:** NO  
+**Pasarela:** PlacetoPay (bash, solo si hay Copago, sin interfaz visual)  
 
 ---
 
 ## 📦 PROVEEDORES DISPONIBLES
 
 **Proveedor:** DerbySoft (único)
+
+---
+
+## 🎫 VOUCHER EN ADMIN
+
+**Disponibilidad:** ✅ SÍ disponible (Bilingüe)
+
+**Características:**
+- ✅ Visualizable y descargable en el detalle de la reserva en Admin
+- 🇪🇸🇬🇧 **Voucher bilingüe:** Página 1 en Español, Página 2 en English
+- 🎫 Incluye instrucciones de canje y activación de tickets
+- Formato: PDF
+- Idiomas: Español e Inglés
+
+---
+
+## 🎚️ SLIDER Y MÉTODOS DE PAGO
+
+### MÉTODOS DISPONIBLES:
+
+**1. Solo Millas (100%):**
+- Ajustar slider al 100% del valor del producto
+- No se cobra nada en USD
+- Sin tarjeta de crédito
+
+**2. Millas+Plata (Copago):**
+- Slider visible en CheckOut
+- Mínimo: 20% del valor del producto
+- Máximo: 100% o Millas disponibles
+- Ajuste manual por el socio
+- Cálculo dinámico en tiempo real
+- PlacetoPay bash (sin interfaz visual)
+
+### ESCENARIOS DE PAGO:
+
+**Escenario 1:** Millas ≥ 20% pero < 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta Millas disponibles
+- Cobrar restante en USD vía PlacetoPay bash
+```
+
+**Escenario 2:** Millas < 20%
+```
+❌ Mostrar CheckOut con popup sobrepuesto
+- Mensaje: "Debe comprar más Millas"
+- CheckOut de fondo con gris transparente
+```
+
+**Escenario 3:** Millas ≥ 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta 100%
+- Socio decide cuántas Millas usar
+```
+
+**Escenario 4:** Pago 100% Millas
+```
+✅ Ajustar slider al 100%
+- No se cobra USD
+- Sin tarjeta de crédito
+- Emisión automática
+```
 
 ---
 
@@ -113,13 +179,18 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
+**Incluir SIEMPRE en el campo Descriptions del Test Case:**
 
-- Home-disney-CME.png - Pantalla principal con opción Tickets Disney
-- Disponibilidad-disney-CME.png - Opciones de tickets disponibles
-- Checkout-disney-CME.png - Formulario de checkout completo con datos de todos los visitantes
-- Confirmacion-disney-CME.png - Pantalla de confirmación con código de reserva e instrucciones
-- Admin.png - Validación en módulo admin CME
+```
+.github/images/CME/Disney/
+├── Home-disney-CME.png
+├── Disponibilidad-disney-CME.png
+├── Checkout-disney-CME.png (con slider)
+├── Confirmacion-disney-CME.png
+├── Voucher-disney-CME-ES.png (página 1 - Español)
+├── Voucher-disney-CME-EN.png (página 2 - English)
+└── Admin.png
+```
 
 ---
 

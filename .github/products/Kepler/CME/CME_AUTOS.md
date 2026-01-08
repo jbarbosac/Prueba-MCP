@@ -1,16 +1,88 @@
 # 🚗 FLUJO E2E OBLIGATORIO PARA AUTOS - CME
 
-**Proveedor:** Club Millas Ecuador  
-**Portal:** https://clubmiles-ec.preprodppm.com/
+**Proveedor:** Club Miles Ecuador  
+**Portal Test:** https://clubmiles-ec.developppm.com/  
+**Portal Demo:** https://clubmiles-ec.preprodppm.com/  
 **Tecnología:** Meteor (JavaScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Métodos de pago:** Solo Millas (100%) o Millas+Plata (Copago con Slider en CheckOut, mínimo 20%)  
+**Fee:** NO  
+**Pasarela:** PlacetoPay (bash, solo si hay Copago, sin interfaz visual)  
 
 ---
 
 ## 📦 PROVEEDORES DISPONIBLES
 
-**Proveedor:** Sabre  
+**Proveedor:** Sabre Edifact  
 **Empresas:** Hertz, Dollar, Thrifty
+
+---
+
+## 📱 PANTALLAS EXCLUSIVAS DE AUTOS
+
+- **Modal Previo a Confirmación:** Aparece antes de confirmar el canje, resume datos del auto y monto a pagar
+
+---
+
+## 🎫 VOUCHER EN ADMIN
+
+**Disponibilidad:** ⚠️ SOLO para Hertz
+
+**Características:**
+- ✅ Visualizable y descargable en el detalle de la reserva en Admin
+- 🚗 **Solo para reservas con rentadora Hertz**
+- ❌ NO disponible para Dollar y Thrifty
+- Formato: PDF
+- Idioma: Español
+
+---
+
+## 🎚️ SLIDER Y MÉTODOS DE PAGO
+
+### MÉTODOS DISPONIBLES:
+
+**1. Solo Millas (100%):**
+- Ajustar slider al 100% del valor del producto
+- No se cobra nada en USD
+- Sin tarjeta de crédito
+
+**2. Millas+Plata (Copago):**
+- Slider visible en CheckOut
+- Mínimo: 20% del valor del producto
+- Máximo: 100% o Millas disponibles
+- Ajuste manual por el socio
+- Cálculo dinámico en tiempo real
+- PlacetoPay bash (sin interfaz visual)
+
+### ESCENARIOS DE PAGO:
+
+**Escenario 1:** Millas ≥ 20% pero < 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta Millas disponibles
+- Cobrar restante en USD vía PlacetoPay bash
+```
+
+**Escenario 2:** Millas < 20%
+```
+❌ Mostrar CheckOut con popup sobrepuesto
+- Mensaje: "Debe comprar más Millas"
+- CheckOut de fondo con gris transparente
+```
+
+**Escenario 3:** Millas ≥ 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta 100%
+- Socio decide cuántas Millas usar
+```
+
+**Escenario 4:** Pago 100% Millas
+```
+✅ Ajustar slider al 100%
+- No se cobra USD
+- Sin tarjeta de crédito
+- Emisión automática
+```
 
 ---
 
@@ -110,13 +182,18 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
+**Incluir SIEMPRE en el campo Descriptions del Test Case:**
 
-- Home-autos-CME.png - Pantalla principal con opción Autos
-- Disponibilidad-autos-CME.png - Lista de autos disponibles
-- Checkout-autos-CME.png - Formulario de checkout completo
-- Confirmacion-autos-CME.png - Pantalla de confirmación con código de reserva
-- Admin.png - Validación en módulo admin CME
+```
+.github/images/CME/Autos/
+├── Home-autos-CME.png
+├── Disponibilidad-autos-CME.png
+├── Checkout-autos-CME.png (con slider)
+├── Modal-previo-confirmacion-CME.png
+├── Confirmacion-autos-CME.png
+├── Voucher-autos-Hertz-CME.png (solo Hertz)
+└── Admin.png
+```
 
 ---
 

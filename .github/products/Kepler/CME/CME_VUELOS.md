@@ -1,21 +1,122 @@
 # � FLUJO E2E OBLIGATORIO PARA VUELOS - CME
 
-**Proveedor:** Club Millas Ecuador  
-**Portal:** https://clubmiles-ec.preprodppm.com/  
+**Proveedor:** Club Miles Ecuador  
+**Portal Test:** https://clubmiles-ec.developppm.com/  
+**Portal Demo:** https://clubmiles-ec.preprodppm.com/  
 **Tecnología:** Angular (TypeScript/JavaScript)  
-**Modelo de pago:** 100% Millas + Fee de procesamiento (Tarjeta de crédito)  
+**Métodos de pago:** Solo Millas (100%) o Millas+Plata (Copago con Slider en CheckOut, mínimo 20%)  
+**Fee de procesamiento:** TARJETA DE CRÉDITO (obligatorio, formulario en CheckOut)  
+**Pasarela:** PlacetoPay (bash, sin interfaz visual)
 
 ---
 
 ## 📦 PROVEEDORES DISPONIBLES
 
-- **AGGREGATOR - NETACTICA** (sin dispersión de fondos)
-- **AGGREGATOR - SABRE** (sin dispersión de fondos)
-- **SABRE EDIFACT** (con dispersión de fondos)
+- **Sabre Edifact**
+- **Aggregator - Sabre NDC**
+- **Aggregator - Netactica**
 
 ---
 
-## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
+## � PANTALLAS EXCLUSIVAS DE VUELOS
+
+1. **Resumen** - Después de Disponibilidad, antes de CheckOut
+2. **Modal Seguro de Cancelación** - **DESPUÉS** de la pantalla Resumen (si está activo)
+3. **Modal Previo a Confirmación**
+4. **Confirmación Vuelos+Seguro** - Si se aceptó el seguro de cancelación
+
+---
+
+## ✈️ SEGURO DE CANCELACIÓN
+
+**Disponibilidad:** Solo para vuelos  
+**Momento:** **DESPUÉS** de la pantalla Resumen
+
+**Flujo:**
+1. Se muestra Modal de Seguro de Cancelación (después del Resumen)
+2. El socio puede Aceptar o Denegar
+3. Si acepta:
+   - Confirmación muestra pantalla especial: Confirmación Vuelos+Seguro
+   - Incluye información del seguro de cancelación
+
+**IMPORTANTE:** Voucher NO disponible para reservas de Vuelos+Seguro de Cancelación
+
+---
+
+## 🎫 VOUCHER EN ADMIN
+
+**Disponibilidad:** ✅ SÍ
+
+**Características:**
+- Visualizable y descargable en el detalle de la reserva en Admin
+- Formato: PDF
+- Idioma: Español
+
+**Limitación:**
+- ❌ NO disponible para reservas de Vuelos+Seguro de Cancelación
+- ✅ Disponible solo para vuelos sin seguro
+
+---
+
+## 🎚️ SLIDER Y MÉTODOS DE PAGO
+
+### MÉTODOS DISPONIBLES:
+
+**1. Solo Millas (100%):**
+- Ajustar slider al 100% del valor del producto
+- No se cobra nada en USD para el producto
+- Fee de vuelos obligatorio con TC
+
+**2. Millas+Plata (Copago):**
+- Slider visible en CheckOut
+- Mínimo: 20% del valor del producto
+- Máximo: 100% o Millas disponibles
+- Ajuste manual por el socio
+- Cálculo dinámico en tiempo real
+
+### FEE DE PROCESAMIENTO:
+- **Obligatorio** para todos los vuelos
+- **Formulario TC en CheckOut** (NO lightbox)
+- **PlacetoPay bash** (sin interfaz visual)
+- Se cobra al reservar mediante conexión bash
+
+### ESCENARIOS DE PAGO:
+
+**Escenario 1:** Millas ≥ 20% pero < 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta Millas disponibles
+- Cobrar restante en USD vía PlacetoPay bash
+- Fee obligatorio con TC
+```
+
+**Escenario 2:** Millas < 20%
+```
+❌ Mostrar CheckOut con popup sobrepuesto
+- Mensaje: "Debe comprar más Millas"
+- CheckOut de fondo con gris transparente
+- No permite continuar
+```
+
+**Escenario 3:** Millas ≥ 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta 100%
+- Socio decide cuántas Millas usar
+- Fee obligatorio con TC
+```
+
+**Escenario 4:** Pago 100% Millas
+```
+✅ Ajustar slider al 100%
+- No se cobra USD para el producto
+- Fee obligatorio con TC (único cargo USD)
+- Emisión automática
+```
+
+---
+
+## �📋 PASOS OBLIGATORIOS DEL FLUJO E2E
 
 **Siempre incluir estos pasos desde login:**
 
@@ -284,6 +385,25 @@ Después de completar este archivo:
    ```powershell
    .\validation\validate-structure.ps1
    ```
+
+---
+
+## 📸 IMÁGENES DE REFERENCIA
+
+**Incluir SIEMPRE en el campo Descriptions del Test Case:**
+
+```
+.github/images/CME/Vuelos/
+├── Home-vuelos-CME.png
+├── Disponibilidad-vuelos-CME.png
+├── Resumen-vuelos-CME.png
+├── Modal-seguro-CME.png (si aplica)
+├── Checkout-vuelos-CME.png (con slider y formulario TC)
+├── Confirmacion-vuelos-CME.png
+├── Confirmacion-vuelos-seguro-CME.png (si aplica)
+├── Voucher-vuelos-CME.png
+└── Admin.png
+```
 
 ---
 

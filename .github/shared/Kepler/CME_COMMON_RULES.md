@@ -7,7 +7,8 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 ## 🎯 IDENTIFICACIÓN Y ALCANCE
 
 **Nombre completo:** ClubMiles Ecuador (CME)  
-**Portal:** https://correosmillas-ec.preprodppm.com/  
+**Portal Test:** https://clubmiles-ec.developppm.com/  
+**Portal Demo:** https://clubmiles-ec.preprodppm.com/  
 **País:** Ecuador  
 **Prefijo obligatorio:** [CME]  
 **Cliente:** PPM (Diners Club a través de PPM)  
@@ -86,9 +87,11 @@ El usuario final es el **Socio** (cliente de Diners Club) que usa "Millas" como 
 
 **ESCENARIO 2:** Millas insuficientes Y < 20% del producto
 ```
-❌ Mostrar pop-up indicando:
+❌ Mostrar CheckOut con pop-up sobrepuesto indicando:
 "Debe comprar más Millas para poder reservar este producto"
-(No se muestra el CheckOut ni el Slider)
+- CheckOut se muestra de fondo con gris transparente
+- Pop-up sobrepuesto impide interactuar con el CheckOut
+- No se puede hacer clic en el fondo para continuar
 ```
 
 **ESCENARIO 3:** Millas suficientes (≥ 100% del producto)
@@ -98,20 +101,33 @@ El usuario final es el **Socio** (cliente de Diners Club) que usa "Millas" como 
 - Socio decide cuántas Millas usar y cuánto pagar en USD
 ```
 
+**ESCENARIO 4:** Pago 100% con Solo Millas (sin USD)
+```
+✅ Socio tiene Millas suficientes y elige pagar 100% en Millas
+- Ajustar slider al 100% del valor del producto
+- No se cobra nada en USD (excepto fee de vuelos si aplica)
+- No se usa Tarjeta de Crédito para el producto (solo para fee de vuelos si aplica)
+- Reserva y emisión automática sin Copago
+```
+
 ### ECUACIÓN DE PAGO POR PRODUCTO:
 
 **VUELOS:**
 ```
-Producto = Millas o Millas+Plata
-Fee de procesamiento = TARJETA DE CRÉDITO (obligatorio en lightbox)
-Pasarela: PlacetoPay
+Producto = Millas o Millas+Plata (Slider en CheckOut)
+Fee de procesamiento = TARJETA DE CRÉDITO (obligatorio)
+  - Formulario de TC dentro del CheckOut (NO lightbox)
+  - Al reservar: Conexión bash a PlacetoPay (sin interfaz visual)
+Pasarela: PlacetoPay (bash, sin mostrar interfaz)
 ```
 
 **OTROS PRODUCTOS (Hoteles, Autos, Actividades, Disney):**
 ```
-Producto = Millas o Millas+Plata
+Producto = Millas o Millas+Plata (Slider en CheckOut)
 Sin fee
-Pasarela: PlacetoPay (solo si hay Copago)
+Pasarela: PlacetoPay (bash, solo si hay Copago, sin mostrar interfaz)
+  - Conexión bash al reservar
+  - No se muestra interfaz de pasarela de pago
 ```
 
 ---
@@ -120,7 +136,8 @@ Pasarela: PlacetoPay (solo si hay Copago)
 
 ### PORTAL DE AUTENTICACIÓN:
 - Inicia desde el **portal del Cliente PPM** (fuera de control de UltraGroup)
-- URL: https://correosmillas-ec.preprodppm.com/
+- **URL Test:** https://clubmiles-ec.developppm.com/
+- **URL Demo:** https://clubmiles-ec.preprodppm.com/
 
 ### PROCESO DE LOGIN:
 1. Ingresar número de identificación (ya creado en la agencia)
@@ -147,32 +164,12 @@ Pasarela: PlacetoPay (solo si hay Copago)
 4. **Modal OTP** (Solo si aplica Copago con tarjeta que requiere OTP)
 5. **Confirmación** - Confirmación de reserva
 
-### PANTALLAS EXCLUSIVAS DE VUELOS:
-- **Resumen** (Después de Disponibilidad)
-- **Modal Seguro de Cancelación** (Si está activo)
-- **Modal Previo a Confirmación**
-- **Confirmación Vuelos+Seguro** (Si se aceptó el seguro)
+**PANTALLAS ESPECÍFICAS POR PRODUCTO:**
+Consultar archivos detallados de cada producto para pantallas exclusivas (Resumen, Modales, etc.)
 
-### PANTALLAS EXCLUSIVAS DE AUTOS:
-- **Modal Previo a Confirmación**
-
-### NOTAS IMPORTANTES:
+**NOTAS:**
 - **Home:** Controlada por el Cliente PPM (fuera de UltraGroup)
 - **Resto de pantallas:** Desarrolladas y mantenidas por UltraGroup
-
----
-
-## ✈️ SEGURO DE CANCELACIÓN (Solo Vuelos)
-
-**Disponibilidad:** Solo para producto **Vuelos**  
-**Momento:** Después de la pantalla **Resumen**
-
-**Flujo:**
-1. Se muestra **Modal de Seguro de Cancelación**
-2. El socio puede **Aceptar** o **Denegar**
-3. Si acepta:
-   - Confirmación muestra pantalla especial: **Confirmación Vuelos+Seguro**
-   - Incluye información del seguro de cancelación
 
 ---
 
@@ -188,7 +185,7 @@ Pasarela: PlacetoPay (solo si hay Copago)
 
 **Para Copago (Millas+Plata):**
 1. Descuento de Millas
-2. Cobro en Tarjeta de Crédito (USD) vía PlacetoPay
+2. Cobro en Tarjeta de Crédito (USD) vía PlacetoPay (bash, sin interfaz)
 3. Emisión automática tipo "Cash"
 
 ### EMISIÓN:
@@ -196,20 +193,32 @@ Pasarela: PlacetoPay (solo si hay Copago)
 - No requiere intervención manual
 - Sin proceso semiautomático
 
+### CONSULTA EN ADMINISTRADOR:
+- **Todas las reservas emitidas** se pueden consultar en el **Administrador del modelo CME**
+- Se visualiza el detalle completo de la reserva emitida
+- Estado: EMITIDA
+
+### VOUCHERS EN ADMIN:
+- **Vuelos:** Disponible (excepto vuelos+seguro)
+- **Autos:** Solo para Hertz
+- **Disney:** Bilingüe (Español/Inglés)
+- **Hoteles y Actividades:** No disponible
+
+**Detalle específico por producto:** Ver archivo correspondiente (CME_VUELOS.md, CME_AUTOS.md, etc.)
+
 ---
 
 ## 📦 ESTRUCTURA DE PROVEEDORES
 
 ```
-CORREOS MILLAS ECUADOR (CME)
+CLUB MILES ECUADOR (CME)
 ├─ 🛫 VUELOS [Angular]
-│  ├─ AGGREGATOR - NETACTICA (sin dispersión)
-│  ├─ AGGREGATOR - SABRE (sin dispersión)
-│  └─ SABRE EDIFACT (con dispersión de fondos)
+│  ├─ Sabre Edifact
+│  ├─ Aggregator - Sabre NDC
+│  └─ Aggregator - Netactica
 │
 ├─ 🚗 AUTOS [Meteor]
-│  ├─ Proveedor: Sabre
-│  └─ Empresas: Hertz, Dollar, Thrifty
+│  └─ Sabre Edifact → Hertz, Dollar, Thrifty
 │
 ├─ 🏨 HOTELES [Angular]
 │  └─ HotelBeds
@@ -230,13 +239,14 @@ CORREOS MILLAS ECUADOR (CME)
 ```
 
 **Ejemplos:**
-- ✅ `[CME] Vuelos - Ida y vuelta - Sabre - Fee con lightbox`
+- ✅ `[CME] Vuelos - Ida y vuelta - Sabre Edifact - Fee con formulario CheckOut`
 - ✅ `[CME] Hoteles - 2 noches - HotelBeds - Cancelación gratuita`
-- ✅ `[CME] Autos - Dropoff diferente - Hertz - 5 días`
+- ✅ `[CME] Autos - Dropoff diferente - Hertz - 5 días - Voucher disponible`
 
-**URL de login:**
+**URLs de login:**
 ```
-https://correosmillas-ec.preprodppm.com/
+Test: https://clubmiles-ec.developppm.com/
+Demo: https://clubmiles-ec.preprodppm.com/
 ```
 
 ---
@@ -253,10 +263,13 @@ https://correosmillas-ec.preprodppm.com/
 ✅ **Slider en CheckOut:** Visible solo en CheckOut, mínimo 20%, ajuste manual funcional  
 ✅ **Validación de mínimo:** Lógica del 20% de Millas funcionando correctamente (slider)  
 ✅ **Cálculo dinámico:** Al mover el slider, actualización automática de Millas y USD  
-✅ **Copago:** Si aplica, validar descuento en PlacetoPay y emisión correcta  
+✅ **Formulario TC en CheckOut:** Para fee de vuelos, validar formulario dentro del CheckOut (NO lightbox)  
+✅ **PlacetoPay bash:** Validar conexión bash sin interfaz visual en vuelos (fee) y copago (todos)  
+✅ **Copago:** Si aplica, validar descuento en PlacetoPay bash y emisión correcta  
 ✅ **OTP:** Si aplica, validar Modal OTP y flujo completo  
 ✅ **Navegación sin login:** Búsqueda y Disponibilidad accesibles sin autenticación  
-✅ **Bloqueo post-Disponibilidad:** Solicitar login antes de continuar al Checkout
+✅ **Bloqueo post-Disponibilidad:** Solicitar login antes de continuar al Checkout  
+✅ **Vouchers en Admin:** Validar disponibilidad según producto (Vuelos, Autos Hertz, Disney bilingüe)
 
 ---
 
@@ -297,101 +310,26 @@ https://correosmillas-ec.preprodppm.com/
 
 ---
 
-## 📸 IMÁGENES DE REFERENCIA
+## 🧪 ESCENARIOS DE PRUEBA COMUNES
 
-**Estructura de imágenes en .github/images/CME/:**
+**VALIDACIONES GENERALES (Aplican a todos los productos):**
+- ✅ Solo Millas (100%) vs Millas+Plata (Copago con slider)
+- ✅ Slider en CheckOut: Mínimo 20%, máximo 100% o Millas disponibles
+- ✅ Cálculo dinámico en tiempo real al mover slider
+- ✅ PlacetoPay bash (si hay Copago, sin interfaz visual)
+- ✅ Modal OTP (si tarjeta requiere OTP en Copago)
+- ✅ Escenarios 1-4 de redención según Millas disponibles
+- ✅ Navegación sin login (hasta Disponibilidad)
+- ✅ Emisión automática tipo "Cash"
+- ✅ Consulta en Admin con estado EMITIDA
 
-```
-CME/
-├── Vuelos/
-│   ├── Home-vuelos-CME.png
-│   ├── Disponibilidad-vuelos-CME.png
-│   ├── Checkout-vuelos-CME.png
-│   ├── Lightbox-fee-CME.png
-│   ├── Confirmacion-vuelos-CME.png
-│   └── Admin.png
-│
-├── Hoteles/
-│   ├── Home-hoteles-CME.png
-│   ├── Disponibilidad-hoteles-CME.png
-│   ├── Detalle-hotel-CME.png
-│   ├── Checkout-hoteles-CME.png
-│   ├── Confirmacion-hoteles-CME.png
-│   └── Admin.png
-│
-├── Autos/
-│   ├── Home-autos-CME.png
-│   ├── Disponibilidad-autos-CME.png
-│   ├── Checkout-autos-CME.png
-│   ├── Confirmacion-autos-CME.png
-│   └── Admin.png
-│
-├── Actividades/
-│   ├── Home-actividades-CME.png
-│   ├── Disponibilidad-actividades-CME.png
-│   ├── Detalle-actividad-CME.png
-│   ├── Checkout-actividades-CME.png
-│   ├── Confirmacion-actividades-CME.png
-│   └── Admin.png
-│
-└── Disney/
-    ├── Home-disney-CME.png
-    ├── Disponibilidad-disney-CME.png
-    ├── Checkout-disney-CME.png
-    ├── Confirmacion-disney-CME.png
-    └── Admin.png
-```
-
----
-
-## 🧪 ESCENARIOS DE PRUEBA RECOMENDADOS
-
-**VUELOS:**
-- Ida y vuelta, solo ida, multidestino
-- Nacional, internacional
-- 1 pasajero, múltiples pasajeros
-- Con equipaje, sin equipaje
-- Fee en lightbox con tarjeta de crédito
-- Solo Millas vs Millas+Plata (Copago)
-- Con Seguro de Cancelación vs Sin Seguro
-- Modal OTP (tarjeta que requiere OTP)
-
-**HOTELES:**
-- 1 habitación, múltiples habitaciones
-- Solo adultos, adultos + menores
-- Cancelación gratuita, con cargo, no reembolsable
-- Nacional, internacional
-- Solo Millas vs Millas+Plata (Copago)
-
-**AUTOS:**
-- Pickup y dropoff mismo lugar
-- Dropoff diferente
-- 1 día, múltiples días
-- Diferentes empresas (Hertz, Dollar, Thrifty)
-- Solo Millas vs Millas+Plata (Copago)
-- Modal Previo a Confirmación
-
-**ACTIVIDADES:**
-- Tours, excursiones, traslados
-- 1 persona, múltiples personas
-- Nacional, internacional
-- Solo Millas vs Millas+Plata (Copago)
-
-**DISNEY:**
-- 1 día, múltiples días
-- Magic Kingdom, Epcot, Hollywood Studios, Animal Kingdom
-- 1 persona, múltiples personas
-- Solo Millas vs Millas+Plata (Copago)
-
-**VALIDACIONES DE SLIDER Y MÍNIMO DE MILLAS:**
-- Slider visible en CheckOut (todos los productos)
-- Mínimo del slider: 20% del valor del producto
-- Máximo del slider: 100% o Millas disponibles del socio
-- Ajuste manual: Mover slider actualiza cálculo Millas/USD en tiempo real
-- Socio con ≥ 20% del producto → Mostrar slider en CheckOut, permitir Copago
-- Socio con < 20% del producto → Mostrar pop-up, NO mostrar CheckOut
-- Validar cálculo correcto al mover slider
-- Validar límites del slider (no permitir menos del 20%)
+**ESCENARIOS ESPECÍFICOS POR PRODUCTO:**
+Ver archivos detallados:
+- 🛫 [CME_VUELOS.md](../../products/Kepler/CME/CME_VUELOS.md) - Incluye fee, seguro, vouchers, 3 proveedores
+- 🏨 [CME_HOTELES.md](../../products/Kepler/CME/CME_HOTELES.md) - Habitaciones, cancelaciones, sin voucher
+- 🚗 [CME_AUTOS.md](../../products/Kepler/CME/CME_AUTOS.md) - Dropoff, rentadoras, voucher Hertz
+- 🎢 [CME_ACTIVIDADES.md](../../products/Kepler/CME/CME_ACTIVIDADES.md) - Tours, excursiones, sin voucher
+- 🎡 [CME_DISNEY.md](../../products/Kepler/CME/CME_DISNEY.md) - Parques, voucher bilingüe
 
 ---
 
@@ -399,18 +337,19 @@ CME/
 
 1. **Inicio obligatorio desde login** en todos los flujos
 2. **Prefijo [CME]** obligatorio en todos los títulos de casos de prueba
-3. **URL correcta:** https://correosmillas-ec.preprodppm.com/
-4. **Métodos de pago:** "Solo Millas" o "Millas+Plata" (Copago con Slider)
+3. **URLs correctas:** Test: https://clubmiles-ec.developppm.com/ | Demo: https://clubmiles-ec.preprodppm.com/
+4. **Métodos de pago:** "Solo Millas" (100%) o "Millas+Plata" (Copago con Slider)
 5. **Slider en CheckOut:** Visible solo en CheckOut, mínimo 20% para todos los productos
 6. **Mínimo de Millas:** Siempre validar lógica del 20% del valor del producto (slider)
 7. **Ajuste manual:** El socio ajusta el porcentaje de Millas mediante slider
-8. **Pasarela de pago:** PlacetoPay para todos los cobros en USD
-9. **Fee solo en Vuelos:** Tarjeta de crédito en lightbox para fee (obligatorio)
+8. **Pasarela de pago:** PlacetoPay bash (sin interfaz visual) para fee de vuelos y copago
+9. **Fee solo en Vuelos:** Formulario TC en CheckOut (NO lightbox) + PlacetoPay bash
 10. **Emisión automática:** Siempre, sin intervención manual, tipo "Cash"
 11. **Validación en admin:** Siempre incluir pasos de validación en admin CME
-12. **Proveedor correcto:** Validar respuesta del proveedor correspondiente
-13. **Modal OTP:** Solo aparece si hay Copago y la tarjeta requiere OTP
-14. **Navegación sin login:** Permitido hasta Disponibilidad, bloqueado después
+12. **Vouchers en Admin:** Validar según producto (Vuelos, Autos Hertz, Disney bilingüe)
+13. **Proveedor correcto:** Validar respuesta del proveedor correspondiente
+14. **Modal OTP:** Solo aparece si hay Copago y la tarjeta requiere OTP
+15. **Navegación sin login:** Permitido hasta Disponibilidad, bloqueado después
 
 ---
 
@@ -429,6 +368,6 @@ CME/
 ---
 
 **Última actualización:** 2026-01-08  
-**Versión:** 2.1.0  
+**Versión:** 2.3.0  
 **Mantenido por:** QA Team Ultragroup  
-**Actualización:** Agregado Slider Ajustable en CheckOut con mínimo del 20% para todos los productos. El socio puede ajustar manualmente la cantidad de Millas a usar mediante slider interactivo.
+**Actualización:** Optimización del archivo - Información genérica común mantenida aquí, detalles específicos de productos movidos a archivos individuales. Eliminada dispersión de fondos. Estructura modular para evitar duplicación.
