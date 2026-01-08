@@ -10,8 +10,8 @@
 |--------|--------|---------|------|-----|
 | **Pichincha Miles** | [../PM_QA_Assistant.agent.md](../PM_QA_Assistant.agent.md) | [PM] | Ecuador | pichinchamiles-ec.preprodppm.com |
 | **BGR Miles** | [../BGR_QA_Assistant.agent.md](../BGR_QA_Assistant.agent.md) | [BGR] | Ecuador | bgrmiles-ec.preprodppm.com |
-| **Correos Millas Ecuador** | CME_QA_Assistant.agent.md | [CME] | Ecuador | [URL pendiente] |
-| **Correos Millas Panamá** | CMP_QA_Assistant.agent.md | [CMP] | Panamá | [URL pendiente] |
+| **CLub Millas Ecuador** | CME_QA_Assistant.agent.md | [CME] | Ecuador | [URL pendiente] |
+| **Club Millas Peru** | CMP_QA_Assistant.agent.md | [CMP] | Panamá | [URL pendiente] |
 | **Promerica Rewards** | PROM_QA_Assistant.agent.md | [PROM] | [País] | [URL pendiente] |
 
 ---
@@ -25,8 +25,8 @@ Selecciona el agente correspondiente al modelo que vas a probar:
 ```
 Pichincha Miles → PM_QA_Assistant
 BGR Miles → BGR_QA_Assistant
-Correos Ecuador → CME_QA_Assistant
-Correos Panamá → CMP_QA_Assistant
+Club Miles Ecuador → CME_QA_Assistant
+Club Miles Peru → CMP_QA_Assistant
 Promerica → PROM_QA_Assistant
 ```
 
