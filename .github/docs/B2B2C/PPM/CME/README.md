@@ -87,7 +87,87 @@ Razón:    Mínimo 20% en millas obligatorio
 
 ---
 
-## 🔄 Proceso de Emisión
+## �️ Flujo E2E Completo
+
+### Pantallas del Proceso (Todas las Transacciones)
+
+```mermaid
+graph LR
+    A[Login OTP] --> B[Home PPM]
+    B --> C[Disponibilidad]
+    C --> D[Upsell]
+    D --> E[Resumen]
+    E --> F[Checkout Slider]
+    F --> G[Modal OTP]
+    G --> H[Confirmación]
+    H --> I[Admin Validación]
+```
+
+**Descripción del Flujo:**
+
+1. **Login con OTP**
+   - Portal controlado por **Cliente PPM** (externo)
+   - Usuario ingresa número de identificación
+   - Ingresa contraseña
+   - **Ingresa código OTP** enviado al correo
+   - Autenticación completada
+
+2. **Home (Portal PPM)**
+   - Pantalla inicial de búsqueda
+   - **Navegación sin login permitida hasta aquí** ✅
+   - Usuario selecciona producto (Vuelos, Hoteles, Autos, Actividades, Disney)
+   - Ingresa criterios de búsqueda
+
+3. **Disponibilidad**
+   - Resultados de búsqueda
+   - Precios en millas visible
+   - **Login requerido para continuar** 🔒
+   - Selección de opción
+
+4. **Upsell**
+   - Ofertas adicionales
+   - Upgrades disponibles
+   - Seguros, servicios extra
+
+5. **Resumen**
+   - Detalle completo de la selección
+   - Resumen de costos en millas
+   - Revisión antes de checkout
+
+6. **Checkout con Slider**
+   - Datos del pasajero/usuario
+   - **Slider ajustable visible (20%-100%)**
+   - Ajuste de % millas vs USD
+   - Datos de tarjeta (si hay copago o fee)
+   - **Fee de vuelos:** Formulario TC dentro de checkout (NO lightbox)
+   - Términos y condiciones
+
+7. **Modal OTP (Si aplica)**
+   - Solo si tarjeta requiere OTP
+   - Código enviado al correo
+   - Validación de código
+   - Continúa al confirmar
+
+8. **Confirmación**
+   - Código de reserva
+   - Resumen de pago:
+     - **Solo Millas (100%):** Millas debitadas
+     - **Copago:** Millas debitadas + Monto USD
+   - **Pasarela PlacetoPay:** Conexión bash (sin interfaz visible)
+   - Estado: EMITIDA inmediatamente ✅
+
+9. **Admin - Validación de Reservas**
+   - Ingreso al administrador CME
+   - Búsqueda por código de reserva
+   - Validaciones:
+     - Estado: EMITIDA automáticamente (tipo "Cash") ✅
+     - Todos los datos correctos
+     - **Solo Millas:** Millas debitadas
+     - **Copago:** Millas debitadas + USD cobrado vía PlacetoPay
+
+---
+
+## �🔄 Proceso de Emisión
 
 ### ✅ Emisión Automática (Ambos Modelos)
 
