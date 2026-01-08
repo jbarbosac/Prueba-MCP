@@ -1,15 +1,79 @@
 # 🎢 FLUJO E2E OBLIGATORIO PARA ACTIVIDADES - CME
 
-**Proveedor:** Club Millas Ecuador  
-**Portal:** https://clubmiles-ec.preprodppm.com/  
+**Proveedor:** Club Miles Ecuador  
+**Portal Test:** https://clubmiles-ec.developppm.com/  
+**Portal Demo:** https://clubmiles-ec.preprodppm.com/  
 **Tecnología:** Angular (TypeScript/JavaScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Métodos de pago:** Solo Millas (100%) o Millas+Plata (Copago con Slider en CheckOut, mínimo 20%)  
+**Fee:** NO  
+**Pasarela:** PlacetoPay (bash, solo si hay Copago, sin interfaz visual)
 
 ---
 
 ## 📦 PROVEEDORES DISPONIBLES
 
 **Proveedor:** HotelBeds (único)
+
+---
+
+## 🎫 VOUCHER EN ADMIN
+
+**Disponibilidad:** ❌ NO disponible
+
+**Características:**
+- ❌ NO se genera voucher descargable en Admin
+- 📧 Confirmación solo por email
+- ✅ Código de reserva visible en Admin
+
+---
+
+## 🎚️ SLIDER Y MÉTODOS DE PAGO
+
+### MÉTODOS DISPONIBLES:
+
+**1. Solo Millas (100%):**
+- Ajustar slider al 100% del valor del producto
+- No se cobra nada en USD
+- Sin tarjeta de crédito
+
+**2. Millas+Plata (Copago):**
+- Slider visible en CheckOut
+- Mínimo: 20% del valor del producto
+- Máximo: 100% o Millas disponibles
+- Ajuste manual por el socio
+- Cálculo dinámico en tiempo real
+- PlacetoPay bash (sin interfaz visual)
+
+### ESCENARIOS DE PAGO:
+
+**Escenario 1:** Millas ≥ 20% pero < 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta Millas disponibles
+- Cobrar restante en USD vía PlacetoPay bash
+```
+
+**Escenario 2:** Millas < 20%
+```
+❌ Mostrar CheckOut con popup sobrepuesto
+- Mensaje: "Debe comprar más Millas"
+- CheckOut de fondo con gris transparente
+```
+
+**Escenario 3:** Millas ≥ 100%
+```
+✅ Mostrar Slider en CheckOut
+- Ajustar desde 20% hasta 100%
+- Socio decide cuántas Millas usar
+```
+
+**Escenario 4:** Pago 100% Millas
+```
+✅ Ajustar slider al 100%
+- No se cobra USD
+- Sin tarjeta de crédito
+- Emisión automática
+```
 
 ---
 
@@ -112,14 +176,17 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
+**Incluir SIEMPRE en el campo Descriptions del Test Case:**
 
-- Home-actividades-CME.png - Pantalla principal con opción Actividades
-- Disponibilidad-actividades-CME.png - Lista de actividades disponibles
-- Detalle-actividad-CME.png - Detalle de la actividad seleccionada
-- Checkout-actividades-CME.png - Formulario de checkout completo
-- Confirmacion-actividades-CME.png - Pantalla de confirmación con código de reserva
-- Admin.png - Validación en módulo admin CME
+```
+.github/images/CME/Actividades/
+├── Home-actividades-CME.png
+├── Disponibilidad-actividades-CME.png
+├── Detalle-actividad-CME.png
+├── Checkout-actividades-CME.png (con slider)
+├── Confirmacion-actividades-CME.png
+└── Admin.png
+```
 
 ---
 
