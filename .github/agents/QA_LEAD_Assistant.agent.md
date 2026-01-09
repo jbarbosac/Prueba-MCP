@@ -358,7 +358,99 @@ instructions: |
   [Agregar modelos Transversales cuando estén definidos]
 
   --------------------------------------------------------------------
-  📊 TABLA COMPARATIVA RÁPIDA PM vs BGR
+  � ORGANIZACIÓN DE CÉLULAS Y EQUIPOS
+  --------------------------------------------------------------------
+  
+  Esta sección proporciona información sobre los líderes y miembros de cada célula,
+  útil para consultas sobre responsabilidades, escalamiento y coordinación de equipos.
+  
+  ### **CÉLULA A - SKYNET**
+  
+  **Alcance:** PCO, Mastercard, BAC
+  
+  **Líder de Célula:**
+  - Juan Camilo Estrada
+  
+  **Equipo QA:**
+  - Jenny Marcela Florez Hinestroza
+  - Carlos Alberto Rubio Gallego
+  - Natalia Gallego Rios
+  
+  ---
+  
+  ### **CÉLULA B - KEPLER**
+  
+  **Alcance:** Imagen, Logos, PPM (Pichincha Miles, BGR Miles, Club Miles Ecuador, Club Millas Perú, Promerica Rewards)
+  
+  **Líder de Célula:**
+  - Oscar Julian Buitrago Castro
+  
+  **Equipo QA:**
+  - Jose Eulises Barbosa Colorado
+  - Jesus Ernesto Marin Hernandez
+  - Jeferson Daniel Romero Quintero
+  
+  **Agentes QA Asociados:**
+  - Kepler/PM_QA_Assistant (Pichincha Miles)
+  - Kepler/BGR_QA_Assistant (BGR Miles)
+  - Kepler/CME_QA_Assistant (Club Miles Ecuador)
+  - Kepler/CMP_QA_Assistant (Club Millas Perú)
+  - Kepler/PROM_QA_Assistant (Promerica Rewards)
+  
+  ---
+  
+  ### **CÉLULA C - PIXEL**
+  
+  **Alcance:** Aereo, Autos, Disney, Hoteles, Modernización
+  
+  **Líder de Célula:**
+  - Santiago Monsalve Calderon
+  
+  **Equipo QA:**
+  - Camilo Pelaez Ramirez
+  - Yhonatan Urrea Tascon
+  - Andres Felipe Sanchez Caicedo
+  
+  **Agentes QA Asociados:**
+  - [Pendiente configurar cuando se definan los modelos]
+  
+  ---
+  
+  ### **CÉLULA E - ROCKET**
+  
+  **Alcance:** Proyecto Fidelity / Muscle Interno
+  
+  **Líder de Célula:**
+  - Cristian Garzon Sanchez
+  
+  **Equipo QA:**
+  - Diego Fernando Castellanos Vargas
+  - Juan David Ceballos Cogollo
+  - Emma Del Carmen Gonzalez Sanchez
+  
+  **Agentes QA Asociados:**
+  - [Pendiente configurar cuando se definan los modelos]
+  
+  ---
+  
+  ### **RESUMEN DE CÉLULAS**
+  
+  | Célula | Líder | Miembros | Agentes Configurados |
+  |--------|-------|----------|---------------------|
+  | **A-Skynet** | Juan Camilo Estrada | 3 | Pendiente |
+  | **B-Kepler** | Oscar Julian Buitrago Castro | 3 | 5 agentes activos |
+  | **C-Pixel** | Santiago Monsalve Calderon | 3 | Pendiente |
+  | **E-Rocket** | Cristian Garzon Sanchez | 3 | Pendiente |
+  | **Transversales** | [Por definir] | [Por definir] | Pendiente |
+  
+  **Uso de esta información:**
+  - ✅ Responder preguntas sobre responsabilidades de equipo
+  - ✅ Identificar contactos para escalamiento
+  - ✅ Coordinar trabajo cross-célula
+  - ✅ Proporcionar contexto organizacional
+
+  --------------------------------------------------------------------
+  �📊 TABLA COMPARATIVA RÁPIDA PM vs BGR
   --------------------------------------------------------------------
   
   | Aspecto | Pichincha Miles (PM) | BGR Miles (BGR) |

@@ -4,7 +4,18 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+## � Organización por Células y Equipos
+
+| Célula | Productos/Alcance | Líder Célula | Miembros del Equipo |
+|--------|------------------|--------------|---------------------|
+| **A-Skynet** | PCO, Mastercard, BAC | JUAN CAMILO ESTRADA | JENNY MARCELA FLOREZ HINESTROZA<br>CARLOS ALBERTO RUBIO GALLEGO<br>NATALIA GALLEGO RIOS |
+| **B-Kepler** | Imagen, Logos, PPM | OSCAR JULIAN BUITRAGO CASTRO | JOSE EULISES BARBOSA COLORADO<br>JESUS ERNESTO MARIN HERNANDEZ<br>JEFERSON DANIEL ROMERO QUINTERO |
+| **C-Pixel** | Aereo, Autos, Disney, Hoteles, Modernización | SANTIAGO MONSALVE CALDERON | CAMILO PELAEZ RAMIREZ<br>YHONATAN URREA TASCON<br>ANDRES FELIPE SANCHEZ CAICEDO |
+| **E-Rocket** | Proyecto Fidelity / Muscle Interno | CRISTIAN GARZON SANCHEZ | DIEGO FERNANDO CASTELLANOS VARGAS<br>JUAN DAVID CEBALLOS COGOLLO<br>EMMA DEL CARMEN GONZALEZ SANCHEZ |
+
+---
+
+## �📋 Tabla de Contenidos
 
 - [Descripción General](#descripción-general)
 - [Estructura del Proyecto](#estructura-del-proyecto)
@@ -92,12 +103,27 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 │   │   ├── PM/
 │   │   │   ├── PM_VUELOS.md
 │   │   │   ├── PM_HOTELES.md
-│   │   │   └── ...
+│   │   │   |── PM_Cars
+|   |   |   |── PM_Actividades
+|   |   |   └── PM_Dsiney
 │   │   ├── BGR/
 │   │   │   ├── BGR_VUELOS.md
-│   │   │   └── ...
-│   │   └── [otros modelos]/
-│   │
+│   │   │   ├── BGR_HOTELES.md
+│   │   │   |── BGR_Cars
+|   |   |   |── BGR_Actividades
+|   |   |   └── BGR_Dsiney
+│   │   |── CME/
+│   │   │   ├── CME_VUELOS.md
+│   │   │   ├── CME_HOTELES.md
+│   │   │   |── CME_Cars
+|   |   |   |── CME_Actividades
+|   |   |   └── CME_Dsiney
+│   │   |── CMP/
+│   │   │   ├── CMP_VUELOS.md
+│   │   │   ├── CMP_HOTELES.md
+│   │   │   |── CMP_Cars
+|   |   |   |── CMP_Actividades
+|   |   |   └── CMP_Dsiney
 │   ├── Pixel/                            (Listo para agregar)
 │   ├── Rocket/                           (Listo para agregar)
 │   ├── Skynet/                           (Listo para agregar)
