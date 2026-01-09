@@ -29,20 +29,26 @@
 
 ### 📦 **Célula B - Kepler**
 **Alcance:** PPM (Pichincha Miles, BGR Miles, Club Miles Ecuador, Club Millas Perú, Promerica Rewards)  
+
 **Líder TM:** Oscar Julian Buitrago Castro
+
 **Líder TL:** Fernando Zapata Montes
+
 **PO:** Santiago Alvarez Perez
+
 **Equipo QA:**
 - Jose Eulises Barbosa Colorado
 - Jesus Ernesto Marin Hernandez
 - Jeferson Daniel Romero Quintero
-**Fronend:**
+
+**FronTend:**
 - Victor Alejandro Prada Noreña
 - Sergio Alejandro Riaños Acosta
 - Cristian David Velez Torres
+
 **Backend:**
 - Juan Carlos GHonzalez Sancjez
--
+
 **Agentes Activos:** 5 (PM, BGR, CME, CMP, Promerica) ✅
 
 ---
