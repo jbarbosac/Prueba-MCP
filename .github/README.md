@@ -1,18 +1,6 @@
 # 🤖 Sistema de Agentes QA Multi-Célula para Generación Automática de Test Cases
 
 > Sistema modular de generación de casos de prueba E2E organizado por células (Kepler, Pixel, Rocket, Skynet, Transversales) con integración directa a Azure DevOps.
-
----
-
-## � Organización por Células y Equipos
-
-| Célula | Productos/Alcance | Líder Célula | Miembros del Equipo |
-|--------|------------------|--------------|---------------------|
-| **A-Skynet** | PCO, Mastercard, BAC | JUAN CAMILO ESTRADA | JENNY MARCELA FLOREZ HINESTROZA<br>CARLOS ALBERTO RUBIO GALLEGO<br>NATALIA GALLEGO RIOS |
-| **B-Kepler** | Imagen, Logos, PPM | OSCAR JULIAN BUITRAGO CASTRO | JOSE EULISES BARBOSA COLORADO<br>JESUS ERNESTO MARIN HERNANDEZ<br>JEFERSON DANIEL ROMERO QUINTERO |
-| **C-Pixel** | Aereo, Autos, Disney, Hoteles, Modernización | SANTIAGO MONSALVE CALDERON | CAMILO PELAEZ RAMIREZ<br>YHONATAN URREA TASCON<br>ANDRES FELIPE SANCHEZ CAICEDO |
-| **E-Rocket** | Proyecto Fidelity / Muscle Interno | CRISTIAN GARZON SANCHEZ | DIEGO FERNANDO CASTELLANOS VARGAS<br>JUAN DAVID CEBALLOS COGOLLO<br>EMMA DEL CARMEN GONZALEZ SANCHEZ |
-
 ---
 
 ## �📋 Tabla de Contenidos
@@ -27,6 +15,60 @@
 
 ---
 
+## � Organización por Células y Equipos
+
+### 🤖 **Célula A - Skynet**
+**Alcance:** PCO, Mastercard, BAC  
+**Líder:** Juan Camilo Estrada  
+**Equipo QA:**
+- Jenny Marcela Florez Hinestroza
+- Carlos Alberto Rubio Gallego
+- Natalia Gallego Rios
+
+---
+
+### 📦 **Célula B - Kepler**
+**Alcance:** PPM (Pichincha Miles, BGR Miles, Club Miles Ecuador, Club Millas Perú, Promerica Rewards)  
+**Líder:** Oscar Julian Buitrago Castro  
+**Equipo QA:**
+- Jose Eulises Barbosa Colorado
+- Jesus Ernesto Marin Hernandez
+- Jeferson Daniel Romero Quintero
+
+**Agentes Activos:** 5 (PM, BGR, CME, CMP, Promerica) ✅
+
+---
+
+### 🎯 **Célula C - Pixel**
+**Alcance:** Aereo, Autos, Disney, Hoteles, Modernización  
+**Líder:** Santiago Monsalve Calderon  
+**Equipo QA:**
+- Camilo Pelaez Ramirez
+- Yhonatan Urrea Tascon
+- Andres Felipe Sanchez Caicedo
+
+---
+
+### 🚀 **Célula E - Rocket**
+**Alcance:** Proyecto Fidelity / Muscle Interno  
+**Líder:** Cristian Garzon Sanchez  
+**Equipo QA:**
+- Diego Fernando Castellanos Vargas
+- Juan David Ceballos Cogollo
+- Emma Del Carmen Gonzalez Sanchez
+
+---
+
+### 📊 Resumen de Células
+
+| Célula | Líder | # Miembros | Agentes QA |
+|--------|-------|------------|------------|
+| 🤖 **A-Skynet** | Juan Camilo Estrada | 3 | Pendiente |
+| 📦 **B-Kepler** | Oscar Julian Buitrago Castro | 3 | ✅ 5 activos |
+| 🎯 **C-Pixel** | Santiago Monsalve Calderon | 3 | Pendiente |
+| 🚀 **E-Rocket** | Cristian Garzon Sanchez | 3 | Pendiente |
+
+---
 ## 🎯 Descripción General
 
 Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados por células:
@@ -218,17 +260,17 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 ### 2. Arquitectura Multi-Célula
 
 ```
-                    QA_LEAD_Assistant
-                    (Orquestador Global)
+                                QA_LEAD_Assistant
+                               (Orquestador Global)
                             │
-        ┌───────────┬───────┼──────┬──────────┬──────────┐
-        │           │       │      │          │          │
-    KEPLER      PIXEL   ROCKET  SKYNET  TRANSVERSALES
-        │           │       │      │          │
-  ┌─────┴────┐      │       │      │          │
-  │  │  │  │ │      │       │      │          │
- PM BGR CME...      │       │      │          │
-                [modelos] [modelos] [modelos] [modelos]
+        ┌───────────────────┬───────────┼──────────┬────────────┬──────────┐
+        │                   │           │          │            │          │
+    KEPLER                PIXEL       ROCKET    SKYNET      TRANSVERSALES  |
+        │                   │           │          │            │          |
+  ┌─────┴─────────|         │           │          │            │          |
+  │  │   │   │    |         │           │          │            │          │
+ PM BGR CME CMP PMRICA      │           │          │            │          |
+                       [modelos]    [modelos]   [modelos]     [modelos]
 ```
 
 ### 3. Preparar información (QA ejecutores)
