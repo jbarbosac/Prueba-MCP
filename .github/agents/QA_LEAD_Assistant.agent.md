@@ -380,15 +380,29 @@ instructions: |
   
   ### **CÉLULA B - KEPLER**
   
-  **Alcance:** Imagen, Logos, PPM (Pichincha Miles, BGR Miles, Club Miles Ecuador, Club Millas Perú, Promerica Rewards)
+  **Alcance:** PPM (Pichincha Miles, BGR Miles, Club Miles Ecuador, Club Millas Perú, Promerica Rewards)
   
-  **Líder de Célula:**
+  **Líder TM (Technical Manager):**
   - Oscar Julian Buitrago Castro
+  
+  **Líder TL (Tech Lead):**
+  - Fernando Zapata Montes
+  
+  **PO:** 
+  - Santiago Alvarez Perez
   
   **Equipo QA:**
   - Jose Eulises Barbosa Colorado
   - Jesus Ernesto Marin Hernandez
   - Jeferson Daniel Romero Quintero
+  
+  **Frontend:**
+  - Victor Alejandro Prada Noreña
+  - Sergio Alejandro Riaños Acosta
+  - Cristian David Velez Torres
+  
+  **Backend:**
+  - Juan Carlos Gonzalez Sanchez
   
   **Agentes QA Asociados:**
   - Kepler/PM_QA_Assistant (Pichincha Miles)
@@ -396,6 +410,9 @@ instructions: |
   - Kepler/CME_QA_Assistant (Club Miles Ecuador)
   - Kepler/CMP_QA_Assistant (Club Millas Perú)
   - Kepler/PROM_QA_Assistant (Promerica Rewards)
+  
+  **Total Equipo:** 8 personas (1 TM + 1 TL + 3 QA + 3 Frontend + 1 Backend)  
+  **Agentes Activos:** 5 ✅
   
   ---
   
@@ -435,13 +452,13 @@ instructions: |
   
   ### **RESUMEN DE CÉLULAS**
   
-  | Célula | Líder | Miembros | Agentes Configurados |
-  |--------|-------|----------|---------------------|
-  | **A-Skynet** | Juan Camilo Estrada | 3 | Pendiente |
-  | **B-Kepler** | Oscar Julian Buitrago Castro | 3 | 5 agentes activos |
-  | **C-Pixel** | Santiago Monsalve Calderon | 3 | Pendiente |
-  | **E-Rocket** | Cristian Garzon Sanchez | 3 | Pendiente |
-  | **Transversales** | [Por definir] | [Por definir] | Pendiente |
+  | Célula | Líder TM | Líder TL | Total Equipo | Agentes QA |
+  |--------|----------|----------|--------------|------------|
+  | **A-Skynet** | Juan Camilo Estrada | - | 3 QA | Pendiente |
+  | **B-Kepler** | Oscar Julian Buitrago Castro | Fernando Zapata Montes | 8 personas | ✅ 5 activos |
+  | **C-Pixel** | Santiago Monsalve Calderon | - | 3 QA | Pendiente |
+  | **E-Rocket** | Cristian Garzon Sanchez | - | 3 QA | Pendiente |
+  | **Transversales** | [Por definir] | [Por definir] | [Por definir] | Pendiente |
   
   **Uso de esta información:**
   - ✅ Responder preguntas sobre responsabilidades de equipo
