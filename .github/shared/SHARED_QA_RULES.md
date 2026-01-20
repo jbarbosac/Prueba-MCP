@@ -271,3 +271,4 @@ En TODOS los productos validar:
 
 **Última actualización:** Diciembre 16, 2025  
 **Aplica a:** PM_QA_Assistant.agent.md, BGR_QA_Assistant.agent.md
+
