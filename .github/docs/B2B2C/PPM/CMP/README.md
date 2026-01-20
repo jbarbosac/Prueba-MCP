@@ -32,7 +32,7 @@
 ## 📚 Documentación
 
 **Agente QA:**
-- [CMP_QA_Assistant](../../../agents/Kepler/CMP_QA_Assistant.agent.md) - Agente especializado CMP
+- [CMP_QA_Assistant](../../../agents/CMP_QA_Assistant.agent.md) - Agente especializado CMP
 
 ---
 

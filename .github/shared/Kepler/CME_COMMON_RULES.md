@@ -325,11 +325,11 @@ Demo: https://clubmiles-ec.preprodppm.com/
 
 **ESCENARIOS ESPECÍFICOS POR PRODUCTO:**
 Ver archivos detallados:
-- 🛫 [CME_VUELOS.md](../../products/Kepler/CME/CME_VUELOS.md) - Incluye fee, seguro, vouchers, 3 proveedores
-- 🏨 [CME_HOTELES.md](../../products/Kepler/CME/CME_HOTELES.md) - Habitaciones, cancelaciones, sin voucher
-- 🚗 [CME_AUTOS.md](../../products/Kepler/CME/CME_AUTOS.md) - Dropoff, rentadoras, voucher Hertz
-- 🎢 [CME_ACTIVIDADES.md](../../products/Kepler/CME/CME_ACTIVIDADES.md) - Tours, excursiones, sin voucher
-- 🎡 [CME_DISNEY.md](../../products/Kepler/CME/CME_DISNEY.md) - Parques, voucher bilingüe
+- 🛫 [CME_VUELOS.md](../../products/B2B2C/PPM/CME/CME_VUELOS.md) - Incluye fee, seguro, vouchers, 3 proveedores
+- 🏨 [CME_HOTELES.md](../../products/B2B2C/PPM/CME/CME_HOTELES.md) - Habitaciones, cancelaciones, sin voucher
+- 🚗 [CME_AUTOS.md](../../products/B2B2C/PPM/CME/CME_AUTOS.md) - Dropoff, rentadoras, voucher Hertz
+- 🎢 [CME_ACTIVIDADES.md](../../products/B2B2C/PPM/CME/CME_ACTIVIDADES.md) - Tours, excursiones, sin voucher
+- 🎡 [CME_DISNEY.md](../../products/B2B2C/PPM/CME/CME_DISNEY.md) - Parques, voucher bilingüe
 
 ---
 
@@ -359,11 +359,11 @@ Ver archivos detallados:
 - [SHARED_QA_RULES.md](../SHARED_QA_RULES.md) - Fundamentos ISTQB y Azure DevOps
 
 **Flujos por producto:**
-- [CME_VUELOS.md](../../products/Kepler/CME/CME_VUELOS.md)
-- [CME_HOTELES.md](../../products/Kepler/CME/CME_HOTELES.md)
-- [CME_AUTOS.md](../../products/Kepler/CME/CME_AUTOS.md)
-- [CME_ACTIVIDADES.md](../../products/Kepler/CME/CME_ACTIVIDADES.md)
-- [CME_DISNEY.md](../../products/Kepler/CME/CME_DISNEY.md)
+- [CME_VUELOS.md](../../products/B2B2C/PPM/CME/CME_VUELOS.md)
+- [CME_HOTELES.md](../../products/B2B2C/PPM/CME/CME_HOTELES.md)
+- [CME_AUTOS.md](../../products/B2B2C/PPM/CME/CME_AUTOS.md)
+- [CME_ACTIVIDADES.md](../../products/B2B2C/PPM/CME/CME_ACTIVIDADES.md)
+- [CME_DISNEY.md](../../products/B2B2C/PPM/CME/CME_DISNEY.md)
 
 ---
 

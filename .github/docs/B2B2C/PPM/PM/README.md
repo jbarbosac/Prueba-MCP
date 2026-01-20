@@ -48,7 +48,75 @@ Emisión:    AUTOMÁTICA ⚡
 
 ---
 
-## 🔄 Proceso de Emisión
+## �️ Flujo E2E Completo
+
+### Pantallas del Proceso (Todas las Transacciones)
+
+```mermaid
+graph LR
+    A[Login] --> B[Home]
+    B --> C[Disponibilidad]
+    C --> D[Upsell]
+    D --> E[Resumen]
+    E --> F[Checkout]
+    F --> G[Confirmación]
+    G --> H[Admin Validación]
+```
+
+**Descripción del Flujo:**
+
+1. **Login**
+   - Usuario ingresa credenciales
+   - Autenticación en Pichincha Miles
+   - Acceso a portal
+
+2. **Home**
+   - Pantalla inicial de búsqueda
+   - Usuario selecciona producto (Vuelos, Hoteles, Autos, Actividades, Disney)
+   - Ingresa criterios de búsqueda
+
+3. **Disponibilidad**
+   - Resultados de búsqueda
+   - Precios en millas visible
+   - **Fee visible en vuelos**
+   - Selección de opción
+
+4. **Upsell**
+   - Ofertas adicionales
+   - Upgrades disponibles
+   - Seguros, servicios extra
+
+5. **Resumen**
+   - Detalle completo de la selección
+   - Resumen de millas a canjear
+   - **Fee de vuelos incluido**
+   - Revisión antes de checkout
+
+6. **Checkout**
+   - Datos del pasajero/usuario
+   - **Lightbox de pago (solo vuelos para fee)**
+   - Datos de tarjeta solo para fee
+   - Términos y condiciones
+
+7. **Confirmación**
+   - Código de reserva
+   - Resumen de pago:
+     - **Millas canjeadas:** Total debitado
+     - **Fee pagado (vuelos):** Monto en USD
+   - Estado: EMITIDA inmediatamente ✅
+
+8. **Admin - Validación de Reservas**
+   - Ingreso al administrador PM
+   - Búsqueda por código de reserva
+   - Validaciones:
+     - Estado: EMITIDA automáticamente ✅
+     - Todos los datos correctos
+     - Millas debitadas
+     - Fee procesado (vuelos)
+
+---
+
+## �🔄 Proceso de Emisión
 
 ### ✅ Emisión Automática (Todos los Productos)
 

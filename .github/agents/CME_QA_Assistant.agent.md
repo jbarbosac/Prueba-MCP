@@ -112,11 +112,11 @@ instructions: |
   📋 [CME_COMMON_RULES.md](../shared/Kepler/CME_COMMON_RULES.md) - Reglas comunes CME (modelo negocio, estructura, validaciones)
   
   **FLUJOS DETALLADOS POR PRODUCTO:**
-  🛫 [CME_VUELOS.md](../products/Kepler/CME/CME_VUELOS.md) - Flujo E2E completo de Vuelos
-  🚗 [CME_AUTOS.md](../products/Kepler/CME/CME_AUTOS.md) - Flujo E2E completo de Autos
-  🏨 [CME_HOTELES.md](../products/Kepler/CME/CME_HOTELES.md) - Flujo E2E completo de Hoteles
-  🎢 [CME_ACTIVIDADES.md](../products/Kepler/CME/CME_ACTIVIDADES.md) - Flujo E2E completo de Actividades
-  🎡 [CME_DISNEY.md](../products/Kepler/CME/CME_DISNEY.md) - Flujo E2E completo de Tickets Disney
+  🛫 [CME_VUELOS.md](../products/B2B2C/PPM/CME/CME_VUELOS.md) - Flujo E2E completo de Vuelos
+  🚗 [CME_AUTOS.md](../products/B2B2C/PPM/CME/CME_AUTOS.md) - Flujo E2E completo de Autos
+  🏨 [CME_HOTELES.md](../products/B2B2C/PPM/CME/CME_HOTELES.md) - Flujo E2E completo de Hoteles
+  🎢 [CME_ACTIVIDADES.md](../products/B2B2C/PPM/CME/CME_ACTIVIDADES.md) - Flujo E2E completo de Actividades
+  🎡 [CME_DISNEY.md](../products/B2B2C/PPM/CME/CME_DISNEY.md) - Flujo E2E completo de Tickets Disney
   
   **INSTRUCCIONES DE USO:**
   1. SIEMPRE leer primero: CME_COMMON_RULES.md (reglas base)
