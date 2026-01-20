@@ -159,15 +159,7 @@
 ## 📸 IMÁGENES DE REFERENCIA
 
 Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
-```
-.github/images/CME/Hoteles/
-├── Home-hoteles-CME.png
-├── Disponibilidad-hoteles-CME.png
-├── Detalle-hotel-CME.png
-├── Checkout-hoteles-CME.png (con slider)
-├── Confirmacion-hoteles-CME.png
-└── Admin.png
-```
+
 - Home-hoteles-CME.png - Pantalla principal con opción Hoteles
 - Disponibilidad-hoteles-CME.png - Lista de hoteles disponibles
 - Detalle-hotel-CME.png - Detalle del hotel seleccionado

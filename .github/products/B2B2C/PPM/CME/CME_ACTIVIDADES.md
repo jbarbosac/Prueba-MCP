@@ -176,17 +176,14 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-**Incluir SIEMPRE en el campo Descriptions del Test Case:**
+Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 
-```
-.github/images/CME/Actividades/
-├── Home-actividades-CME.png
-├── Disponibilidad-actividades-CME.png
-├── Detalle-actividad-CME.png
-├── Checkout-actividades-CME.png (con slider)
-├── Confirmacion-actividades-CME.png
-└── Admin.png
-```
+- Home-actividades-CME.png - Pantalla principal con opción Actividades
+- Disponibilidad-actividades-CME.png - Lista de actividades disponibles
+- Detalle-actividad-CME.png - Detalle de la actividad seleccionada
+- Checkout-actividades-CME.png - Formulario de checkout completo
+- Confirmacion-actividades-CME.png - Pantalla de confirmación con código de reserva
+- Admin.png - Validación en módulo admin CME
 
 ---
 
