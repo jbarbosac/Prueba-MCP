@@ -116,7 +116,7 @@
 
 ---
 
-## �📋 PASOS OBLIGATORIOS DEL FLUJO E2E
+## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
 
 **Siempre incluir estos pasos desde login:**
 
@@ -385,25 +385,6 @@ Después de completar este archivo:
    ```powershell
    .\validation\validate-structure.ps1
    ```
-
----
-
-## 📸 IMÁGENES DE REFERENCIA
-
-**Incluir SIEMPRE en el campo Descriptions del Test Case:**
-
-```
-.github/images/CME/Vuelos/
-├── Home-vuelos-CME.png
-├── Disponibilidad-vuelos-CME.png
-├── Resumen-vuelos-CME.png
-├── Modal-seguro-CME.png (si aplica)
-├── Checkout-vuelos-CME.png (con slider y formulario TC)
-├── Confirmacion-vuelos-CME.png
-├── Confirmacion-vuelos-seguro-CME.png (si aplica)
-├── Voucher-vuelos-CME.png
-└── Admin.png
-```
 
 ---
 

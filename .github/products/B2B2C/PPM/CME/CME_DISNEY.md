@@ -179,18 +179,13 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-**Incluir SIEMPRE en el campo Descriptions del Test Case:**
+Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 
-```
-.github/images/CME/Disney/
-├── Home-disney-CME.png
-├── Disponibilidad-disney-CME.png
-├── Checkout-disney-CME.png (con slider)
-├── Confirmacion-disney-CME.png
-├── Voucher-disney-CME-ES.png (página 1 - Español)
-├── Voucher-disney-CME-EN.png (página 2 - English)
-└── Admin.png
-```
+- Home-disney-CME.png - Pantalla principal con opción Tickets Disney
+- Disponibilidad-disney-CME.png - Opciones de tickets disponibles
+- Checkout-disney-CME.png - Formulario de checkout completo con datos de todos los visitantes
+- Confirmacion-disney-CME.png - Pantalla de confirmación con código de reserva e instrucciones
+- Admin.png - Validación en módulo admin CME
 
 ---
 

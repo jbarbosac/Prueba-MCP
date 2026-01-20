@@ -182,18 +182,13 @@
 
 ## 📸 IMÁGENES DE REFERENCIA
 
-**Incluir SIEMPRE en el campo Descriptions del Test Case:**
+Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 
-```
-.github/images/CME/Autos/
-├── Home-autos-CME.png
-├── Disponibilidad-autos-CME.png
-├── Checkout-autos-CME.png (con slider)
-├── Modal-previo-confirmacion-CME.png
-├── Confirmacion-autos-CME.png
-├── Voucher-autos-Hertz-CME.png (solo Hertz)
-└── Admin.png
-```
+- Home-autos-CME.png - Pantalla principal con opción Autos
+- Disponibilidad-autos-CME.png - Lista de autos disponibles
+- Checkout-autos-CME.png - Formulario de checkout completo
+- Confirmacion-autos-CME.png - Pantalla de confirmación con código de reserva
+- Admin.png - Validación en módulo admin CME
 
 ---
 
