@@ -35,41 +35,60 @@ Registro de cambios del sistema de agentes QA para Azure DevOps.
 .github/
 ├── agents/
 │   ├── QA_LEAD_Assistant.agent.md         (padre global)
-│   ├── Kepler/
-│   │   ├── README.md
-│   │   ├── PM_QA_Assistant.agent.md
-│   │   └── BGR_QA_Assistant.agent.md
-│   ├── Pixel/
-│   │   └── README.md
-│   ├── Rocket/
-│   │   └── README.md
-│   ├── Skynet/
-│   │   └── README.md
-│   └── Transversales/
-│       └── README.md
+│   ├── PM_QA_Assistant.agent.md           (Kepler/PM)
+│   ├── BGR_QA_Assistant.agent.md          (Kepler/BGR)
+│   └── CME_QA_Assistant.agent.md          (Kepler/CME)
 │
 ├── shared/
 │   ├── SHARED_QA_RULES.md
+│   ├── AGENT_CONTEXT_VALIDATION.md
 │   └── Kepler/
 │       ├── PM_COMMON_RULES.md
-│       └── BGR_COMMON_RULES.md
+│       ├── BGR_COMMON_RULES.md
+│       └── CME_COMMON_RULES.md
 │
 ├── products/
-│   └── Kepler/
-│       ├── PM/
-│       │   ├── PM_VUELOS.md
-│       │   ├── PM_HOTELES.md
-│       │   ├── PM_AUTOS.md
-│       │   ├── PM_ACTIVIDADES.md
-│       │   └── PM_DISNEY.md
-│       └── BGR/
-│           └── BGR_VUELOS.md
+│   ├── B2B2C/
+│   │   └── PPM/
+│   │       ├── PM/
+│   │       │   ├── PM_VUELOS.md
+│   │       │   ├── PM_HOTELES.md
+│   │       │   ├── PM_AUTOS.md
+│   │       │   ├── PM_ACTIVIDADES.md
+│   │       │   └── PM_DISNEY.md
+│   │       ├── BGR/
+│   │       │   ├── BGR_VUELOS.md
+│   │       │   ├── BGR_HOTELES.md
+│   │       │   ├── BGR_AUTOS.md
+│   │       │   ├── BGR_ACTIVIDADES.md
+│   │       │   └── BGR_DISNEY.md
+│   │       ├── CME/
+│   │       │   ├── CME_VUELOS.md
+│   │       │   ├── CME_HOTELES.md
+│   │       │   ├── CME_AUTOS.md
+│   │       │   ├── CME_ACTIVIDADES.md
+│   │       │   └── CME_DISNEY.md
+│   │       └── CMP/
+│   ├── B2B/
+│   │   └── [modelos B2B]
+│   └── B2C/
+│       └── [modelos B2C]
 │
 ├── docs/
+│   ├── B2B2C/PPM/
+│   │   ├── PM/README.md
+│   │   ├── BGR/README.md
+│   │   ├── CME/README.md
+│   │   └── CMP/README.md
 │   ├── comparisons/
-│   │   └── Kepler_Models_Comparison.md
-│   ├── QUICK_ADD_MODEL.md                 (nuevo)
+│   │   ├── Kepler_Models_Comparison.md
+│   │   └── All_Cells_Comparison.md
+│   ├── QUICK_ADD_MODEL.md
+│   ├── ARCHITECTURE.md
 │   └── CHANGELOG.md                        (este archivo)
+│
+├── images/
+│   └── [recursos visuales]
 │
 └── templates/
     ├── portal-template.md
@@ -77,9 +96,10 @@ Registro de cambios del sistema de agentes QA para Azure DevOps.
 ```
 
 #### 🔄 Migrado
-- **Agentes:** Movidos de raíz a `agents/Kepler/`
-- **Reglas Comunes:** Movidas a `shared/Kepler/`
-- **Productos:** Movidos a `products/Kepler/`
+- **Agentes:** Organizados en raíz de `agents/` sin subcarpetas por célula
+- **Reglas Comunes:** Organizadas en `shared/Kepler/`
+- **Productos:** Organizados por modelo de negocio `products/B2B2C/PPM/`
+- **Docs:** Organizados por modelo de negocio `docs/B2B2C/PPM/`
 - **Referencias:** Todas las rutas actualizadas en agentes existentes
 
 #### ✅ Capacidades de Orquestación

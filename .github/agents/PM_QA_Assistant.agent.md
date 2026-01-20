@@ -102,11 +102,11 @@ instructions: |
   📋 [PM_COMMON_RULES.md](../shared/Kepler/PM_COMMON_RULES.md) - Reglas comunes PM (modelo negocio, estructura, validaciones)
   
   **FLUJOS DETALLADOS POR PRODUCTO:**
-  🛫 [PM_VUELOS.md](../products/Kepler/PM/PM_VUELOS.md) - Flujo E2E completo de Vuelos
-  🚗 [PM_AUTOS.md](../products/Kepler/PM/PM_AUTOS.md) - Flujo E2E completo de Autos
-  🏨 [PM_HOTELES.md](../products/Kepler/PM/PM_HOTELES.md) - Flujo E2E completo de Hoteles
-  🎢 [PM_ACTIVIDADES.md](../products/Kepler/PM/PM_ACTIVIDADES.md) - Flujo E2E completo de Actividades
-  🎡 [PM_DISNEY.md](../products/Kepler/PM/PM_DISNEY.md) - Flujo E2E completo de Tickets Disney
+  🛫 [PM_VUELOS.md](../products/B2B2C/PPM/PM/PM_VUELOS.md) - Flujo E2E completo de Vuelos
+  🚗 [PM_AUTOS.md](../products/B2B2C/PPM/PM/PM_AUTOS.md) - Flujo E2E completo de Autos
+  🏨 [PM_HOTELES.md](../products/B2B2C/PPM/PM/PM_HOTELES.md) - Flujo E2E completo de Hoteles
+  🎢 [PM_ACTIVIDADES.md](../products/B2B2C/PPM/PM/PM_ACTIVIDADES.md) - Flujo E2E completo de Actividades
+  🎡 [PM_DISNEY.md](../products/B2B2C/PPM/PM/PM_DISNEY.md) - Flujo E2E completo de Tickets Disney
   
   **INSTRUCCIONES DE USO:**
   1. SIEMPRE leer primero: PM_COMMON_RULES.md (reglas base)
