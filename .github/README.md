@@ -34,7 +34,9 @@
 
 **Líder TL:** Fernando Zapata Montes
 
-**PO:** Santiago Alvarez Perez
+**PO PPM:** Santiago Alvarez Perez
+
+**PO ILS:** Daniela Garcia Dederle
 
 **Equipo QA:**
 - Jose Eulises Barbosa Colorado
@@ -104,95 +106,116 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 ├── README.md                              ← Este archivo
 ├── CHANGELOG.md                           ← Historial de cambios
 │
-├── docs/                                  ← Documentación técnica
+├── docs/                                  ← Documentación técnica organizada por modelo de negocio
 │   ├── GLOSSARY.md                       (Glosario de términos)
 │   ├── ARCHITECTURE.md                   (Decisiones arquitecturales)
 │   ├── CONTRIBUTING.md                   (Guía de contribución)
-│   └── comparisons/                      (Comparativas por célula)
-│       ├── Kepler_Models_Comparison.md
-│       ├── Pixel_Models_Comparison.md
-│       └── All_Cells_Comparison.md
+│   ├── QUICK_ADD_MODEL.md                (Guía rápida para agregar modelos)
+│   ├── AGENT_ARCHITECTURE_SECURITY.md     (Seguridad de agentes)
+│   ├── AGENT_RESPONSE_PERMISSIONS.md      (Permisos de respuesta de agentes)
+│   ├── comparisons/                      (Comparativas por célula)
+│   │   ├── Kepler_Models_Comparison.md
+│   │   └── All_Cells_Comparison.md
+│   │
+│   ├── B2B2C/                            ← Modelo B2B2C (PPM)
+│   │   └── PPM/
+│   │       ├── PM/
+│   │       │   └── README.md
+│   │       ├── BGR/
+│   │       │   └── README.md
+│   │       ├── CME/
+│   │       │   └── README.md
+│   │       └── CMP/
+│   │           └── README.md
+│   │
+│   ├── B2B/                              ← Modelo B2B
+│   │   ├── PPM/
+│   │   │   └── CORPORATIVO USD/
+│   │   │       └── README.md
+│   │   └── ULTRA/
+│   │       ├── CONSOLIDACION COP/
+│   │       │   └── README.md
+│   │       └── CONSOLIDACION USD/
+│   │           └── README.md
+│   │
+│   └── B2C/                              ← Modelo B2C
+│       ├── ULTRA/
+│       │   ├── VACACIONAL COP/
+│       │   │   └── README.md
+│       │   └── VACACIONAL USD/
+│       │       └── README.md
+│       └── AVASA/
+│           └── VIVA AEROBUS/
+│               └── README.md
 │
 ├── templates/                             ← Plantillas reutilizables
 │   ├── product-template.md               (Para agregar productos)
-│   ├── portal-template.md                (Para agregar portales)
-│   └── common-rules-template.md
+│   └── portal-template.md                (Para agregar portales)
 │
 ├── agents/                                ← AGENTES QA
 │   ├── QA_LEAD_Assistant.agent.md        (PADRE - Orquestador global)
-│   │
-│   ├── Kepler/                           ← CÉLULA KEPLER
-│   │   ├── README.md
-│   │   ├── PM_QA_Assistant.agent.md
-│   │   ├── BGR_QA_Assistant.agent.md
-│   │   ├── CME_QA_Assistant.agent.md
-│   │   ├── CMP_QA_Assistant.agent.md
-│   │   └── PROM_QA_Assistant.agent.md
-│   │
-│   ├── Pixel/                            ← CÉLULA PIXEL
-│   │   └── README.md                     (Listo para agregar modelos)
-│   │
-│   ├── Rocket/                           ← CÉLULA ROCKET
-│   │   └── README.md                     (Listo para agregar modelos)
-│   │
-│   ├── Skynet/                           ← CÉLULA SKYNET
-│   │   └── README.md                     (Listo para agregar modelos)
-│   │
-│   └── Transversales/                    ← CÉLULA TRANSVERSALES
-│       └── README.md                     (Listo para agregar modelos)
+│   ├── PM_QA_Assistant.agent.md          (Pichincha Miles - Kepler)
+│   ├── BGR_QA_Assistant.agent.md         (BGR Miles - Kepler)
+│   └── CME_QA_Assistant.agent.md         (Club Miles Ecuador - Kepler)
+│   
+│   [Nota: Futuros agentes por célula se agregarán en esta carpeta]
 │
 ├── shared/                                ← REGLAS COMPARTIDAS
-│   ├── SHARED_QA_RULES.md                (Universal - Todas las células)
+│   ├── SHARED_QA_RULES.md                (Universal - Todos los modelos)
+│   ├── AGENT_CONTEXT_VALIDATION.md        (Validación de contexto de agentes)
 │   │
-│   ├── Kepler/
-│   │   ├── PM_COMMON_RULES.md
-│   │   ├── BGR_COMMON_RULES.md
-│   │   └── [otros modelos...]
+│   └── Kepler/                           ← Célula Kepler
+│       ├── PM_COMMON_RULES.md            (Reglas comunes Pichincha Miles)
+│       ├── BGR_COMMON_RULES.md           (Reglas comunes BGR Miles)
+│       └── CME_COMMON_RULES.md           (Reglas comunes Club Miles Ecuador)
+│
+├── products/                              ← FLUJOS E2E POR PRODUCTO Y MODELO DE NEGOCIO
+│   ├── B2B2C/                            ← Modelo B2B2C (PPM)
+│   │   └── PPM/
+│   │       ├── PM/
+│   │       │   ├── PM_VUELOS.md
+│   │       │   ├── PM_HOTELES.md
+│   │       │   ├── PM_AUTOS.md
+│   │       │   ├── PM_ACTIVIDADES.md
+│   │       │   └── PM_DISNEY.md
+│   │       ├── BGR/
+│   │       │   ├── BGR_VUELOS.md
+│   │       │   ├── BGR_HOTELES.md
+│   │       │   ├── BGR_AUTOS.md
+│   │       │   ├── BGR_ACTIVIDADES.md
+│   │       │   └── BGR_DISNEY.md
+│   │       ├── CME/
+│   │       │   ├── CME_VUELOS.md
+│   │       │   ├── CME_HOTELES.md
+│   │       │   ├── CME_AUTOS.md
+│   │       │   ├── CME_ACTIVIDADES.md
+│   │       │   └── CME_DISNEY.md
+│   │       └── CMP/
+│   │           └── README.md             (Pendiente documentar productos)
 │   │
-│   ├── Pixel/                            (Listo para agregar)
-│   ├── Rocket/                           (Listo para agregar)
-│   ├── Skynet/                           (Listo para agregar)
-│   └── Transversales/                    (Listo para agregar)
+│   ├── B2B/                              ← Modelo B2B
+│   │   ├── PPM/
+│   │   │   └── CORPORATIVO USD/
+│   │   │       └── README.md
+│   │   └── ULTRA/
+│   │       ├── CONSOLIDACION COP/
+│   │       │   └── README.md
+│   │       └── CONSOLIDACION USD/
+│   │           └── README.md
+│   │
+│   └── B2C/                              ← Modelo B2C
+│       ├── ULTRA/
+│       │   ├── VACACIONAL COP/
+│       │   │   └── README.md
+│       │   └── VACACIONAL USD/
+│       │       └── README.md
+│       └── AVASA/
+│           └── VIVA AEROBUS/
+│               └── README.md
 │
-├── products/                              ← FLUJOS E2E POR PRODUCTO
-│   ├── Kepler/
-│   │   ├── PM/
-│   │   │   ├── PM_VUELOS.md
-│   │   │   ├── PM_HOTELES.md
-│   │   │   |── PM_Cars
-|   |   |   |── PM_Actividades
-|   |   |   └── PM_Dsiney
-│   │   ├── BGR/
-│   │   │   ├── BGR_VUELOS.md
-│   │   │   ├── BGR_HOTELES.md
-│   │   │   |── BGR_Cars
-|   |   |   |── BGR_Actividades
-|   |   |   └── BGR_Dsiney
-│   │   |── CME/
-│   │   │   ├── CME_VUELOS.md
-│   │   │   ├── CME_HOTELES.md
-│   │   │   |── CME_Cars
-|   |   |   |── CME_Actividades
-|   |   |   └── CME_Dsiney
-│   │   |── CMP/
-│   │   │   ├── CMP_VUELOS.md
-│   │   │   ├── CMP_HOTELES.md
-│   │   │   |── CMP_Cars
-|   |   |   |── CMP_Actividades
-|   |   |   └── CMP_Dsiney
-│   ├── Pixel/                            (Listo para agregar)
-│   ├── Rocket/                           (Listo para agregar)
-│   ├── Skynet/                           (Listo para agregar)
-│   └── Transversales/                    (Listo para agregar)
-│
-└── imagenes/                              ← Recursos visuales
-    ├── Kepler/
-    │   ├── PM/
-    │   └── BGR/
-    ├── Pixel/
-    ├── Rocket/
-    ├── Skynet/
-    └── Transversales/
+├── imagenes/                              ← Recursos visuales (alias)
+└── images/                                ← Recursos visuales
+    └── [imágenes del proyecto]
 ```
 
 ---
@@ -205,11 +228,9 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 |--------|--------|---------|------|--------|
 | **Pichincha Miles** | Kepler/PM_QA_Assistant | [PM] | Ecuador | ✅ Activo |
 | **BGR Miles** | Kepler/BGR_QA_Assistant | [BGR] | Ecuador | ✅ Activo |
-| **Correos Millas Ecuador** | Kepler/CME_QA_Assistant | [CME] | Ecuador | ⏳ Pendiente |
+| **Correos Millas Ecuador** | Kepler/CME_QA_Assistant | [CME] | Ecuador | ✅ Activo |
 | **Correos Millas Panamá** | Kepler/CMP_QA_Assistant | [CMP] | Panamá | ⏳ Pendiente |
 | **Promerica Rewards** | Kepler/PROM_QA_Assistant | [PROM] | - | ⏳ Pendiente |
-
-[Ver detalle →](agents/Kepler/README.md)
 
 ### **🎯 Célula PIXEL**
 
@@ -245,7 +266,8 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 |--------|---------|---------------|-------------|
 | **PM QA Assistant** | [PM_QA_Assistant.agent.md](agents/PM_QA_Assistant.agent.md) | Pichincha Miles (Ecuador) | Crear casos de prueba específicos para PM |
 | **BGR QA Assistant** | [BGR_QA_Assistant.agent.md](agents/BGR_QA_Assistant.agent.md) | BGR Miles (Ecuador) | Crear casos de prueba específicos para BGR |
-| _CME, CMP, Promerica_ | _Pendiente configurar_ | - | Ver [Kepler/README.md](agents/Kepler/README.md) |
+| **CME QA Assistant** | [CME_QA_Assistant.agent.md](agents/CME_QA_Assistant.agent.md) | Club Miles Ecuador | Crear casos de prueba específicos para CME |
+| _CMP, Promerica_ | _Pendiente configurar_ | Club Millas Perú, Promerica | Agentes por implementar |
 
 #### 🎯 **Célula PIXEL - Agentes Especializados**
 
@@ -339,11 +361,14 @@ El agente creará los casos **UNO POR UNO** y mostrará un resumen:
 ### Paso 1: Copiar template
 
 ```powershell
-# Para PM
-Copy-Item templates/product-template.md products/PM_NUEVO_PRODUCTO.md
+# Para PM (Pichincha Miles)
+Copy-Item templates/product-template.md products/B2B2C/PPM/PM/PM_NUEVO_PRODUCTO.md
 
-# Para BGR
-Copy-Item templates/product-template.md products/BGR_NUEVO_PRODUCTO.md
+# Para BGR (BGR Miles)
+Copy-Item templates/product-template.md products/B2B2C/PPM/BGR/BGR_NUEVO_PRODUCTO.md
+
+# Para CME (Club Miles Ecuador)
+Copy-Item templates/product-template.md products/B2B2C/PPM/CME/CME_NUEVO_PRODUCTO.md
 ```
 
 ### Paso 2: Completar metadata
@@ -373,12 +398,12 @@ Agregar referencia en el agente correspondiente:
 
 **PM_QA_Assistant.agent.md:**
 ```markdown
-🎨 [PM_NUEVO_PRODUCTO.md](../products/PM_NUEVO_PRODUCTO.md) - Flujo E2E completo de Nuevo Producto
+🎨 [PM_NUEVO_PRODUCTO.md](../products/B2B2C/PPM/PM/PM_NUEVO_PRODUCTO.md) - Flujo E2E completo de Nuevo Producto
 ```
 
 ### Paso 5: Actualizar COMMON_RULES
 
-Agregar a la tabla de proveedores en `PM_COMMON_RULES.md`:
+Agregar a la tabla de proveedores en `shared/Kepler/PM_COMMON_RULES.md`:
 
 ```markdown
 ├─ 🎨 NUEVO PRODUCTO [Tecnología]
@@ -402,11 +427,11 @@ Agregar a la tabla de proveedores en `PM_COMMON_RULES.md`:
 # Crear archivo de agente
 Copy-Item templates/portal-template.md agents/NUEVO_PORTAL_QA_Assistant.agent.md
 
-# Crear reglas comunes
-Copy-Item templates/portal-template.md shared/NUEVO_PORTAL_COMMON_RULES.md
+# Crear reglas comunes (ajustar ruta según célula)
+Copy-Item templates/portal-template.md shared/[CELULA]/NUEVO_PORTAL_COMMON_RULES.md
 
-# Crear carpeta de productos
-New-Item -ItemType Directory -Path products/NUEVO_PORTAL/
+# Crear carpeta de productos (ajustar modelo de negocio: B2B2C, B2B, B2C)
+New-Item -ItemType Directory -Path products/[MODELO_NEGOCIO]/[EMPRESA]/NUEVO_PORTAL/
 ```
 
 ### Paso 2: Configurar agente
@@ -430,7 +455,10 @@ En `NUEVO_PORTAL_COMMON_RULES.md`:
 
 Por cada producto (Vuelos, Hoteles, etc.):
 ```powershell
-Copy-Item templates/product-template.md products/NUEVO_PORTAL_VUELOS.md
+# Ajustar ruta según modelo de negocio y empresa
+Copy-Item templates/product-template.md products/[MODELO_NEGOCIO]/[EMPRESA]/NUEVO_PORTAL/NUEVO_PORTAL_VUELOS.md
+Copy-Item templates/product-template.md products/[MODELO_NEGOCIO]/[EMPRESA]/NUEVO_PORTAL/NUEVO_PORTAL_HOTELES.md
+# ... etc
 ```
 
 ### Paso 5: Actualizar documentación
@@ -445,14 +473,14 @@ Copy-Item templates/product-template.md products/NUEVO_PORTAL_VUELOS.md
 
 ### Actualizar flujo de producto existente
 
-1. Abrir archivo en `products/PM_PRODUCTO.md` o `BGR_PRODUCTO.md`
+1. Abrir archivo en `products/B2B2C/PPM/PM/PM_PRODUCTO.md` o `products/B2B2C/PPM/BGR/BGR_PRODUCTO.md`
 2. Editar sección correspondiente
 3. Actualizar metadata `ultima_actualizacion`
 4. Documentar cambio en CHANGELOG.md
 
 ### Cambiar modelo de negocio
 
-1. Editar `shared/PM_COMMON_RULES.md` o `BGR_COMMON_RULES.md`
+1. Editar `shared/Kepler/PM_COMMON_RULES.md` o `shared/Kepler/BGR_COMMON_RULES.md`
 2. Revisar impacto en productos afectados
 3. Actualizar productos si es necesario
 4. Versionar cambio en CHANGELOG.md
@@ -463,10 +491,10 @@ Copy-Item templates/product-template.md products/NUEVO_PORTAL_VUELOS.md
 - Agregar a `shared/SHARED_QA_RULES.md` (aplica a PM y BGR)
 
 **Si es específica de un portal:**
-- Agregar a `shared/PM_COMMON_RULES.md` o `BGR_COMMON_RULES.md`
+- Agregar a `shared/Kepler/PM_COMMON_RULES.md` o `shared/Kepler/BGR_COMMON_RULES.md`
 
 **Si es específica de un producto:**
-- Agregar a `products/PORTAL_PRODUCTO.md`
+- Agregar a `products/B2B2C/PPM/[PORTAL]/[PORTAL]_PRODUCTO.md`
 
 ---
 
@@ -513,12 +541,16 @@ SHARED_QA_RULES.md (Universal)
 
 ## 📊 Estadísticas
 
-- **Agentes:** 2 (PM, BGR)
-- **Productos por portal:** 5 (Vuelos, Hoteles, Autos, Actividades, Disney)
-- **Total archivos de flujos:** 10
-- **Reglas compartidas:** 3 (SHARED, PM_COMMON, BGR_COMMON)
-- **Líneas de código:** ~2,500
-- **Optimización:** 45% reducción vs arquitectura monolítica
+- **Agentes activos:** 3 (PM, BGR, CME) + 1 Lead (QA_LEAD)
+- **Células configuradas:** 1 (Kepler)
+- **Modelos de negocio:** 3 (B2B2C, B2B, B2C)
+- **Productos por portal Kepler:** 5 (Vuelos, Hoteles, Autos, Actividades, Disney)
+- **Total archivos de flujos PM:** 5
+- **Total archivos de flujos BGR:** 5
+- **Total archivos de flujos CME:** 5
+- **Reglas compartidas:** 4 (SHARED_QA, PM_COMMON, BGR_COMMON, CME_COMMON)
+- **Líneas de documentación:** ~8,000+
+- **Optimización:** 50% reducción vs arquitectura monolítica
 
 ---
 
