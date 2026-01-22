@@ -11,12 +11,13 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 **Prefijo obligatorio:** [CCOP]  
 
 **Productos disponibles:**
-- ✅ Vuelos
-- ✅ Hoteles
+- ✅ Vuelos (En el checkout de este producto se puede adicionar seguro de cancelación)
 - ✅ Autos
-- ✅ Actividades
 - ✅ Disney (Tickets parques)
+- ✅ Disney Eventos Especiales
 - ✅ Asistencias (Seguros de viaje)
+- ✅ Actividades
+- ✅ Hoteles Disney
 
 ---
 
@@ -35,7 +36,7 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 ```
 
 ### EMISIÓN:
-- **[A DEFINIR]** - Automática / Manual / Semiautomática
+- Automática
 - [ESPECIFICAR FLUJO DE EMISIÓN]
 - [ESPECIFICAR ESTADOS DE RESERVA]
 
@@ -45,26 +46,29 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 
 ```
 CONSOLIDACIÓN COP (CCOP)
-├─ ✈️ VUELOS [Framework a definir]
-│  ├─ [PROVEEDOR A DEFINIR - ej: AGGREGATOR NETACTICA]
-│  ├─ [PROVEEDOR A DEFINIR - ej: AGGREGATOR SABRE]
-│  └─ [PROVEEDOR A DEFINIR - ej: SABRE EDIFACT]
+├─ ✈️ VUELOS [Framework Angular]
+│  ├─ [AGGREGATOR NETACTICA]
+│  ├─ [AGGREGATOR SABRE]
+│  └─ [SABRE EDIFACT]
 │
-├─ 🏨 HOTELES [Framework a definir]
-│  ├─ HotelBeds (típico)
-│  └─ [PROVEEDOR A DEFINIR - ej: DerbySoft]
+├─ 🚗 AUTOS [Framework React]
+│  ├─ Localidades de Estados Unidos y Europa proveedor Sabre (Rentadoras: Hertz, Dollar, Thrifty)
+│  └─ Localidades de México proveedor Thermeon (Rentadoras: Hertz, Dollar, Thrifty)
 │
-├─ 🚗 AUTOS [Framework a definir]
-│  └─ Sabre (Hertz, Dollar, Thrifty, etc.)
+├─ 🎢 DISNEY [Framework React]
+│  └─ [DerbySoft]
 │
-├─ 🎯 ACTIVIDADES [Framework a definir]
-│  └─ HotelBeds (típico)
+├─ 🎢 DISNEY EVENTOS ESPECIALES [Framework React]
+│  └─ [DerbySoft]
 │
-├─ 🎢 DISNEY [Framework a definir]
-│  └─ [PROVEEDOR A DEFINIR - ej: DerbySoft/OffLine]
+│  🛡️ ASISTENCIAS [Framework Angular]
+│   └─ [AssistViaje]
 │
-└─ 🛡️ ASISTENCIAS [Framework a definir]
-   └─ [PROVEEDOR A DEFINIR - ej: Universal Assistance/Assist Card]
+├─ 🎯 ACTIVIDADES [Framework Angular]
+│  └─ HotelBeds
+│
+└─ 🏨 HOTELES DISNEY [Framework Angular]
+   └─ HotelBeds
 ```
 
 ---
@@ -73,12 +77,13 @@ CONSOLIDACIÓN COP (CCOP)
 
 | Producto | Framework | Observaciones |
 |----------|-----------|---------------|
-| Vuelos | [A definir] | Múltiples proveedores, emisión [A definir] |
-| Hoteles | [A definir] | Confirmación típicamente inmediata |
-| Autos | [A definir] | Tarjeta crédito obligatoria para depósito |
-| Actividades | [A definir] | Confirmación puede tardar hasta 24h |
-| Disney | [A definir] | Tickets digitales, fechas específicas |
-| Asistencias | [A definir] | Pólizas digitales, cobertura por región |
+| Vuelos | [Angular] | Múltiples proveedores, emisión Automatica |
+| Autos | [React] | Dos proveedores, emisión Automatica |
+| Disney | [React] | Un proveedor, emisión Automatica |
+| Disney Eventos Especiales | [React] | Un proveedor, emisión Automatica |
+| Asistencias | [Angular] | Un proveedor, emisión Automatica |
+| Actividades | [Angular] | Un proveedor, emisión automatica |
+| Hoteles Disney | [Angular] | Un proveedor, emisión automatica |
 
 ---
 
