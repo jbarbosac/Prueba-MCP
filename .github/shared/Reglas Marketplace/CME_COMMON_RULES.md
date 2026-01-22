@@ -273,28 +273,20 @@ Demo: https://clubmiles-ec.preprodppm.com/
 
 ---
 
-## ⚠️ DIFERENCIAS CLAVE CON OTROS PORTALES
+## 🔗 COMPARACIONES CON OTROS PORTALES
 
-**CME vs PM:**
-- Marca diferente (Diners Club/Correos Ecuador vs Banco Pichincha)
-- Usuario final diferente (clientes de Diners Club vs clientes de Banco Pichincha)
-- **CME:** Slider ajustable en CheckOut (mínimo 20%)
-- **PM:** Lógica automática (mínimo 20%, sin slider)
-- **MISMOS proveedores y tecnologías**
-- **MISMA pasarela:** PlacetoPay
+Para comparaciones detalladas entre CME y otros modelos de la célula Kepler (PM, BGR, CMP, PROM):
 
-**CME vs BGR:**
-- **CME:** Slider en CheckOut (mínimo 20% para todos los productos)
-- **BGR:** Slider en CheckOut (vuelos: 2875 millas, otros: 20%)
-- **CME:** Emisión automática siempre
-- **BGR:** Emisión automática (100% millas) o manual (mixto)
-- **CME:** Pasarela PlacetoPay
-- **BGR:** Pasarela diferente (según configuración)
+📊 **Ver:** [Kepler_Models_Comparison.md](../../docs/comparisons/Kepler_Models_Comparison.md)
 
-**Similitud CME = BGR en Slider:**
-- Ambos tienen slider ajustable en CheckOut
-- Ambos permiten ajuste manual de Millas vs USD
-- Diferencia: CME siempre 20% mínimo, BGR varía según producto
+**Responsabilidad:** QA_LEAD_Assistant gestiona todas las comparaciones entre portales.
+
+**Diferencias clave de CME (resumen):**
+- ✅ Slider ajustable en CheckOut (mínimo 20%)
+- ✅ Emisión automática siempre tipo "Cash"
+- ✅ Pasarela PlacetoPay (bash)
+- ✅ Cliente: Diners Club (vía PPM)
+- ✅ País: Ecuador
 
 ---
 
@@ -367,7 +359,7 @@ Ver archivos detallados:
 
 ---
 
-**Última actualización:** 2026-01-08  
-**Versión:** 2.3.0  
+**Última actualización:** 2026-01-22  
+**Versión:** 2.4.0  
 **Mantenido por:** QA Team Ultragroup  
-**Actualización:** Optimización del archivo - Información genérica común mantenida aquí, detalles específicos de productos movidos a archivos individuales. Eliminada dispersión de fondos. Estructura modular para evitar duplicación.
+**Actualización:** Eliminada redundancia de comparaciones detalladas con otros portales. Información comparativa centralizada en Kepler_Models_Comparison.md para evitar duplicación y facilitar mantenimiento.
