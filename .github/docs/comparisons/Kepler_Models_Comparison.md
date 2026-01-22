@@ -1,28 +1,30 @@
-# 📊 Comparación Detallada: Pichincha Miles (PM) vs BGR Miles (BGR)
+# 📊 Comparación Detallada: Modelos de Negocio Célula Kepler
 
-> Documento de referencia para QA_LEAD_Assistant con análisis comparativo completo entre ambos portales.
+> Documento de referencia para QA_LEAD_Assistant con análisis comparativo completo entre todos los modelos de la célula Kepler.
+
+**Modelos activos:** PM, BGR, CME, CMP, PROM, CCOP (en configuración)
 
 ---
 
 ## 🎯 RESUMEN EJECUTIVO
 
-| Aspecto | Pichincha Miles (PM) | BGR Miles (BGR) |
-|---------|---------------------|----------------|
-| **URL** | pichinchamiles-ec.preprodppm.com | bgrmiles-ec.preprodppm.com |
-| **País** | Ecuador | Ecuador |
-| **Prefijo** | [PM] | [BGR] |
-| **Modelo de Pago** | 100% Millas fijo | Slider: Millas + Plata variable |
-| **Fee Vuelos** | Sí (tarjeta obligatoria) | No |
-| **Emisión Vuelos** | Automática | Automática (100% millas) / Manual (mixto) |
-| **Proceso Manual** | No | Sí (débito → pago → emisión) |
-| **Complejidad QA** | Media | Alta |
-| **Agente Especializado** | PM_QA_Assistant | BGR_QA_Assistant |
+| Aspecto | PM | BGR | CME | CMP | PROM | CCOP |
+|---------|-----|-----|-----|-----|------|------|
+| **URL** | pichinchamiles-ec | bgrmiles-ec | clubmiles-ec | [A definir] | [A definir] | [A definir] |
+| **País** | Ecuador | Ecuador | Ecuador | Perú | [A definir] | Colombia |
+| **Prefijo** | [PM] | [BGR] | [CME] | [CMP] | [PROM] | [CCOP] |
+| **Modelo** | 100% Millas | Slider | Slider | [A definir] | [A definir] | [A definir] |
+| **Fee Vuelos** | Sí | No | No | [A definir] | [A definir] | [A definir] |
+| **Emisión** | Automática | Mixta | Mixta | [A definir] | [A definir] | [A definir] |
+| **Complejidad** | Media | Alta | Alta | [A definir] | [A definir] | [A definir] |
+| **Estado** | ✅ Activo | ✅ Activo | ✅ Activo | ✅ Activo | ✅ Activo | 🔄 Configurando |
+| **Agente** | PM_QA_Assistant | BGR_QA_Assistant | CME_QA_Assistant | CMP_QA_Assistant | PROM_QA_Assistant | CCOP_QA_Assistant |
 
 ---
 
 ## 💰 MODELO DE NEGOCIO COMPARADO
 
-### **Pichincha Miles (PM)**
+### **1. Pichincha Miles (PM) - Ecuador**
 
 **VUELOS:**
 ```
@@ -46,7 +48,7 @@ Emisión = AUTOMÁTICA
 
 ---
 
-### **BGR Miles (BGR)**
+### **2. BGR Miles (BGR) - Ecuador**
 
 **TRES MODALIDADES DE PAGO:**
 
@@ -164,6 +166,63 @@ Estado final: EMITIDA
 
 ---
 
+### **3. Club Miles Ecuador (CME) - Ecuador**
+
+**Estado:** ✅ Activo  
+**Documentación:** [CME_COMMON_RULES.md](../../shared/Kepler/CME_COMMON_RULES.md)
+
+**Características principales:**
+- Modelo similar a BGR (Slider)
+- [Detalles a completar según documentación CME]
+
+---
+
+### **4. Club Millas Perú (CMP) - Perú**
+
+**Estado:** ✅ Activo  
+**Documentación:** Pendiente crear CMP_COMMON_RULES.md
+
+**Características principales:**
+- [A definir según documentación CMP]
+
+---
+
+### **5. Promerica Rewards (PROM)**
+
+**Estado:** ✅ Activo  
+**Documentación:** [PROM_COMMON_RULES.md](../../shared/Kepler/PROM_COMMON_RULES.md)
+
+**Características principales:**
+- [Detalles a completar según documentación PROM]
+
+---
+
+### **6. Consolidación COP (CCOP) - Colombia** 🆕
+
+**Estado:** 🔄 EN CONFIGURACIÓN INICIAL  
+**Documentación:** [CCOP_COMMON_RULES.md](../../shared/Kepler/CCOP_COMMON_RULES.md)  
+**Guía de Setup:** [CCOP_SETUP_GUIDE.md](../CCOP_SETUP_GUIDE.md)
+
+**Características principales:**
+- ⏳ URL: [A definir]
+- ⏳ Modelo de negocio: [A definir]
+- ⏳ Tipo de emisión: [A definir]
+- ⏳ Productos: [A definir]
+- ⏳ Proveedores: [A definir]
+
+**Pendientes de configuración:**
+- [ ] Definir URL del portal
+- [ ] Definir productos disponibles
+- [ ] Definir modelo de negocio
+- [ ] Definir tipo de emisión
+- [ ] Definir proveedores
+- [ ] Crear documentación específica por producto
+- [ ] Configurar Azure DevOps
+
+**Ver:** [CCOP_SETUP_GUIDE.md](../CCOP_SETUP_GUIDE.md) para checklist completo.
+
+---
+
 ## ✅ VALIDACIONES COMPARADAS
 
 ### **Validaciones COMUNES (ambos portales)**
@@ -230,10 +289,14 @@ Estado final: EMITIDA
 
 ### **Esfuerzo de Testing Estimado**
 
-| Portal | Casos por Producto | Total Productos | Total Casos Estimado |
-|--------|-------------------|----------------|---------------------|
-| **PM** | 5-8 | 5 | 25-40 casos |
-| **BGR** | 10-15 | 5 | 50-75 casos |
+| Portal | Casos por Producto | Total Productos | Total Casos Estimado | Estado |
+|--------|-------------------|----------------|---------------------|--------|
+| **PM** | 5-8 | 5 | 25-40 casos | ✅ Activo |
+| **BGR** | 10-15 | 5 | 50-75 casos | ✅ Activo |
+| **CME** | 10-15 | [A definir] | [A estimar] | ✅ Activo |
+| **CMP** | [A definir] | [A definir] | [A estimar] | ✅ Activo |
+| **PROM** | [A definir] | [A definir] | [A estimar] | ✅ Activo |
+| **CCOP** | [A definir] | [A definir] | [A estimar] | 🔄 Config |
 
 ### **Áreas de Mayor Riesgo**
 
@@ -253,29 +316,48 @@ Estado final: EMITIDA
 
 ## 🎓 GUÍA DE DECISIÓN PARA QA
 
-### **¿Cuándo usar PM_QA_Assistant?**
+### **¿Qué agente usar según el portal?**
 
+**PM_QA_Assistant:**
 ✅ URL contiene `pichinchamiles-ec`  
 ✅ Modelo 100% millas fijo  
 ✅ Emisión siempre automática  
 ✅ Fee solo en vuelos  
 ✅ Sin proceso manual  
 
-### **¿Cuándo usar BGR_QA_Assistant?**
-
+**BGR_QA_Assistant:**
 ✅ URL contiene `bgrmiles-ec`  
 ✅ Modelo con slider millas/plata  
 ✅ Emisión mixta (automática + manual)  
 ✅ Sin fee  
 ✅ Requiere validación de proceso manual  
 
-### **¿Cuándo usar QA_LEAD_Assistant?**
+**CME_QA_Assistant:**
+✅ URL contiene `clubmiles-ec`  
+✅ Ecuador  
+✅ [Características específicas según CME_COMMON_RULES.md]
 
-✅ Preguntas comparativas entre PM y BGR  
+**CMP_QA_Assistant:**
+✅ Club Millas Perú  
+✅ Perú  
+✅ [Características específicas a definir]
+
+**PROM_QA_Assistant:**
+✅ Promerica Rewards  
+✅ [Características específicas según PROM_COMMON_RULES.md]
+
+**CCOP_QA_Assistant:**
+✅ Consolidación COP  
+✅ Colombia  
+✅ Prefijo [CCOP]  
+⚠️ Estado: En configuración inicial
+
+**QA_LEAD_Assistant:**
+✅ Preguntas comparativas entre CUALQUIER modelo  
 ✅ Análisis de cobertura global  
 ✅ Decisiones estratégicas de testing  
 ✅ Reportes consolidados  
-✅ No necesitas crear casos de prueba  
+✅ Orquestación de creación de casos multi-portal  
 
 ---
 
@@ -323,14 +405,24 @@ QA_LEAD: "Ambos portales comparten los mismos 3 proveedores:
 
 ## 📖 REFERENCIAS
 
-- [SHARED_QA_RULES.md](../shared/SHARED_QA_RULES.md) - Fundamentos comunes
-- [PM_COMMON_RULES.md](../shared/PM_COMMON_RULES.md) - Reglas específicas PM
-- [BGR_COMMON_RULES.md](../shared/BGR_COMMON_RULES.md) - Reglas específicas BGR
-- [GLOSSARY.md](GLOSSARY.md) - Glosario completo
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Decisiones arquitecturales
+**Reglas compartidas:**
+- [SHARED_QA_RULES.md](../../shared/SHARED_QA_RULES.md) - Fundamentos comunes
+
+**Reglas específicas por modelo:**
+- [PM_COMMON_RULES.md](../../shared/Kepler/PM_COMMON_RULES.md) - Pichincha Miles
+- [BGR_COMMON_RULES.md](../../shared/Kepler/BGR_COMMON_RULES.md) - BGR Miles
+- [CME_COMMON_RULES.md](../../shared/Kepler/CME_COMMON_RULES.md) - Club Miles Ecuador
+- CMP_COMMON_RULES.md - Club Millas Perú (pendiente crear)
+- [PROM_COMMON_RULES.md](../../shared/Kepler/PROM_COMMON_RULES.md) - Promerica Rewards
+- [CCOP_COMMON_RULES.md](../../shared/Kepler/CCOP_COMMON_RULES.md) - Consolidación COP 🆕
+
+**Guías y documentación adicional:**
+- [GLOSSARY.md](../GLOSSARY.md) - Glosario completo
+- [ARCHITECTURE.md](../ARCHITECTURE.md) - Decisiones arquitecturales
+- [CCOP_SETUP_GUIDE.md](../CCOP_SETUP_GUIDE.md) - Guía configuración CCOP 🆕
 
 ---
 
-**Última actualización:** Enero 2026  
-**Versión:** 1.0  
-**Mantenido por:** Sistema de Agentes QA
+**Última actualización:** 2026-01-22  
+**Versión:** 2.0 (incluye CCOP)  
+**Mantenido por:** Sistema de Agentes QA - Célula Kepler
