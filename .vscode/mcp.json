@@ -11,7 +11,7 @@
         },
         "playwright": {
             "command": "npx",
-            "args": [
+            "args": [78
                 "@playwright/mcp@latest"
             ],
             "type": "stdio"
