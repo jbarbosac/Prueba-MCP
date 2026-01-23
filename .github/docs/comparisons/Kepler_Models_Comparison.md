@@ -8,17 +8,17 @@
 
 ## 🎯 RESUMEN EJECUTIVO
 
-| Aspecto | PM | BGR | CME | CMP | PROM | CCOP |
-|---------|-----|-----|-----|-----|------|------|
-| **URL** | pichinchamiles-ec | bgrmiles-ec | clubmiles-ec | [A definir] | [A definir] | [A definir] |
-| **País** | Ecuador | Ecuador | Ecuador | Perú | [A definir] | Colombia |
-| **Prefijo** | [PM] | [BGR] | [CME] | [CMP] | [PROM] | [CCOP] |
-| **Modelo** | 100% Millas | Slider | Slider | [A definir] | [A definir] | [A definir] |
-| **Fee Vuelos** | Sí | No | No | [A definir] | [A definir] | [A definir] |
-| **Emisión** | Automática | Mixta | Mixta | [A definir] | [A definir] | [A definir] |
-| **Complejidad** | Media | Alta | Alta | [A definir] | [A definir] | [A definir] |
-| **Estado** | ✅ Activo | ✅ Activo | ✅ Activo | ✅ Activo | ✅ Activo | 🔄 Configurando |
-| **Agente** | PM_QA_Assistant | BGR_QA_Assistant | CME_QA_Assistant | CMP_QA_Assistant | PROM_QA_Assistant | CCOP_QA_Assistant |
+| Aspecto         | PM                | BGR              | CME              | CMP              | PROM              | CCOP              |
+| --------------- | ----------------- | ---------------- | ---------------- | ---------------- | ----------------- | ----------------- |
+| **URL**         | pichinchamiles-ec | bgrmiles-ec      | clubmiles-ec     | [A definir]      | [A definir]       | [A definir]       |
+| **País**        | Ecuador           | Ecuador          | Ecuador          | Perú             | [A definir]       | Colombia          |
+| **Prefijo**     | [PM]              | [BGR]            | [CME]            | [CMP]            | [PROM]            | [CCOP]            |
+| **Modelo**      | 100% Millas       | Slider           | Slider           | [A definir]      | [A definir]       | [A definir]       |
+| **Fee Vuelos**  | Sí                | No               | No               | [A definir]      | [A definir]       | [A definir]       |
+| **Emisión**     | Automática        | Mixta            | Mixta            | [A definir]      | [A definir]       | [A definir]       |
+| **Complejidad** | Media             | Alta             | Alta             | [A definir]      | [A definir]       | [A definir]       |
+| **Estado**      | ✅ Activo         | ✅ Activo        | ✅ Activo        | ✅ Activo        | ✅ Activo         | 🔄 Configurando   |
+| **Agente**      | PM_QA_Assistant   | BGR_QA_Assistant | CME_QA_Assistant | CMP_QA_Assistant | PROM_QA_Assistant | CCOP_QA_Assistant |
 
 ---
 
@@ -27,6 +27,7 @@
 ### **1. Pichincha Miles (PM) - Ecuador**
 
 **VUELOS:**
+
 ```
 Producto = 100% MILLAS
 Fee de procesamiento = TARJETA DE CRÉDITO (lightbox)
@@ -34,6 +35,7 @@ Emisión = AUTOMÁTICA
 ```
 
 **OTROS PRODUCTOS (Hoteles, Autos, Actividades, Disney):**
+
 ```
 Producto = 100% MILLAS
 Sin fee, sin tarjeta
@@ -41,6 +43,7 @@ Emisión = AUTOMÁTICA
 ```
 
 **Características:**
+
 - ✅ Modelo simple y predecible
 - ✅ Emisión siempre automática
 - ✅ Solo vuelos requieren tarjeta (fee)
@@ -69,10 +72,12 @@ Emisión = AUTOMÁTICA
 ```
 
 **Mínimos por Slider:**
+
 - Vuelos: 2875 millas mínimo
 - Otros: 20% del total de millas
 
 **Características:**
+
 - ⚠️ Modelo complejo con múltiples flujos
 - ⚠️ Emisión mixta (automática + manual)
 - ⚠️ Requiere validación continua del slider
@@ -84,23 +89,23 @@ Emisión = AUTOMÁTICA
 
 ### **Proveedores por Producto**
 
-| Producto | PM | BGR | Coinciden |
-|----------|-----|-----|-----------|
-| **Vuelos** | AGGREGATOR NETACTICA<br>AGGREGATOR SABRE<br>SABRE EDIFACT | AGGREGATOR NETACTICA<br>AGGREGATOR SABRE<br>SABRE EDIFACT | ✅ Mismos proveedores |
-| **Autos** | Sabre → Hertz, Dollar, Thrifty | Sabre → Hertz, Dollar, Thrifty | ✅ Mismos proveedores |
-| **Hoteles** | HotelBeds | HotelBeds | ✅ Mismo proveedor |
-| **Actividades** | HotelBeds | HotelBeds | ✅ Mismo proveedor |
-| **Disney** | DerbySoft | OffLine | ❌ **DIFERENTES** |
+| Producto        | PM                                                        | BGR                                                       | Coinciden             |
+| --------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------- |
+| **Vuelos**      | AGGREGATOR NETACTICA<br>AGGREGATOR SABRE<br>SABRE EDIFACT | AGGREGATOR NETACTICA<br>AGGREGATOR SABRE<br>SABRE EDIFACT | ✅ Mismos proveedores |
+| **Autos**       | Sabre → Hertz, Dollar, Thrifty                            | Sabre → Hertz, Dollar, Thrifty                            | ✅ Mismos proveedores |
+| **Hoteles**     | HotelBeds                                                 | HotelBeds                                                 | ✅ Mismo proveedor    |
+| **Actividades** | HotelBeds                                                 | HotelBeds                                                 | ✅ Mismo proveedor    |
+| **Disney**      | DerbySoft                                                 | OffLine                                                   | ❌ **DIFERENTES**     |
 
 ### **Tecnologías por Producto**
 
-| Producto | PM | BGR |
-|----------|-----|-----|
-| **Vuelos** | Angular | (No especificado) |
-| **Autos** | Meteor | (No especificado) |
-| **Hoteles** | Angular | (No especificado) |
+| Producto        | PM      | BGR               |
+| --------------- | ------- | ----------------- |
+| **Vuelos**      | Angular | (No especificado) |
+| **Autos**       | Meteor  | (No especificado) |
+| **Hoteles**     | Angular | (No especificado) |
 | **Actividades** | Angular | (No especificado) |
-| **Disney** | React | (No especificado) |
+| **Disney**      | React   | (No especificado) |
 
 ---
 
@@ -109,6 +114,7 @@ Emisión = AUTOMÁTICA
 ### **Pichincha Miles (PM)**
 
 **SIEMPRE AUTOMÁTICO:**
+
 ```
 Usuario completa checkout
        ↓
@@ -120,6 +126,7 @@ Estado final: EMITIDA
 ```
 
 **Características:**
+
 - ✅ Sin intervención manual
 - ✅ Flujo lineal y predecible
 - ✅ Menos estados de reserva
@@ -129,6 +136,7 @@ Estado final: EMITIDA
 ### **BGR Miles (BGR)**
 
 **EMISIÓN AUTOMÁTICA (100% millas):**
+
 ```
 Usuario completa checkout con slider al 100%
        ↓
@@ -138,6 +146,7 @@ Estado final: EMITIDA
 ```
 
 **EMISIÓN MANUAL (Millas + Plata):**
+
 ```
 Usuario completa checkout con slider < 100%
        ↓
@@ -159,6 +168,7 @@ Estado final: EMITIDA
 ```
 
 **Características:**
+
 - ⚠️ Requiere intervención manual para pago mixto
 - ⚠️ Más estados de reserva
 - ⚠️ Mayor complejidad operativa
@@ -172,6 +182,7 @@ Estado final: EMITIDA
 **Documentación:** [CME_COMMON_RULES.md](../../shared/Kepler/CME_COMMON_RULES.md)
 
 **Características principales:**
+
 - Modelo similar a BGR (Slider)
 - [Detalles a completar según documentación CME]
 
@@ -183,6 +194,7 @@ Estado final: EMITIDA
 **Documentación:** Pendiente crear CMP_COMMON_RULES.md
 
 **Características principales:**
+
 - [A definir según documentación CMP]
 
 ---
@@ -190,9 +202,10 @@ Estado final: EMITIDA
 ### **5. Promerica Rewards (PROM)**
 
 **Estado:** ✅ Activo  
-**Documentación:** [PROM_COMMON_RULES.md](../../shared/Kepler/PROM_COMMON_RULES.md)
+**Documentación:** [PROM_COMMON_RULES.md](../../shared/Reglas Marketplace/PROM_COMMON_RULES.md)
 
 **Características principales:**
+
 - [Detalles a completar según documentación PROM]
 
 ---
@@ -204,6 +217,7 @@ Estado final: EMITIDA
 **Guía de Setup:** [CCOP_SETUP_GUIDE.md](../CCOP_SETUP_GUIDE.md)
 
 **Características principales:**
+
 - ⏳ URL: [A definir]
 - ⏳ Modelo de negocio: [A definir]
 - ⏳ Tipo de emisión: [A definir]
@@ -211,6 +225,7 @@ Estado final: EMITIDA
 - ⏳ Proveedores: [A definir]
 
 **Pendientes de configuración:**
+
 - [ ] Definir URL del portal
 - [ ] Definir productos disponibles
 - [ ] Definir modelo de negocio
@@ -232,14 +247,14 @@ Estado final: EMITIDA
 ✅ Links funcionales (T&C, tratamiento de datos)  
 ✅ Estados de reserva correctos en admin  
 ✅ Confirmación del proveedor  
-✅ Cálculo correcto de millas  
+✅ Cálculo correcto de millas
 
 ### **Validaciones ESPECÍFICAS PM**
 
 ✅ Fee aplicado solo a vuelos  
 ✅ Lightbox de tarjeta funcional (vuelos)  
 ✅ Emisión automática inmediata  
-✅ Sin validación de slider (no existe)  
+✅ Sin validación de slider (no existe)
 
 ### **Validaciones ESPECÍFICAS BGR**
 
@@ -251,7 +266,7 @@ Estado final: EMITIDA
 ✅ Estado PENDIENTE vs EMITIDA según modalidad  
 ✅ Admin BGR accesible y funcional  
 ✅ Débito de millas correcto  
-✅ Emisión en cash correcta  
+✅ Emisión en cash correcta
 
 ---
 
@@ -260,6 +275,7 @@ Estado final: EMITIDA
 ### **Pichincha Miles (PM)**
 
 **Casos principales:**
+
 1. Vuelos con fee (lightbox tarjeta)
 2. Hoteles sin fee (solo millas)
 3. Autos sin fee (solo millas)
@@ -267,13 +283,14 @@ Estado final: EMITIDA
 5. Disney sin fee (solo millas)
 
 **Complejidad:** Media  
-**Variantes típicas:** 5-8 casos por producto  
+**Variantes típicas:** 5-8 casos por producto
 
 ---
 
 ### **BGR Miles (BGR)**
 
 **Casos principales:**
+
 1. Producto con 100% millas (automático)
 2. Producto con millas + plata (manual)
 3. Validación de mínimo slider
@@ -281,7 +298,7 @@ Estado final: EMITIDA
 5. Proceso manual completo en admin
 
 **Complejidad:** Alta  
-**Variantes típicas:** 10-15 casos por producto  
+**Variantes típicas:** 10-15 casos por producto
 
 ---
 
@@ -289,23 +306,25 @@ Estado final: EMITIDA
 
 ### **Esfuerzo de Testing Estimado**
 
-| Portal | Casos por Producto | Total Productos | Total Casos Estimado | Estado |
-|--------|-------------------|----------------|---------------------|--------|
-| **PM** | 5-8 | 5 | 25-40 casos | ✅ Activo |
-| **BGR** | 10-15 | 5 | 50-75 casos | ✅ Activo |
-| **CME** | 10-15 | [A definir] | [A estimar] | ✅ Activo |
-| **CMP** | [A definir] | [A definir] | [A estimar] | ✅ Activo |
-| **PROM** | [A definir] | [A definir] | [A estimar] | ✅ Activo |
-| **CCOP** | [A definir] | [A definir] | [A estimar] | 🔄 Config |
+| Portal   | Casos por Producto | Total Productos | Total Casos Estimado | Estado    |
+| -------- | ------------------ | --------------- | -------------------- | --------- |
+| **PM**   | 5-8                | 5               | 25-40 casos          | ✅ Activo |
+| **BGR**  | 10-15              | 5               | 50-75 casos          | ✅ Activo |
+| **CME**  | 10-15              | [A definir]     | [A estimar]          | ✅ Activo |
+| **CMP**  | [A definir]        | [A definir]     | [A estimar]          | ✅ Activo |
+| **PROM** | [A definir]        | [A definir]     | [A estimar]          | ✅ Activo |
+| **CCOP** | [A definir]        | [A definir]     | [A estimar]          | 🔄 Config |
 
 ### **Áreas de Mayor Riesgo**
 
 **PM:**
+
 - 🟡 Lightbox de tarjeta (vuelos)
 - 🟡 Integración con proveedores
 - 🟢 Emisión automática (baja complejidad)
 
 **BGR:**
+
 - 🔴 Slider y cálculo dinámico
 - 🔴 Proceso manual de emisión
 - 🔴 Estados de reserva complejos
@@ -323,14 +342,14 @@ Estado final: EMITIDA
 ✅ Modelo 100% millas fijo  
 ✅ Emisión siempre automática  
 ✅ Fee solo en vuelos  
-✅ Sin proceso manual  
+✅ Sin proceso manual
 
 **BGR_QA_Assistant:**
 ✅ URL contiene `bgrmiles-ec`  
 ✅ Modelo con slider millas/plata  
 ✅ Emisión mixta (automática + manual)  
 ✅ Sin fee  
-✅ Requiere validación de proceso manual  
+✅ Requiere validación de proceso manual
 
 **CME_QA_Assistant:**
 ✅ URL contiene `clubmiles-ec`  
@@ -357,7 +376,7 @@ Estado final: EMITIDA
 ✅ Análisis de cobertura global  
 ✅ Decisiones estratégicas de testing  
 ✅ Reportes consolidados  
-✅ Orquestación de creación de casos multi-portal  
+✅ Orquestación de creación de casos multi-portal
 
 ---
 
@@ -374,7 +393,7 @@ QA_LEAD: Responde con tabla comparativa (este documento)
 ```
 Usuario: "Genera 5 casos de vuelos para PM"
    ↓
-QA_LEAD: "Para generar casos específicos de PM, 
+QA_LEAD: "Para generar casos específicos de PM,
           debes usar el agente PM_QA_Assistant.
           ¿Quieres que te prepare el contexto?"
 ```
@@ -399,24 +418,27 @@ QA_LEAD: "Ambos portales comparten los mismos 3 proveedores:
 **Débito de millas:** Acción manual en admin BGR para descontar millas  
 **Emitir en cash:** Procesar pago con tarjeta en admin BGR  
 **Lightbox:** Ventana modal para ingresar datos de tarjeta  
-**Agregador:** Proveedor que consolida múltiples fuentes  
+**Agregador:** Proveedor que consolida múltiples fuentes
 
 ---
 
 ## 📖 REFERENCIAS
 
 **Reglas compartidas:**
+
 - [SHARED_QA_RULES.md](../../shared/SHARED_QA_RULES.md) - Fundamentos comunes
 
 **Reglas específicas por modelo:**
+
 - [PM_COMMON_RULES.md](../../shared/Kepler/PM_COMMON_RULES.md) - Pichincha Miles
 - [BGR_COMMON_RULES.md](../../shared/Kepler/BGR_COMMON_RULES.md) - BGR Miles
 - [CME_COMMON_RULES.md](../../shared/Kepler/CME_COMMON_RULES.md) - Club Miles Ecuador
 - CMP_COMMON_RULES.md - Club Millas Perú (pendiente crear)
-- [PROM_COMMON_RULES.md](../../shared/Kepler/PROM_COMMON_RULES.md) - Promerica Rewards
+- [PROM_COMMON_RULES.md](../../shared/Reglas Marketplace/PROM_COMMON_RULES.md) - Promerica Rewards
 - [CCOP_COMMON_RULES.md](../../shared/Kepler/CCOP_COMMON_RULES.md) - Consolidación COP 🆕
 
 **Guías y documentación adicional:**
+
 - [GLOSSARY.md](../GLOSSARY.md) - Glosario completo
 - [ARCHITECTURE.md](../ARCHITECTURE.md) - Decisiones arquitecturales
 - [CCOP_SETUP_GUIDE.md](../CCOP_SETUP_GUIDE.md) - Guía configuración CCOP 🆕

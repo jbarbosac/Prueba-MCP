@@ -6,11 +6,16 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 
 ## 🎯 IDENTIFICACIÓN Y ALCANCE
 
-**Portal:** [PENDIENTE DEFINIR URL]  
-**País:** [PENDIENTE DEFINIR]  
-**Prefijo obligatorio:** [PROM]  
+**Portal (Test CR):** https://traveltest-club-promerica.preprodppm.com/es-cr  
+**URL Base (Test):** https://traveltest-club-promerica.preprodppm.com  
+**País activo (Test):** Costa Rica (CR)  
+**Prefijo obligatorio:** [PROM]
+
+**Moneda del programa:** **Puntos** (no “Millas”)  
+**Copago:** **Plata** (tarjeta) cuando aplique
 
 **Productos disponibles:**
+
 - ✅ Vuelos
 - ✅ Hoteles
 - ✅ Autos
@@ -21,51 +26,52 @@ Documento de referencia con reglas, validaciones y estructura compartida para to
 
 ## 💰 MODELO DE NEGOCIO
 
-⚠️ **PENDIENTE DE DEFINIR**
+**✅ Modelo confirmado (PROM): Puntos + Plata (Slider)**
 
-### ECUACIÓN DE PAGO:
+### Ecuación de pago (conceptual)
 
-**OPCIÓN A - Modelo Fijo (como PM):**
 ```
-Producto = 100% MILLAS
-Fee (solo vuelos) = TARJETA DE CRÉDITO
-Emisión = AUTOMÁTICA
+Total = Puntos + Plata
 ```
 
-**OPCIÓN B - Modelo Slider (como BGR/CME):**
-```
-Producto = MILLAS + PLATA (ajustable con slider)
-Mínimo slider = [DEFINIR: 20% o 2875 millas según producto]
-Emisión = AUTOMÁTICA (100% millas) o MANUAL (mixto)
-```
+### Reglas confirmadas
 
-**🔍 ACCIÓN REQUERIDA:** Definir cuál modelo aplica para Promerica
+- El usuario ajusta la combinación **Puntos/Plata** mediante **slider**.
+- Si hay **copago en Plata**, se requiere **método de pago (tarjeta)**.
+- El sistema debe validar **saldo de Puntos** antes de permitir continuar.
+
+### Reglas pendientes (NO asumir)
+
+- **Porcentaje mínimo de Puntos** permitido por producto.
+- **Fórmula exacta** de conversión Puntos↔Plata (por proveedor/producto).
+- **Emisión** (automática vs manual/condicional) según combinación de pago.
+- **Fees** por producto (si existen).
+
+**Política anti-suposición (crítica):** si algo está marcado como _pendiente/por confirmar_, el agente QA debe **preguntar** o **dejarlo como TBD**; no “completar con defaults” ni extrapolar desde PM/BGR/CME.
 
 ---
 
 ## 📦 ESTRUCTURA DE PROVEEDORES
 
-⚠️ **PENDIENTE DE DEFINIR**
+> Los proveedores son por producto y pueden variar por país. Si no está confirmado, mantenerlo como _pendiente_.
 
 ```
 PROMERICA REWARDS (PROM)
-├─ 🛫 VUELOS [Tecnología: PENDIENTE]
-│  └─ Proveedores: [PENDIENTE DEFINIR]
+├─ 🛫 VUELOS
+│  └─ Proveedores: ⚠️ Pendiente confirmar (posibles: AGGREGATOR NETACTICA, AGGREGATOR SABRE, SABRE EDIFACT)
 │
-├─ 🚗 AUTOS [Tecnología: PENDIENTE]
-│  └─ Proveedores: [PENDIENTE DEFINIR]
+├─ 🚗 AUTOS
+│  └─ Proveedores: ✅ Sabre (Hertz, Dollar, Thrifty)
 │
-├─ 🏨 HOTELES [Tecnología: PENDIENTE]
-│  └─ Proveedores: [PENDIENTE DEFINIR]
+├─ 🏨 HOTELES
+│  └─ Proveedores: ✅ HotelBeds
 │
-├─ 🎢 ACTIVIDADES [Tecnología: PENDIENTE]
-│  └─ Proveedores: [PENDIENTE DEFINIR]
+├─ 🎢 ACTIVIDADES
+│  └─ Proveedores: ✅ HotelBeds
 │
-└─ 🎡 DISNEY [Tecnología: PENDIENTE]
-   └─ Proveedores: [PENDIENTE DEFINIR]
+└─ 🎡 DISNEY
+   └─ Proveedores: ⚠️ Pendiente confirmar (referencias: DerbySoft u OffLine)
 ```
-
-**🔍 ACCIÓN REQUERIDA:** Documentar proveedores y tecnologías específicas
 
 ---
 
@@ -75,7 +81,8 @@ PROMERICA REWARDS (PROM)
 [PROM] [Producto] - [Escenario] - [Variante] - [Proveedor si aplica]
 ```
 
-**Ejemplos (ajustar según modelo definido):**
+**Ejemplos:**
+
 ```
 ✅ [PROM] Vuelos - Ida y vuelta - SABRE - 1 adulto clase económica
 ✅ [PROM] Hoteles - 3 noches - HotelBeds - 2 habitaciones
@@ -84,55 +91,38 @@ PROMERICA REWARDS (PROM)
 ✅ [PROM] Disney - Parques - DerbySoft - 2 adultos 1 niño
 ```
 
-**URL de login:**
-```
-[PENDIENTE DEFINIR]
-```
+**URL de login (Test CR):** https://traveltest-club-promerica.preprodppm.com/es-cr
 
 ---
 
 ## ✅ VALIDACIONES COMUNES A TODOS LOS PRODUCTOS
 
-### VALIDACIONES BÁSICAS (Aplicables mientras se define el modelo):
+### VALIDACIONES BÁSICAS
 
 ✅ **Integridad de datos:** Consistencia entre todas las pantallas del flujo  
 ✅ **Campos obligatorios:** Validación completa antes de habilitar botón de compra  
 ✅ **Links funcionales:** Términos y condiciones, tratamiento de datos abren correctamente  
 ✅ **Estados de reserva:** Confirmada en admin con todos los datos completos  
 ✅ **Proveedor:** Confirmación correcta del proveedor correspondiente  
-✅ **Cálculo correcto:** Millas/puntos canjeados calculados correctamente  
+✅ **Cálculo correcto:** Puntos/Plata calculados correctamente
 
-### VALIDACIONES ESPECÍFICAS (Dependen del modelo de negocio):
+### VALIDACIONES ESPECÍFICAS (Modelo Slider Puntos + Plata)
 
-**SI ES MODELO FIJO (100% Millas):**
-✅ Validar cálculo de millas por producto  
-✅ Validar fee solo en vuelos (si aplica)  
-✅ Validar emisión automática inmediata  
-✅ Validar que NO se solicite tarjeta (excepto fee vuelos)  
-
-**SI ES MODELO SLIDER (Millas + Plata):**
 ✅ Validar visibilidad y funcionalidad del slider  
-✅ Validar mínimo por producto (definir valores)  
-✅ Validar cálculo dinámico: Millas + Plata = Total  
+✅ Validar mínimo por producto (**pendiente**: solicitar valor)  
+✅ Validar cálculo dinámico: Puntos + Plata = Total  
 ✅ Validar solicitud de tarjeta cuando hay copago  
-✅ Validar emisión automática (100% millas) vs manual (mixto)  
+✅ Validar emisión automática vs manual (**pendiente**: confirmar regla)
 
 ---
 
 ## 🔄 PROCESO DE EMISIÓN
 
-⚠️ **PENDIENTE DE DEFINIR**
+⚠️ **Pendiente confirmar para PROM** (no asumir):
 
-**OPCIÓN A - Emisión Automática (como PM):**
-- Estado EMITIDA inmediato
-- Sin intervención manual
-- Aplica a todos los productos
-
-**OPCIÓN B - Emisión Condicional (como BGR):**
-- Automática: 100% millas → Estado EMITIDA inmediato
-- Manual: Millas + Plata → Estado PENDIENTE → Proceso manual en admin
-
-**🔍 ACCIÓN REQUERIDA:** Definir tipo de emisión para Promerica
+- Estados posibles (ej: EMITIDA / PENDIENTE / EN PROCESO)
+- Reglas de emisión según combinación Puntos/Plata
+- SLAs y validación en Admin
 
 ---
 
@@ -141,6 +131,7 @@ PROMERICA REWARDS (PROM)
 Mientras se completa la documentación específica, aplicar estos criterios base:
 
 ### FLUJO COMPLETO E2E:
+
 ✅ Login exitoso  
 ✅ Navegación correcta al producto  
 ✅ Búsqueda funcional con validación de campos  
@@ -148,51 +139,51 @@ Mientras se completa la documentación específica, aplicar estos criterios base
 ✅ Detalle con información completa  
 ✅ Checkout con campos obligatorios validados  
 ✅ Confirmación con código de reserva  
-✅ Reserva visible en admin con datos correctos  
+✅ Reserva visible en admin con datos correctos
 
 ### CÁLCULOS:
-✅ Millas/puntos calculados correctamente  
+
+✅ Puntos/Plata calculados correctamente  
 ✅ Valores consistentes en todas las pantallas  
-✅ Resumen final coincide con selección  
+✅ Resumen final coincide con selección
 
 ### USABILIDAD:
+
 ✅ Botones habilitados solo con campos completos  
 ✅ Mensajes de error claros y específicos  
-✅ Navegación intuitiva entre pantallas  
+✅ Navegación intuitiva entre pantallas
 
 ---
 
-## ⚠️ DIFERENCIAS CON OTROS MODELOS (Actualizar según definición)
+## 🧾 GLOSARIO (PROM)
 
-### PROM vs PM:
-- [PENDIENTE: Documentar diferencias cuando se defina el modelo]
+- **Puntos:** moneda de redención PROM.
+- **Plata:** monto en moneda local/currency cobrado a tarjeta cuando hay copago.
+- **Slider:** control para ajustar Puntos/Plata.
 
-### PROM vs BGR:
-- [PENDIENTE: Documentar diferencias cuando se defina el modelo]
-
-### PROM vs CME:
-- [PENDIENTE: Documentar diferencias cuando se defina el modelo]
+Regla: en títulos/pasos para PROM usar **Puntos** (no “Millas”).
 
 ---
 
 ## 📊 MATRIZ DE PRODUCTOS (Template)
 
-| Producto | Proveedor | Tecnología | Mínimo Millas | Emisión | Fee |
-|----------|-----------|------------|---------------|---------|-----|
-| Vuelos | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] |
-| Hoteles | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] | No |
-| Autos | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] | No |
-| Actividades | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] | No |
-| Disney | [DEFINIR] | [DEFINIR] | [DEFINIR] | [DEFINIR] | No |
+| Producto    | Proveedor                          | Tecnología | Mínimo Puntos | Emisión      | Fee          |
+| ----------- | ---------------------------------- | ---------- | ------------- | ------------ | ------------ |
+| Vuelos      | ⚠️ Pendiente confirmar             | [DEFINIR]  | ⚠️ Pendiente  | ⚠️ Pendiente | ⚠️ Pendiente |
+| Hoteles     | ✅ HotelBeds                       | [DEFINIR]  | ⚠️ Pendiente  | ⚠️ Pendiente | No           |
+| Autos       | ✅ Sabre (Hertz/Dollar/Thrifty)    | [DEFINIR]  | ⚠️ Pendiente  | ⚠️ Pendiente | No           |
+| Actividades | ✅ HotelBeds                       | [DEFINIR]  | ⚠️ Pendiente  | ⚠️ Pendiente | No           |
+| Disney      | ⚠️ Pendiente (DerbySoft u OffLine) | [DEFINIR]  | ⚠️ Pendiente  | ⚠️ Pendiente | No           |
 
 ---
 
 ## 📝 CAMPOS ESPECÍFICOS AZURE DEVOPS
 
 **Campos adicionales para casos de Promerica:**
+
 ```yaml
 Area Path: ultragroupla\Kepler
-Iteration Path: ultragroupla\[DEFINIR SPRINT]
+Iteration Path: ultragroupla\[DEFINIR SPRINT] # No hardcodear; solicitar al usuario si no se provee
 Tags: PROM, Promerica, [PRODUCTO], [PROVEEDOR]
 ```
 
@@ -202,9 +193,7 @@ Tags: PROM, Promerica, [PRODUCTO], [PROVEEDOR]
 
 1. ✅ **Definir URL del portal**
 2. ✅ **Definir país(es) de operación**
-3. ✅ **Definir modelo de negocio:**
-   - ¿100% Millas (como PM)?
-   - ¿Slider Millas + Plata (como BGR/CME)?
+3. ✅ **Confirmar y documentar reglas del slider:** mínimo, fórmula, emisión
 4. ✅ **Documentar proveedores por producto**
 5. ✅ **Definir tipo de emisión** (automática/manual/condicional)
 6. ✅ **Validar si maneja fees** (solo vuelos o ninguno)
@@ -216,6 +205,7 @@ Tags: PROM, Promerica, [PRODUCTO], [PROVEEDOR]
 ## 📚 ARCHIVOS RELACIONADOS
 
 **Flujos por producto (completar):**
+
 - [PROM_VUELOS.md](../../products/B2B2C/PPM/PROM/PROM_VUELOS.md)
 - [PROM_HOTELES.md](../../products/B2B2C/PPM/PROM/PROM_HOTELES.md)
 - [PROM_AUTOS.md](../../products/B2B2C/PPM/PROM/PROM_AUTOS.md)
@@ -223,14 +213,16 @@ Tags: PROM, Promerica, [PRODUCTO], [PROVEEDOR]
 - [PROM_DISNEY.md](../../products/B2B2C/PPM/PROM/PROM_DISNEY.md)
 
 **Agente:**
+
 - [PROM_QA_Assistant.agent.md](../../agents/PROM_QA_Assistant.agent.md)
 
 **Documentación:**
+
 - [PROM/README.md](../../docs/B2B2C/PPM/PROM/README.md)
 
 ---
 
-**Última actualización:** 2026-01-20  
-**Versión:** 0.1 (Draft)  
-**Estado:** 🔄 Pendiente de definición completa  
+**Última actualización:** 2026-01-23  
+**Versión:** 0.2  
+**Estado:** 🔄 Parcial (modelo confirmado; reglas finas y emisión pendientes)  
 **Responsable:** Equipo QA Célula Kepler
