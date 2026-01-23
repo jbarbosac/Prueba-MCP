@@ -435,8 +435,11 @@ instructions: |
   **Líder TL (Tech Lead):**
   - Fernando Zapata Montes
   
-  **PO:** 
+  **PO PPM:** 
   - Santiago Alvarez Perez
+
+    **PO ILS:** 
+  - Daniela Garcia Dederle
   
   **Equipo QA:**
   - Jose Eulises Barbosa Colorado
