@@ -34,8 +34,8 @@ MÉTODO 1: Tarjeta de Crédito/Débito
    → Emisión: AUTOMÁTICA
    → Flujo:
       • Transacción APROBADA → Estado: EMITIDA (email enviado)
-      • Transacción RECHAZADA → Estado: PENDIENTE PAGO (sin reintento de pago permitido)
-   → Estado final: EMITIDA o PENDIENTE PAGO
+      • Transacción RECHAZADA → Estado: PENDIENTE (requiere acción del agente)
+   → Estado final: EMITIDA o PENDIENTE
 
 MÉTODO 2: Pago en Agencia
    → Pago: 100% EFECTIVO O TARJETA EN AGENCIA
@@ -43,14 +43,14 @@ MÉTODO 2: Pago en Agencia
    → Emisión: MANUAL (requiere confirmación de pago)
    → Proceso:
       1. Cliente selecciona "Pago en Agencia" en checkout
-      2. Reserva queda en estado PENDIENTE PAGO
+      2. Reserva queda en estado PENDIENTE
       3. Cliente acude a agencia física
       4. Cliente paga (efectivo o tarjeta en agencia)
       5. Agente confirma pago en Admin
       6. Agente emite la reserva desde Admin
       7. Estado cambia a EMITIDA
       8. Se envía email automático al cliente
-   → Estado final: PENDIENTE PAGO → EMITIDA (tras confirmación en Admin)
+   → Estado final: PENDIENTE → EMITIDA (tras confirmación en Admin)
 ```
 
 ### CARGOS ADICIONALES (FEES) POR PRODUCTO:
@@ -73,10 +73,10 @@ MÉTODO 2: Pago en Agencia
 Markup (No Desglosado)
    → Tipo: Fijo o Porcentual
    → Visibilidad: No se desglosa en tarifa del cliente
-   → Observable: Se puede ver en endpoint de disponibilidad/pagos
+   → Observable: Se puede ver en los endpoint de disponibilidad/pagos
 ```
 
-**OTROS PRODUCTOS (Autos, Disney, Disney Eventos, Asistencias, Hoteles Disney):**
+**OTROS PRODUCTOS (Autos, Disney, Disney Eventos Especiales, Asistencias, Hoteles Disney):**
 ```
 Sin cargos adicionales
    → Precio = Precio del proveedor
@@ -99,8 +99,8 @@ Sin cargos adicionales
 - Todos los productos con **pago en agencia** → MANUAL
 - Flujo:
   1. Cliente selecciona "Pago en Agencia" en checkout
-  2. Reserva creada en estado: **PENDIENTE PAGO**
-  3. Cliente recibe instrucciones (email/pantalla) para pagar en agencia
+  2. Reserva creada en estado: **PENDIENTE**
+  3. Cliente recibe instrucciones (pantalla) para pagar en agencia
   4. Cliente acude a agencia física y paga (efectivo o tarjeta en agencia)
   5. **Agente confirma pago en Admin**
   6. **Agente emite la reserva desde Admin**
@@ -273,29 +273,192 @@ Estado: PENDIENTE (requiere intervención manual)
 
 | Estado | Descripción | ¿Cómo se llega a este estado? | Transiciones posibles |
 |--------|-------------|-------------------------------|----------------------|
-| **EMITIDA** | Reserva confirmada y emitida con proveedor. Cliente recibe voucher/confirmación por email. | **1.** Pago con tarjeta APROBADO + Emisión exitosa<br>**2.** Pago en agencia confirmado por agente + Emisión exitosa | → **[A DEFINIR]** (¿Cancelada? ¿Modificada?) |
-| **PENDIENTE PAGO** | Reserva creada pero esperando pago. Cliente debe acudir a agencia física. | **1.** Cliente selecciona "Pago en Agencia" en checkout<br>**2.** Pago con tarjeta RECHAZADO (no hay reintento) | → **EMITIDA** (tras pago confirmado en agencia)<br>→ **[A DEFINIR]** (¿Expirada? ¿Cancelada?) |
-| **PENDIENTE** | Reserva con pago aprobado pero emisión con proveedor falló. Requiere intervención manual. | **1.** Pago APROBADO pero endpoint de emisión del proveedor **FALLÓ** | → **EMITIDA** (tras reintento exitoso)<br>→ **[A DEFINIR]** (¿Cancelada? ¿Reembolsada?) |
-| **[A DEFINIR]** | [¿Existen otros estados? Ej: Cancelada, Modificada, Expirada, Reembolsada, etc.] | [A definir] | [A definir] |
+| **EMITIDA** | Reserva confirmada y emitida con proveedor. Cliente recibe voucher/confirmación por email. | **1.** Pago con tarjeta APROBADO + Emisión exitosa<br>**2.** Pago en agencia confirmado por agente + Emisión exitosa | → **CANCELADA** (solo por agente desde Admin) |
+| **PENDIENTE** | Reserva creada pero requiere acción del agente. Puede ser por: pago pendiente en agencia, pago con tarjeta rechazado o emisión fallida con proveedor. | **1.** Cliente selecciona "Pago en Agencia" en checkout<br>**2.** Pago con tarjeta RECHAZADO (requiere gestión del agente)<br>**3.** Pago con tarjeta APROBADO pero endpoint de emisión del proveedor **FALLÓ** | → **EMITIDA** (tras pago confirmado + emisión exitosa)<br>→ **PENDIENTE** (reintento emisión falla, continúa igual)<br>→ **CANCELADA** (por agente desde Admin) |
+| **CANCELADA** | Reserva cancelada por el agente desde el Admin. No se puede recuperar. | **1.** Agente cancela desde Admin una reserva en cualquier estado | → **Sin transiciones** (estado final) |
 
-**NOTAS:**
-- 📧 **Email automático se envía solo cuando reserva pasa a EMITIDA** (tanto para tarjeta como agencia)
-- 🔄 **Transiciones adicionales:** ¿Se pueden cancelar reservas? ¿Modificar? ¿Reembolsar? [A DEFINIR]
-- ❌ **Rechazo de tarjeta:** NO hay reintento de pago. Reserva pasa a PENDIENTE PAGO y cliente debe acudir a agencia
-- 🔀 **Dos caminos a PENDIENTE PAGO:** (1) Cliente elige "Pago en Agencia", (2) Pago con tarjeta rechazado
-- ⚠️ **PENDIENTE (falla emisión):** Pago aprobado pero emisión falló. Agente gestiona reintento desde Admin. NO hay reintento automático.
+---
+
+### 📋 REGLAS DE ESTADOS
+
+**✅ REGLAS DE CANCELACIÓN:**
+- ❌ **Cliente NO puede cancelar:** No existe opción de auto-cancelación para el cliente
+- ✅ **Agente SÍ puede cancelar:** Desde Admin, puede cancelar reservas en cualquier estado
+- 🔒 **Estado CANCELADA es final:** No hay reversión posible
+- ❌ **No existe estado REEMBOLSADA:** Las cancelaciones no generan estado de reembolso
+
+**✅ REGLAS DE MODIFICACIÓN:**
+- ❌ **Cliente NO puede modificar:** No existe funcionalidad de modificación de reservas
+- ❌ **No existe estado MODIFICADA:** Las reservas mantienen su estado original
+- 💡 **Alternativa:** Para cambios, el agente debe cancelar y crear nueva reserva
+
+**✅ REGLAS DE EMISIÓN FALLIDA (PENDIENTE):**
+- 🔄 **Reintento manual:** Agente reintenta emisión desde Admin
+- ♻️ **Reintento ilimitado:** Si falla, continúa en PENDIENTE para nuevos reintentos
+- ⚠️ **Sin reintento automático:** Sistema NO reintenta automáticamente
+- 🔧 **Resolución:** Agente decide continuar reintentando o cancelar la reserva
+
+**✅ REGLAS DE EXPIRACIÓN:**
+- ❌ **No existe estado EXPIRADA:** Las reservas PENDIENTE no expiran automáticamente
+- 🔧 **Gestión manual:** Si el cliente no paga, el agente debe cancelar manualmente desde Admin
+
+**❌ ESTADOS QUE NO EXISTEN:**
+- ❌ EXPIRADA
+- ❌ REEMBOLSADA
+- ❌ MODIFICADA
+- ❌ RECHAZADA
+- ❌ ERROR
+- ❌ EN PROCESO
+
+---
+
+### 📧 NOTIFICACIONES POR ESTADO
+
+| Estado | ¿Envía email al cliente? | ¿Notifica al agente? | Contenido |
+|--------|-------------------------|---------------------|-----------|
+| **EMITIDA** | ✅ SÍ (automático) | ❌ NO | Voucher/confirmación de reserva |
+| **PENDIENTE** | ✅ SÍ (automático) | ❌ NO | **Cliente:** Notificación indicando que la reserva quedó en estado reservado<br>**Agente:** Alerta para gestionar la reserva (pago pendiente, pago rechazado o emisión fallida) |
+| **CANCELADA** | ✅ SÍ (automático) | ❌ NO | Notificación de cancelación de reserva |
+
+---
+
+### 🔄 DIAGRAMA DE TRANSICIONES
+
+```
+┌─────────────────┐
+│  CHECKOUT       │
+└────────┬────────┘
+         │
+         ├──► Pago Tarjeta APROBADO + Emisión OK ──────────────────► EMITIDA ────┐
+         │                                                                │         │
+         ├──► Pago en Agencia seleccionado ─────────────────────────► PENDIENTE ──┤
+         │                                                                │         │
+         ├──► Pago Tarjeta RECHAZADO ───────────────────────────────────►  │        │
+         │                                                                │         │
+         └──► Pago Tarjeta APROBADO + Emisión FALLA ───────────────────►  │        │
+                                                                           │         │
+                    ┌──────────────────────────────────────────────────────┘         │
+                    │                                                                │
+                    │  Agente confirma pago + emite                                  │
+                    ▼                                                                │
+               ┌─────────┐                                                           │
+               │ EMITIDA │◄──────────────────────────────────────────────────────────┘
+               └────┬────┘                                                            
+                    │                                                                
+                    │  Agente cancela desde Admin                                    
+                    ▼                                                                
+            ┌──────────────┐          ┌─────────────────────────────────────────────┘
+            │  CANCELADA   │  ◄───────┤ Agente cancela desde Admin
+            │(estado final)│          │ (desde cualquier estado)
+            └──────────────┘          └─────────────────────────────────────────────
+```
+
+---
+
+### 📝 NOTAS IMPORTANTES
+
+- 📧 **Notificaciones por email:**
+  - ✅ **EMITIDA:** Email con voucher/confirmación
+  - ✅ **PENDIENTE:** Email informando que reserva quedó en estado reservado (requiere gestión)
+  - ✅ **CANCELADA:** Email notificando la cancelación de la reserva
+
+- ⚠️ **Estado PENDIENTE tiene 3 causas posibles:**
+  - 🏦 Cliente seleccionó "Pago en Agencia" (esperando pago)
+  - 💳 Pago con tarjeta RECHAZADO (requiere gestión del agente)
+  - ❌ Pago aprobado pero emisión con proveedor FALLÓ (requiere reintento)
+
+- 🔧 **Gestión manual requerida:** Todas las reservas PENDIENTE requieren acción del agente en Admin
+- ❌ **Pago rechazado NO reintenta:** Sistema NO permite reintento automático de pago. Agente debe gestionar
+- 🔄 **Sin límite de reintentos de emisión:** Cuando falla emisión, se puede reintentar indefinidamente
+- 🔒 **Gestión exclusiva por agente:** Solo el agente desde Admin puede cancelar reservas. Cliente no tiene esta opción
+- ⏱️ **Sin expiración automática:** Las reservas PENDIENTE NO expiran, deben ser gestionadas manualmente
 
 ---
 
 ## 📍 REGLAS ESPECÍFICAS DE PAÍS
 
-**Colombia (COP):**
-- [REGLA 1 A DEFINIR]
-- [REGLA 2 A DEFINIR]
-- [REGLA 3 A DEFINIR]
+**País:** Colombia  
+**Moneda principal:** COP (Pesos Colombianos)
 
-**Moneda:** COP (Pesos Colombianos)
-**Conversión:** [A DEFINIR]
+---
+
+### 🆔 DOCUMENTOS DE IDENTIDAD
+
+**Tipos de documentos aceptados:**
+- ✅ **Cédula de Ciudadanía** (Colombia)
+- ✅ **Pasaporte** (Internacional)
+
+**Validaciones:**
+- ✅ **Cédula de Ciudadanía:** Debe tener exactamente **10 dígitos**
+- ✅ **Pasaporte:** Formato alfanumérico estándar internacional
+
+---
+
+### 💰 MONEDA Y CONVERSIÓN
+
+**Regla general:**
+- 📍 **Todos los productos** se muestran y cobran en **COP (Pesos Colombianos)**
+
+**Excepciones por producto:**
+
+**🚗 AUTOS:**
+```
+Disponibilidad: Se muestra en USD por defecto
+              → Cliente puede cambiar visualización a COP
+Pago final:    Siempre se cobra en COP
+Conversión:    Sistema aplica conversión automática USD → COP al momento del pago
+```
+
+**🎢 DISNEY (Tickets Parques):**
+```
+Disponibilidad: Se muestra en USD
+Selección:      Se mantiene en USD
+Checkout:       Se cobra en USD
+Conversión:     NO se hace conversión a COP
+Nota:           Cliente paga directamente en dólares (USD)
+```
+
+**Resumen de monedas por producto:**
+| Producto | Moneda de visualización | Moneda de cobro | ¿Conversión? |
+|----------|------------------------|----------------|--------------|
+| Vuelos | COP | COP | No aplica |
+| Autos | USD (cambiable a COP) | COP | Sí (USD → COP) |
+| Disney | USD | USD | No |
+| Disney Eventos Especiales | USD | USD | No |
+| Asistencias | COP | COP | No aplica |
+| Actividades | COP | COP | No aplica |
+| Hoteles Disney | COP | COP | No aplica |
+
+---
+
+### 🧾 IMPUESTOS
+
+**VUELOS:**
+- ✅ **Impuestos desglosados:** Los impuestos se muestran de forma separada en el desglose de precio
+- 📋 **Visibilidad:** Cliente puede ver claramente cuánto corresponde a impuestos
+
+**OTROS PRODUCTOS:**
+- 📍 **Sin desglose confirmado:** No se especifica si hay impuestos desglosados
+- 💡 **Precio final:** Los precios pueden incluir impuestos, pero no se muestran de forma separada
+
+---
+
+### 💳 FORMAS DE PAGO
+
+**Pasarela de pago:**
+- 🏦 **PlacetoPay** (única pasarela habilitada)
+
+**Métodos de pago disponibles:**
+1. **Tarjeta de Crédito/Débito** (procesada por PlacetoPay)
+2. **Pago en Agencia Física** (efectivo o tarjeta en agencia)
+
+---
+
+### 🚫 REGULACIONES Y RESTRICCIONES
+
+**Restricciones por edad:**
+- ✅ **NO hay restricciones por edad** para ningún producto
+- 💡 **Nota:** El sistema permite reservas para todas las edades
 
 ---
 
