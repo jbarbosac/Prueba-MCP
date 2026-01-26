@@ -18,13 +18,28 @@
 ## � Organización por Células y Equipos
 
 ### 🤖 **Célula A - Skynet**
-**Alcance:** PCO, Mastercard, BAC  
+**Alcance:** PCO, Mastercard (MRS y Priceless 2X1) y BAC
 **Líder TM:** Juan Camilo Estrada 
+**Líder TL:** Edier Anchico Silva 
+
 **Equipo QA:**
-- Jenny Marcela Florez Hinestroza
-- Carlos Alberto Rubio Gallego
-- Natalia Gallego Rios
- 
+- Jenny Marcela Florez Hinestroza (BAC)
+- Carlos Alberto Rubio Gallego (Mastercard)
+- Natalia Gallego Rios (PCO)
+
+**Equipo Frontend:**
+- Sergio Mauricio Pimiento Niño (Mastercard)
+- Luddy Mileny Puerta Ruiz (BAC)
+- Ricardo Enrique Jaramillo (PCO)
+
+**Equipo Backend:**
+- Angelo Nieto (Mastercard)
+- Juan Esteban Alvarez (BAC)
+- Alber Joanny Carmona Salazar (PCO)
+
+**Producto Owner (PO) PCO:** Daniel Restrepo Restrepo
+**Producto Owner (PO) Mastercard y BAC:** Juan Bernardo Arias Hurtado
+
 ---
 
 ### 📦 **Célula B - Kepler**
