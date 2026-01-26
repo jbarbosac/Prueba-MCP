@@ -1,10 +1,26 @@
-# 🚗 FLUJO E2E OBLIGATORIO PARA AUTOS - PROMERICA REWARDS
+# 🚗 PRODUCTO: AUTOS - PROMERICA REWARDS
 
 > **📖 Información Global:** Ver [PROM_QA_Assistant.agent.md](../../../../agents/PROM_QA_Assistant.agent.md) para URL del portal, país activo, modelo de negocio y versión del marketplace.
 
 ---
 
-## 📦 PROVEEDORES DISPONIBLES
+## 📌 Descripción General
+
+El producto **Autos** permite a los usuarios del programa Promerica Rewards buscar, comparar y reservar vehículos de renta utilizando el modelo de pago híbrido **Puntos + Plata (Slider)**. El sistema integra múltiples rentadoras (Hertz, Dollar, Thrifty) a través de Sabre y ofrece búsqueda avanzada por localidades con mapa interactivo.
+
+**Características principales:**
+- Búsqueda por aeropuertos y ciudades con mapa sincronizado
+- Flexibilidad de devolución en mismo lugar o ubicación diferente (dropoff)
+- Modelo de pago flexible con slider Puntos + Plata
+- Múltiples categorías de vehículos (Standard, SUV, Premium, etc.)
+- Integración con rentadoras Hertz, Dollar y Thrifty vía Sabre
+- Soporte para códigos de descuento Hertz Gold y promocionales
+
+---
+
+## 📦 CONTEXTO OPERATIVO
+
+### Proveedores Disponibles
 
 ⚠️ **PENDIENTE DE DEFINIR**
 
@@ -13,29 +29,25 @@
 - Sabre → Hertz, Dollar, Thrifty
 - [Otros por confirmar]
 
----
-
-## 🔧 COMPONENTES TRANSVERSALES
+### Componentes Transversales
 
 > **Nota:** Estos componentes son compartidos por todos los productos del marketplace (Vuelos, Autos, Hoteles, Disney, Actividades). Ver detalle completo en [PROM_VUELOS.md](PROM_VUELOS.md#-componentes-transversales).
 
-### Header Global
+#### Header Global
 
 Barra superior con navegación principal, branding personalizado de Promerica y acceso de usuario.
 
-### Tabs de Productos
+#### Tabs de Productos
 
 Pestañas horizontales para navegación entre productos (Vuelos, **Autos**, Hoteles, Disney, Actividades).
 
-### Footer Global
+#### Footer Global
 
 Sección inferior con información institucional y canales de contacto personalizados por país.
 
----
+### Flujo E2E Obligatorio
 
-## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
-
-**Siempre incluir estos pasos desde login para el flujo completo de Autos:**
+**Estos pasos deben incluirse en todos los casos de prueba para asegurar trazabilidad completa:**
 
 ⚠️ **RESTRICCIÓN CRÍTICA DE PRUEBAS:**
 
@@ -62,8 +74,8 @@ Sección inferior con información institucional y canales de contacto personali
 14. **Navegar por categorías de vehículos** → Clic en pestañas (Standard, Intermediate, SUV, etc.) | Resultados filtran por categoría seleccionada
 15. **Aplicar filtros laterales** → Seleccionar tipo de auto, rentadora, transmisión | Resultados se actualizan dinámicamente
 16. **Alternar vista Lista/Matriz** → Clic en botones de vista | Visualización cambia entre cards verticales y tabla comparativa
-17. **Seleccionar vehículo** → Clic en card o botón dentro de card | ⚠️ Pendiente documentar: ¿Abre detalle expandido o redirige directo a checkout?
-18. **Revisar protecciones y seguros** → ⚠️ Pendiente documentar modal específico | ⚠️ Pendiente documentar opciones y comportamiento
+17. **Seleccionar vehículo** → Clic en card de resultado (vista lista) | Se abre modal de protecciones/seguros
+18. **Seleccionar protección/seguro** → Elegir una opción en el modal | Modal se cierra y el flujo continúa con vehículo + protección seleccionada
 19. **Ajustar slider Puntos + Plata** → ⚠️ Pendiente documentar ubicación y comportamiento | ⚠️ Pendiente documentar validación de saldo
 20. **Continuar a Checkout** → Clic en botón de confirmación | ⚠️ Pendiente documentar validaciones de checkout
 
@@ -75,21 +87,29 @@ Sección inferior con información institucional y canales de contacto personali
 24. **Validar confirmación** → Verificar código de reserva, voucher | ⚠️ Pendiente documentar datos mostrados
 25. **Verificar en Admin** → Buscar reserva en aplicativo Admin | ⚠️ Pendiente documentar validaciones de backend
 
-**Nota:** Los pasos 17-25 están pendientes de documentación completa según información de módulos Detalle, Checkout, Confirmación y Admin.
+**Nota:** Los pasos 19-25 están pendientes de documentación completa según información de módulos Detalle, Checkout, Confirmación y Admin.
 
 ---
 
 ## 🏠 MÓDULO: HOME/LOGIN
 
-**Descripción:** Página principal del marketplace donde el usuario accede al buscador de autos y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test).
+### 📋 Descripción del Módulo
 
----
+Página principal del marketplace donde el usuario accede al buscador de autos y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test). Este módulo proporciona búsqueda avanzada por localidades con mapa interactivo y flexibilidad para configurar recogida y devolución en lugares diferentes (dropoff).
 
-### Widget de Búsqueda de Autos
+### 🎨 FUNCIONALIDADES
 
-**Descripción:** Formulario principal para búsqueda de autos con selectores de ubicación, fechas y opciones de descuento.
+#### 🔹 Funcionalidad: Widget de Búsqueda de Autos
 
-**Componentes:**
+##### 📖 Descripción Funcional
+
+Formulario principal que permite a los usuarios configurar búsquedas de autos de renta especificando ubicaciones de recogida y devolución (mismo lugar o diferente), fechas/horas precisas, y códigos de descuento opcionales. El widget incluye un modal avanzado de búsqueda por localidades con mapa interactivo sincronizado para selección precisa de ubicaciones.
+
+**Ubicación:** Centro de la página de inicio, debajo del header y tabs de productos  
+**Tipo de componente:** Formulario interactivo con modal de búsqueda avanzada  
+**Acceso:** Disponible para todos los usuarios autenticados
+
+##### 🧩 Componentes
 
 1. **Selector "Recogida":**
    - Campo con ícono de ubicación
@@ -130,7 +150,7 @@ Sección inferior con información institucional y canales de contacto personali
    - Botón verde para ejecutar la búsqueda
    - Deshabilitado si faltan campos obligatorios
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Recogida:** Clic abre modal de búsqueda por localidades (búsqueda avanzada con mapa)
 - **Devolución:** Clic despliega dropdown categorizado (acceso rápido) o link para modal completo
@@ -141,7 +161,7 @@ Sección inferior con información institucional y canales de contacto personali
 - **Validación:** Recogida, devolución y fechas son obligatorias antes de buscar
 - Al hacer clic en "Buscar" → Redirige a módulo de Disponibilidad con resultados filtrados
 
-**Variaciones Móviles:**
+##### 📱 Variaciones Móviles
 
 - **Toggle "Pago en línea":** Aparece en la parte superior del widget (no visible en desktop)
 - **Modal de Recogida/Devolución:** Vista simplificada en pantalla completa con lista de aeropuertos y ciudades
@@ -151,13 +171,108 @@ Sección inferior con información institucional y canales de contacto personali
 - **Secciones de descuentos:** Se expanden en pantalla completa cuando el usuario interactúa
 - **Botón "Buscar":** Permanece fijo (sticky) en la parte inferior de la pantalla
 
+##### ✅ VALIDACIONES DE QA
+
+Estas validaciones deben incluirse en todos los casos de prueba que involucren el Widget de Búsqueda:
+
+- [ ] **VAL-AUT-HOME-001:** Recogida y devolución son obligatorias
+  - **Verificar:** Botón "Buscar" deshabilitado si falta alguna ubicación
+  
+- [ ] **VAL-AUT-HOME-002:** Fechas y horas obligatorias
+  - **Verificar:** No permite buscar sin seleccionar rango de fechas
+  
+- [ ] **VAL-AUT-HOME-006:** Dropoff diferente funciona
+  - **Verificar:** Permite seleccionar devolución en ubicación diferente a recogida
+  
+- [ ] **VAL-AUT-HOME-007:** Códigos Hertz son opcionales
+  - **Verificar:** Búsqueda funciona sin ingresar códigos de descuento
+  
+- [ ] **VAL-AUT-HOME-008:** Botón "Buscar" redirige a Disponibilidad
+  - **Verificar:** URL cambia y se muestran resultados según búsqueda
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 1: Búsqueda mismo lugar - MIA a MIA - 1 día - Hertz - P+P**
+- **Prioridad:** 1 (Crítico)
+- **Rentadora:** Hertz
+- **Modelo de pago:** Puntos + Plata (ejemplo 50% - según configuración)
+- **Precondición:** Usuario autenticado con saldo de puntos suficiente
+- **Pasos:**
+  1. Login → Acceder al portal Promerica
+  2. Navegar a tab "Autos"
+  3. Clic en campo "Recogida" → Abre modal de localidades
+  4. Escribir "MIA" en buscador
+  5. **Validar:** Resultados filtrados para Miami
+  6. Seleccionar "Miami International Airport (MIA)"
+  7. **Validar:** Modal se cierra, campo Recogida muestra "Miami Intl (MIA)"
+  8. Clic en campo "Devolución"
+  9. **Validar:** Muestra opción "Mismo lugar de recogida"
+  10. Seleccionar "Mismo lugar de recogida (Miami Intl)"
+  11. **Validar:** Campo Devolución muestra "Miami Intl (MIA)"
+  12. Clic en "Selecciona tus fechas"
+  13. Seleccionar fecha HOY + 7 días, hora 10:00
+  14. Seleccionar fecha HOY + 8 días (1 día renta), hora 10:00
+  15. **Validar:** Calendario muestra "1 día de renta"
+  16. Clic en "Aceptar"
+  17. **Validar:** Botón "Buscar" habilitado (verde)
+  18. Clic en botón "Buscar"
+  19. **Validar:** Redirección a módulo Disponibilidad
+  20. **Validar:** Widget persistente muestra "MIA → MIA • 1 día"
+  21. **Validar:** Resultados con modelo P+P visibles
+- **Resultado esperado:** Búsqueda exitosa mismo lugar con modelo P+P
+- **Título ADO:** `[PROM] Autos - Home - Búsqueda mismo lugar - MIA a MIA - 1 día - Hertz - P+P`
+
+**Escenario 2: Búsqueda dropoff diferente - MIA a JFK - 1 día - Dollar - P+P**
+- **Prioridad:** 1 (Crítico)
+- **Rentadora:** Dollar
+- **Modelo de pago:** Puntos + Plata (ejemplo 70% - según configuración)
+- **Precondición:** Usuario autenticado con saldo de puntos suficiente
+- **Pasos:**
+  1. Login → Acceder al portal Promerica
+  2. Navegar a tab "Autos"
+  3. Seleccionar Recogida: "Miami International Airport (MIA)"
+  4. **Validar:** Campo Recogida actualizado
+  5. Clic en campo "Devolución"
+  6. Escribir "JFK" en buscador del dropdown/modal
+  7. **Validar:** Resultados filtrados para Nueva York JFK
+  8. Seleccionar "John F. Kennedy Intl Airport (JFK)"
+  9. **Validar:** Campo Devolución muestra "JFK"
+  10. **Validar:** Sistema identifica dropoff diferente
+  11. Seleccionar fechas: HOY + 10 días (10:00) a HOY + 11 días (10:00)
+  12. **Validar:** Muestra "1 día de renta • Dropoff diferente"
+  13. Clic en "Buscar"
+  14. **Validar:** Redirección a Disponibilidad
+  15. **Validar:** Widget persistente muestra "MIA → JFK • 1 día"
+  16. **Validar:** Resultados incluyen recargo por dropoff diferente
+  17. **Validar:** Modelo P+P disponible con precio actualizado
+- **Resultado esperado:** Búsqueda exitosa con dropoff diferente y recargo aplicado
+- **Título ADO:** `[PROM] Autos - Home - Búsqueda dropoff diferente - MIA a JFK - 1 día - Dollar - P+P`
+
+**Escenario 3: Validación campos obligatorios**
+- **Prioridad:** 1 (Crítico)
+- **Precondición:** Usuario autenticado en el portal
+- **Pasos:**
+  1. Login → Navegar a Autos
+  2. **NO** seleccionar recogida
+  3. **Validar:** Botón "Buscar" deshabilitado (gris)
+  4. Seleccionar Recogida: MIA
+  5. **Validar:** Botón sigue deshabilitado (falta devolución)
+  6. Seleccionar Devolución: MIA (mismo lugar)
+  7. **Validar:** Botón sigue deshabilitado (faltan fechas)
+  8. Seleccionar fechas: HOY + 5 a HOY + 6 (1 día)
+  9. **Validar:** Botón "Buscar" ahora habilitado (verde)
+- **Resultado esperado:** Sistema valida campos obligatorios correctamente
+- **Título ADO:** `[PROM] Autos - Home - Validación campos obligatorios - MIA`
+
 ---
 
-### Modal de Búsqueda por Localidades
+#### 🔹 Funcionalidad: Modal de Búsqueda por Localidades
 
-**Descripción:** Modal emergente que permite buscar y seleccionar ubicaciones mediante campo de búsqueda, filtros de ciudades, lista de resultados y mapa interactivo sincronizado.
+##### 📖 Descripción Funcional
 
-**Componentes:**
+Modal emergente que permite buscar y seleccionar ubicaciones mediante campo de búsqueda, filtros de ciudades, lista de resultados y mapa interactivo sincronizado.
+
+##### 🧩 Componentes
 
 - **Título del Modal:** "Buscar por localidades"
 - **Botón Cerrar (X):** Esquina superior derecha
@@ -182,7 +297,7 @@ Sección inferior con información institucional y canales de contacto personali
   - "Lo sentimos, no hemos encontrado ningún resultado."
   - "Te recomendamos a buscar de nuevo con otra ciudad."
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Apertura:** Clic en "Recogida" o "Devolución" del widget principal
 - **Búsqueda:** Usuario escribe ciudad/localidad → Sistema filtra en tiempo real
@@ -193,6 +308,45 @@ Sección inferior con información institucional y canales de contacto personali
 - **Sin resultados:** Muestra mensaje de estado vacío (sin tabs ni lista)
 - **Cerrar:** Botón X o clic fuera → Cierra sin cambios
 
+##### ✅ VALIDACIONES DE QA
+
+Estas validaciones deben incluirse en casos que involucren la selección de localidades (Recogida/Devolución).
+
+- [ ] **VAL-AUT-HOME-003:** Modal de localidades abre correctamente
+   - **Verificar:** Clic en "Recogida" o "Ver todas las localidades" abre modal con buscador
+
+- [ ] **VAL-AUT-HOME-004:** Búsqueda por localidades filtra en tiempo real
+   - **Verificar:** Al escribir ciudad, resultados se filtran en tiempo razonable
+
+- [ ] **VAL-AUT-HOME-005:** Mapa sincronizado con lista
+   - **Verificar:** Hover/clic en lista resalta marcador y clic en marcador resalta item correspondiente
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 9: Home - Modal de localidades - Búsqueda y sincronización mapa-lista**
+- **Prioridad:** 2 (Alta)
+- **Precondición:** Usuario autenticado y en tab "Autos"
+- **Pasos:**
+   1. Clic en campo "Recogida" o en "Ver todas las localidades"
+   2. **Validar:** Se abre el modal con buscador y lista
+   3. Escribir un término de búsqueda (ej.: ciudad/aeropuerto)
+   4. **Validar:** La lista se filtra y el mapa se actualiza acorde
+   5. Hacer hover/clic sobre un resultado en la lista
+   6. **Validar:** El marcador correspondiente se resalta en el mapa
+   7. Clic en un marcador del mapa
+   8. **Validar:** El item correspondiente se resalta en la lista
+   9. Clic en "Seleccionar" en un resultado
+   10. **Validar:** El modal se cierra y el campo de ubicación se actualiza
+- **Resultado esperado:** El modal permite búsqueda, sincronización mapa-lista y selección sin inconsistencias
+- **Título ADO:** `[PROM] Autos - Home - Modal localidades - Búsqueda y sincronización`
+
+##### 🔗 Trazabilidad (VAL → Escenarios)
+
+- **VAL-AUT-HOME-001, VAL-AUT-HOME-002:** Escenario 3
+- **VAL-AUT-HOME-003, VAL-AUT-HOME-004, VAL-AUT-HOME-005:** Escenario 9
+- **VAL-AUT-HOME-006:** Escenario 2
+- **VAL-AUT-HOME-007, VAL-AUT-HOME-008:** Escenario 1 (y Escenario 2)
+
 ---
 
 ## 📋 MÓDULO: DISPONIBILIDAD
@@ -201,11 +355,15 @@ Sección inferior con información institucional y canales de contacto personali
 
 ---
 
-### Widget de Búsqueda Persistente
+### 🎨 FUNCIONALIDADES
 
-**Descripción:** Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad.
+#### 🔹 Funcionalidad: Widget de Búsqueda Persistente
 
-**Componentes:**
+##### 📖 Descripción Funcional
+
+Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad.
+
+##### 🧩 Componentes
 
 1. **Toggle "Pago en línea":** Switch verde/gris para activar/desactivar pago en línea
 
@@ -236,14 +394,14 @@ Sección inferior con información institucional y canales de contacto personali
 
 8. **Link "Ocultar búsqueda":** Texto pequeño en la esquina superior derecha para colapsar widget
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Widget persistente:** Permanece visible mientras el usuario navega los resultados
 - **Edición de criterios:** Clic en cualquier campo permite modificar búsqueda
 - **Botón "Buscar":** Actualiza resultados con nuevos criterios sin recargar página
 - **Ocultar/Mostrar:** Colapsa widget para dar más espacio a resultados
 
-**Variaciones Móviles:**
+##### 📱 Variaciones Móviles
 
 - **Widget colapsado por defecto:** Aparece como barra compacta con resumen
 - **Expansión del widget:** Tap en barra compacta expande en pantalla completa
@@ -252,20 +410,47 @@ Sección inferior con información institucional y canales de contacto personali
 - **Botón "Buscar":** Sticky en la parte inferior
 - **Botón "Cerrar/Colapsar":** Icono X permite volver a vista compacta
 
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-001:** Widget persistente muestra criterios correctos
+   - **Verificar:** Recogida, devolución, fechas/horas y descuentos reflejan la búsqueda ejecutada
+
+- [ ] **VAL-AUT-DISP-002:** Widget persistente permite editar criterios
+   - **Verificar:** Clic en Recogida/Devolución/Fechas permite editar y al presionar "Buscar" actualiza resultados
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 7: Disponibilidad - Widget persistente - Editar criterios y refrescar resultados**
+- **Prioridad:** 2 (Alta)
+- **Precondición:** Usuario autenticado
+- **Pasos:**
+   1. Login → Acceder al portal Promerica
+   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
+   3. **Validar:** Widget persistente visible con criterios actuales
+   4. Clic en campo "Recogida" del widget persistente y seleccionar una ubicación diferente
+   5. Clic en "Buscar"
+   6. **Validar:** Resultados se actualizan según el nuevo criterio sin recargar la página
+- **Resultado esperado:** El widget permite editar y refrescar resultados correctamente
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Widget persistente - Editar criterios`
+
 ---
 
-### Categorías de Vehículos
+#### 🔹 Funcionalidad: Categorías de Vehículos
 
-**Descripción:** Navegación por pestañas para filtrar rápidamente por categoría de auto.
+##### 📖 Descripción Funcional
 
-**Componentes:**
+Navegación por pestañas para filtrar rápidamente por categoría de auto.
+
+##### 🧩 Componentes
 
 1. **Pestañas horizontales con íconos:**
    - 🚗 **Standard** (activo - borde verde)
-   - 🚙 **Intermediate**
-   - 🚐 **SUV**
-   - 🛻 **Truck/Van**
-   - 🏎️ **Premium**
+   - 🚐 **Vans**
+   - 🚙 **Suv**
+   - 🏎️ **Luxury**
+   - 🏁 **Adrenaline**
+   - ⭐ **Prestige**
+   - 💎 **Dream**
    - 🌿 **Green**
 
 2. **Indicadores visuales:**
@@ -275,17 +460,17 @@ Sección inferior con información institucional y canales de contacto personali
 
 3. **Controles de vista (esquina superior derecha):**
    - 📋 **Botón Lista** (3 líneas horizontales)
-   - 📊 **Botón Matriz** (cuadrícula 3x3)
+   - 🔲 **Botón Matriz** (cuadrícula 2x2)
    - Botón activo en verde
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Clic en pestaña:** Filtra resultados por categoría seleccionada
 - **Visual feedback:** Pestaña activa se destaca con borde verde
 - **Cambio de vista:** Botones Lista/Matriz alternan visualización de resultados
 - **Estado persistente:** Categoría seleccionada se mantiene al cambiar vista
 
-**Variaciones Móviles:**
+##### 📱 Variaciones Móviles
 
 - **Scroll horizontal:** Pestañas se desplazan horizontalmente con swipe táctil
 - **Indicador de scroll:** Puntos o barra indica que hay más pestañas fuera de vista
@@ -293,13 +478,35 @@ Sección inferior con información institucional y canales de contacto personali
 - **Pestañas compactas:** Reducción de padding sin sacrificar legibilidad
 - **Touch feedback:** Animación rápida al tocar pestaña
 
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-003:** Categorías filtran resultados y conservan estado
+   - **Verificar:** Clic en categoría cambia resultados y la categoría se mantiene al cambiar de vista Lista/Matriz
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 8: Disponibilidad - Categorías - Filtrado por pestañas y persistencia al cambiar vista**
+- **Prioridad:** 3 (Media)
+- **Precondición:** Usuario autenticado
+- **Pasos:**
+   1. Login → Acceder al portal Promerica
+   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
+   3. Seleccionar una categoría diferente (ej.: "Vans")
+   4. **Validar:** Resultados cambian según la categoría seleccionada
+   5. Cambiar a vista matriz (🔲) y volver a vista lista (📋)
+   6. **Validar:** La categoría seleccionada se mantiene activa tras el cambio de vista
+- **Resultado esperado:** Las categorías filtran y mantienen estado al alternar vistas
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Categorías - Filtrado y persistencia`
+
 ---
 
-### Filtros
+#### 🔹 Funcionalidad: Filtros
 
-**Descripción:** Panel lateral de filtros para refinar búsqueda de autos según tipo, rentadora y transmisión.
+##### 📖 Descripción Funcional
 
-**Componentes:**
+Panel lateral de filtros para refinar búsqueda de autos según tipo, rentadora y transmisión.
+
+##### 🧩 Componentes
 
 1. **Título de Sección:** "Filtros" (texto destacado)
 
@@ -325,7 +532,7 @@ Sección inferior con información institucional y canales de contacto personali
 - Espaciado vertical entre filtros
 - Dropdowns con borde gris claro y esquinas redondeadas
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Clic en dropdown:** Despliega lista de opciones disponibles
 - **Selección:** Al elegir opción → Actualiza resultados en tiempo real
@@ -333,7 +540,7 @@ Sección inferior con información institucional y canales de contacto personali
 - **Resetear:** Seleccionar "Todas" vuelve al estado inicial del filtro
 - **Persistencia:** Los filtros se mantienen al cambiar entre vista lista/matriz
 
-**Variaciones Móviles:**
+##### 📱 Variaciones Móviles
 
 - **Botón flotante "Filtros":** Ícono flotante (🔽) en esquina inferior derecha
 - **Panel modal:** Filtros como modal/sheet desde el fondo (70-80% altura)
@@ -343,13 +550,38 @@ Sección inferior con información institucional y canales de contacto personali
 - **Botones de acción:** "Limpiar filtros" y "Aplicar" (verde) en parte inferior
 - **Cerrar modal:** Swipe hacia abajo o tap en overlay oscuro
 
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-004:** Filtros laterales aplican de forma acumulativa
+   - **Verificar:** Tipo de auto + rentadora + transmisión aplican AND; seleccionar "Todas" resetea
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 4: Disponibilidad - Filtros acumulativos por rentadora y transmisión**
+- **Prioridad:** 2 (Alta)
+- **Precondición:** Usuario autenticado
+- **Pasos:**
+   1. Login → Acceder al portal Promerica
+   2. Navegar a tab "Autos"
+   3. Ejecutar una búsqueda válida (recogida, devolución, fechas)
+   4. **Validar:** Se muestra módulo Disponibilidad y el widget persistente
+   5. En filtros, seleccionar una **Rentadora** (ej.: Hertz)
+   6. Seleccionar **Transmisión** (ej.: Automática)
+   7. **Validar:** Resultados se actualizan dinámicamente (sin recargar página)
+   8. Cambiar el filtro de Rentadora a "Todas"
+   9. **Validar:** Resultados vuelven a incluir múltiples rentadoras
+- **Resultado esperado:** Filtros se aplican acumulativamente y se pueden resetear
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Filtros acumulativos - Rentadora + Transmisión`
+
 ---
 
-### Cards de Resultados (Vista Lista)
+#### 🔹 Funcionalidad: Cards de Resultados (Vista Lista)
 
-**Descripción:** Tarjetas individuales que muestran información detallada de cada vehículo disponible.
+##### 📖 Descripción Funcional
 
-**Componentes (por cada card):**
+Tarjetas individuales que muestran información detallada de cada vehículo disponible.
+
+##### 🧩 Componentes (por cada card)
 
 1. **Ícono de información (i):** Esquina superior izquierda del card
 
@@ -361,14 +593,15 @@ Sección inferior con información institucional y canales de contacto personali
 
 4. **Especificaciones con íconos:**
    - 👤 **Pasajeros:** Número (ej: 4)
-   - 🧳 **Maletas grandes:** Número (ej: 2)
-   - 💼 **Maletas pequeñas:** Número (ej: 2)
+   - 🚪 **Puertas:** Número (ej: 4)
+   - 🧳 **Maletas:** Número (ej: 2)
+   - ❄️ **A/C:** Ícono de aire acondicionado
    - ⚙️ **Transmisión:** Ícono de automático (A)
 
 5. **Precio:**
    - Label: "Desde" (pequeño, parte superior derecha)
    - Precio: "USD $300" (grande, negrita)
-   - ⚠️ **Pendiente:** ¿Se muestra en Puntos + Plata también?
+   - ⚠️ **Nota (según configuración):** La visualización del precio bajo modelo Puntos + Plata puede variar (pendiente confirmar si se presenta en card)
 
 6. **Logos de Rentadoras:**
    - Badges rectangulares con logos: Thrifty, Dollar, Hertz
@@ -381,15 +614,15 @@ Sección inferior con información institucional y canales de contacto personali
 - Íconos en color gris/negro con estilo minimalista
 - Logos de rentadoras con bordes redondeados
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
 - **Hover en card:** Sombra más pronunciada o borde destacado
 - **Clic en ícono (i):** Muestra tooltip con información adicional del vehículo
-- **Clic en card completo:** ⚠️ Pendiente definir: ¿Abre modal de detalle o redirige a checkout?
-- **Clic en logo rentadora:** ⚠️ Pendiente definir: ¿Filtra por esa compañía?
+- **Clic en card completo:** Abre modal de selección de protecciones/seguros
+- **Clic en logo rentadora:** Filtra resultados por esa compañía específica
 - **Scroll:** Carga lazy de cards adicionales conforme usuario navega
 
-**Variaciones Móviles:**
+##### 📱 Variaciones Móviles
 
 - **Cards apiladas verticalmente:** Ocupan ancho completo con scroll vertical
 - **Imagen más pequeña:** Proporción reducida para optimizar espacio
@@ -398,27 +631,154 @@ Sección inferior con información institucional y canales de contacto personali
 - **Precio más prominente:** Tamaño aumentado para mejor visibilidad
 - **Touch targets:** Áreas de toque más grandes para botones
 
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-005:** Cards muestran información mínima requerida
+   - **Verificar:** Categoría/modelo, specs (👤, 🚪, 🧳, ❄️A/C, ⚙️), precio y logos de rentadora
+
+- [ ] **VAL-AUT-DISP-006:** Clic en card abre modal de protecciones
+   - **Verificar:** Clic en card de vehículo abre el modal con info del vehículo y opciones de protección
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 10: Disponibilidad - Cards - Filtrado por logo de rentadora**
+- **Prioridad:** 3 (Media)
+- **Precondición:** Usuario autenticado y con resultados en Disponibilidad
+- **Pasos:**
+   1. Identificar una card que muestre múltiples logos de rentadora
+   2. Clic en el logo de una rentadora (ej.: Hertz)
+   3. **Validar:** Los resultados se filtran para mostrar únicamente esa rentadora
+   4. Clic en el ícono de información (i) de una card
+   5. **Validar:** Se muestra tooltip con información adicional del vehículo
+- **Resultado esperado:** El logo filtra resultados y el tooltip se presenta correctamente
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Cards - Filtrado por rentadora`
+
 ---
 
-### Vista Matriz de Comparación
+#### 🔹 Funcionalidad: Vista Matriz de Comparación
 
-**Descripción:** Tabla comparativa que permite ver múltiples vehículos lado a lado.
+##### 📖 Descripción Funcional
 
-⚠️ **PENDIENTE:** El Knowledge Base menciona esta funcionalidad pero no detalla los componentes específicos.
+Visualización alternativa que muestra múltiples vehículos en formato de tabla comparativa con precios por rentadora.
 
-**Componentes esperados:**
+##### 🧩 Componentes
 
-- Tabla con columnas por vehículo
-- Filas comparativas de características
-- Encabezado con imagen y modelo
-- Precios alineados
-- Botones de selección por columna
+1. **Encabezado de Vehículos (3 columnas):**
+    - Cada columna incluye:
+       - Imagen del vehículo
+       - Categoría (negrita)
+       - Modelo (gris)
+       - Especificaciones con íconos (👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A)
+       - Precio desde (ejemplo: "USD $300")
 
-**Comportamiento esperado:**
+2. **Banner de Comparación de Precios:**
+    - Texto de comparación
+    - Fondo verde oscuro
+    - Ubicación: debajo de los encabezados de vehículos
 
-- Scroll horizontal en vista de tabla
-- Comparación visual rápida de características
-- Selección directa desde la tabla
+3. **Tabla de Protecciones por Rentadora:**
+    - Fila de encabezados por tipo de protección (ej.: "Solo auto", "Protección Básica", "Protección Básica Plus", "Protección Full")
+    - Íconos de información (❓) por tipo de protección
+    - Filas por rentadora con logo + precios por celda
+
+4. **Indicadores Visuales:**
+    - Badge "Recomendado" (cuando aplique)
+    - Bordes sutiles entre celdas
+
+##### 💻 Comportamiento Esperado
+
+- **Activación:** Clic en botón de vista matriz (🔲) en controles superiores
+- **Cambio de vista:** Transición suave entre vista lista y vista matriz
+- **Selección de celda:** Clic en cualquier precio selecciona vehículo + rentadora + protección
+- **Ícono info (❓):** Hover o clic muestra tooltip con descripción de coberturas incluidas
+- **Filtros activos:** Se mantienen al cambiar entre vista lista/matriz
+- **Flujo:** Selección de celda → Redirige a Checkout con configuración completa (vehículo + rentadora + protección)
+
+##### 📱 Variaciones Móviles
+
+- Scroll horizontal para ver todas las columnas
+- Encabezados de vehículos sticky (se mantienen visibles al scrollear)
+
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-008:** Vista Matriz permite selección por celda
+   - **Verificar:** Clic en precio/celda selecciona vehículo+rentadora+protección y redirige a Checkout
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 6: Disponibilidad - Vista matriz selecciona configuración por celda**
+- **Prioridad:** 2 (Alta)
+- **Precondición:** Usuario autenticado
+- **Pasos:**
+   1. Login → Acceder al portal Promerica
+   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
+   3. En controles superiores, activar vista matriz (🔲)
+   4. **Validar:** Se muestra tabla comparativa con rentadoras y tipos de protección
+   5. Clic en una celda de precio
+   6. **Validar:** Sistema selecciona vehículo + rentadora + protección y continúa a Checkout
+- **Resultado esperado:** Vista matriz permite selección directa por celda
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Selección vista matriz - Por celda`
+
+---
+
+#### 🔹 Funcionalidad: Modal de Protecciones y Seguros
+
+##### 📖 Descripción Funcional
+
+Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuario elegir entre diferentes niveles de protección y cobertura antes de continuar al checkout.
+
+##### 🧩 Componentes
+
+1. **Información del Vehículo (Header del modal):**
+    - Categoría y modelo (ejemplo)
+    - Especificaciones: 👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A
+    - Precio base (ejemplo)
+
+2. **Opciones de Protección (4 cards):**
+    - "Solo Auto"
+    - "Protección Básica"
+    - "Protección Básica Plus" (puede estar marcada como ⭐ Recomendado)
+    - "Protección Full"
+    - Cada opción presenta: lista de coberturas (bullets), precio (ejemplo) y botón "Ver detalle"
+
+##### 💻 Comportamiento Esperado
+
+- **Apertura:** Se activa al hacer clic en cualquier card de vehículo (vista lista)
+- **Selección:** Clic en el card de una protección (excepto "Ver detalle") selecciona la opción y cierra el modal
+- **Ver detalle:** Expande descripción completa de coberturas sin cerrar el modal
+- **Cierre:** Clic fuera del modal o botón X (si existe) cierra sin seleccionar
+- **Flujo:** Selección de protección → Redirige a Checkout con vehículo + protección elegida
+
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-AUT-DISP-007:** Selección de protección continúa a Checkout
+  - **Verificar:** Seleccionar una opción (excepto "Ver detalle") cierra modal y continúa el flujo con la selección aplicada
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 5: Disponibilidad - Selección en vista lista abre modal y continúa a Checkout**
+- **Prioridad:** 1 (Crítico)
+- **Precondición:** Usuario autenticado
+- **Pasos:**
+  1. Login → Acceder al portal Promerica
+  2. Navegar a tab "Autos" y ejecutar una búsqueda válida
+  3. **Validar:** Cards de resultados visibles
+  4. Clic en un card de vehículo
+  5. **Validar:** Se abre el Modal de Protecciones y Seguros
+  6. Clic en una opción de protección (no en "Ver detalle")
+  7. **Validar:** Modal se cierra
+  8. **Validar:** El flujo continúa a Checkout con vehículo + protección seleccionada
+- **Resultado esperado:** Selección en card → modal → checkout sin inconsistencias
+- **Título ADO:** `[PROM] Autos - Disponibilidad - Selección vista lista - Modal protecciones`
+
+##### 🔗 Trazabilidad (VAL → Escenarios)
+
+- **VAL-AUT-DISP-001, VAL-AUT-DISP-002:** Escenario 7
+- **VAL-AUT-DISP-003:** Escenario 8
+- **VAL-AUT-DISP-004:** Escenario 4
+- **VAL-AUT-DISP-005:** Escenario 10
+- **VAL-AUT-DISP-006, VAL-AUT-DISP-007:** Escenario 5
+- **VAL-AUT-DISP-008:** Escenario 6
 
 ---
 
@@ -457,7 +817,7 @@ Sección inferior con información institucional y canales de contacto personali
 ✅ Categorías: Filtrado dinámico al cambiar pestaña  
 ✅ Filtros laterales: Actualización en tiempo real sin recargar  
 ✅ Vista Lista: Cards con toda información necesaria  
-✅ Vista Matriz: Comparación lado a lado (pendiente documentar)  
+✅ Vista Matriz: Comparación lado a lado  
 ✅ Carga lazy: Resultados adicionales al hacer scroll
 
 **Checkout:**
@@ -497,14 +857,14 @@ Sección inferior con información institucional y canales de contacto personali
 ## 📝 FORMATO DE TÍTULO
 
 ```
-[PROM] Autos - [Días] - [Rentadora] - [Dropoff] - [Tipo de vehículo] - [Modelo de pago]
+[PROM] Autos - [Módulo/Escenario] - [Variante]
 ```
 
 **Ejemplos actualizados:**
 
-- `[PROM] Autos - 5 días - Hertz - Dropoff diferente - SUV - Puntos + Plata`
-- `[PROM] Autos - 3 días - Dollar - Mismo lugar - Económico - Solo Puntos`
-- `[PROM] Autos - 7 días - Thrifty - Mismo lugar - Standard - Puntos + Plata (60%)`
+- `[PROM] Autos - Home - Búsqueda mismo lugar - MIA a MIA - 1 día - P+P`
+- `[PROM] Autos - Disponibilidad - Filtros acumulativos - Rentadora + Transmisión`
+- `[PROM] Autos - Disponibilidad - Selección vista lista - Modal protecciones`
 
 ---
 
@@ -515,14 +875,12 @@ Sección inferior con información institucional y canales de contacto personali
 ✅ **Componentes Transversales** - Referencia a vuelos (Header, Tabs, Footer)  
 ✅ **Pasos Obligatorios del Flujo E2E** - 25 pasos documentados (pasos 1-16 completos, 17-25 pendientes)  
 ✅ **Módulo Home/Login** - Widget de búsqueda con 7 componentes + Modal de localidades  
-✅ **Módulo Disponibilidad** - 5 funcionalidades: Widget persistente, Categorías, Filtros, Cards Lista, Vista Matriz (parcial)
+✅ **Módulo Disponibilidad** - 6 funcionalidades: Widget persistente, Categorías, Filtros, Cards Lista, Vista Matriz, Modal de Protecciones
 
 ### Módulos Pendientes:
 
 **1. Disponibilidad - Completar:**
 
-- Vista Matriz de Comparación (detalles de componentes)
-- Modal de Protecciones y Seguros
 - Detalle expandido del vehículo
 - Slider Puntos + Plata (ubicación y comportamiento)
 
@@ -605,6 +963,26 @@ Sección inferior con información institucional y canales de contacto personali
 ---
 
 ## 🔄 CONTROL DE CAMBIOS
+
+### Versión 1.0 - 2026-01-25
+
+**Cambios principales:**
+
+- ✅ Aplicada arquitectura híbrida (propósito dual: humanos + agente QA)
+- ✅ Reorganizada jerarquía según estructura estándar de productos
+- ✅ Módulo Home/LOGIN con estructura completa:
+  - 📖 Descripción Funcional
+  - 🧩 Componentes (tabla estructurada)
+  - 💻 Comportamiento Esperado
+  - ✅ Validaciones de QA (8 validaciones)
+  - 🧪 Escenarios de Prueba (4 escenarios detallados)
+- ✅ Escenarios E2E con rutas reales:
+  - **MIA → MIA:** Miami mismo lugar (Hertz, Thrifty)
+  - **MIA → JFK:** Miami a Nueva York dropoff diferente (Dollar)
+- ✅ Todos los escenarios con 1 día de renta, 1 conductor, modelo P+P
+- ✅ Variaciones por rentadora: Hertz, Dollar, Thrifty
+- ✅ Formato optimizado para generación de casos por agente
+- ✅ Información completa para consulta humana
 
 ### Versión 0.3 - 2026-01-23
 

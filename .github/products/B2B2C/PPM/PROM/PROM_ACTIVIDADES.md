@@ -1,10 +1,26 @@
-# 🎢 FLUJO E2E OBLIGATORIO PARA ACTIVIDADES - PROMERICA REWARDS
+# 🎢 PRODUCTO: ACTIVIDADES - PROMERICA REWARDS
 
 > **📖 Información Global:** Ver [PROM_QA_Assistant.agent.md](../../../../agents/PROM_QA_Assistant.agent.md) para URL del portal, país activo, modelo de negocio y versión del marketplace.
 
 ---
 
-## 📦 PROVEEDORES DISPONIBLES
+## 📌 Descripción General
+
+Producto de Actividades en el marketplace Promerica Rewards que permite a usuarios canjear puntos o combinación Puntos + Plata para reservar experiencias, tours, excursiones y actividades turísticas a nivel internacional.
+
+**Características principales:**
+1. **Búsqueda flexible:** Destino, rango de fechas, y configuración de visitantes con edades
+2. **Catálogo amplio:** Actividades de HotelBeds con múltiples categorías (tours, excursiones, entradas, experiencias)
+3. **Modelo de pago:** Puntos + Plata con slider ajustable
+4. **Filtrado avanzado:** Categorías, precio, duración, calificación
+5. **Información detallada:** Descripciones, itinerarios, qué incluye/no incluye, políticas de cancelación
+6. **Reserva en línea:** Proceso completo desde selección hasta voucher descargable
+
+---
+
+## 📦 CONTEXTO OPERATIVO
+
+### Proveedores Disponibles
 
 **Proveedor confirmado:**
 
@@ -12,27 +28,23 @@
 
 ⚠️ **Pendiente validar:** Si existen proveedores adicionales o alternativas
 
----
-
-## 🔧 COMPONENTES TRANSVERSALES
+### Componentes Transversales
 
 > **Nota:** Estos componentes son compartidos por todos los productos del marketplace (Vuelos, Autos, Hoteles, Disney, **Actividades**). Ver detalle completo en [PROM_VUELOS.md](PROM_VUELOS.md#-componentes-transversales).
 
-### Header Global
+#### Header Global
 
 Barra superior con navegación principal, branding personalizado de Promerica y acceso de usuario.
 
-### Tabs de Productos
+#### Tabs de Productos
 
 Pestañas horizontales para navegación entre productos (Vuelos, Autos, Hoteles, Disney, **Actividades**).
 
-### Footer Global
+#### Footer Global
 
 Sección inferior con información institucional y canales de contacto personalizados por país.
 
----
-
-## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
+### Flujo E2E Obligatorio
 
 **Siempre incluir estos pasos desde login para el flujo completo de Actividades:**
 
@@ -42,13 +54,13 @@ Sección inferior con información institucional y canales de contacto personali
 4. **Seleccionar destino** → Clic en campo "Destino" o "¿A dónde quieres ir?" | Modal de búsqueda de destinos se abre
 5. **Buscar y seleccionar ciudad** → Escribir ciudad/país en buscador | Sistema filtra resultados y muestra lista de destinos
 6. **Confirmar destino** → Clic en ciudad deseada de la lista | Modal se cierra y campo "Destino" se actualiza con selección
-7. **Seleccionar fecha** → Clic en campo "Fecha" o calendario | Calendario mensual se abre
-8. **Confirmar fecha de actividad** → Seleccionar fecha específica | Calendario se cierra y campo muestra fecha seleccionada
-9. **Configurar participantes** → Clic en campo "Participantes" o "Viajeros" | Dropdown de participantes se abre
-10. **Ajustar cantidades por edad** → Seleccionar adultos, niños, infantes según rangos de edad | Campos se actualizan con cantidades
-11. **Confirmar participantes** → Clic en "Listo" o fuera del dropdown | Dropdown se cierra y campo muestra resumen (ej: "2 adultos, 1 niño")
+7. **Seleccionar fechas** → Clic en campo "Selecciona tus fechas" | Calendario mensual se abre
+8. **Confirmar rango de fechas** → Seleccionar fecha inicio y fecha fin | Calendario se cierra y campo muestra el rango seleccionado
+9. **Configurar visitantes** → Clic en campo "Visitantes" | Dropdown/modal de visitantes se abre
+10. **Ajustar cantidad** → Seleccionar cantidad de pasajeros con botones +/- | Sistema muestra dropdowns de edad por cada pasajero
+11. **Confirmar visitantes** → Clic en "Aceptar" o fuera del modal | Modal se cierra y campo muestra resumen (ej: "2 pasajeros")
 12. **Ejecutar búsqueda** → Clic en botón "Buscar" verde | Sistema redirige a módulo de Disponibilidad con resultados
-13. **Revisar widget de búsqueda persistente** → Verificar resumen de criterios en parte superior | Widget compacto muestra destino, fecha, participantes
+13. **Revisar widget de búsqueda persistente** → Verificar resumen de criterios en parte superior | Widget compacto muestra destino, fechas y visitantes
 14. **Navegar por lista de actividades** → Scroll por resultados | Cards de actividades se muestran con información básica
 15. **Aplicar filtros laterales** → Seleccionar categoría, precio, duración | Resultados se actualizan dinámicamente
 16. **Ver detalle de actividad** → Clic en card o botón "Ver más" | ⚠️ Pendiente documentar: ¿Abre modal de detalle o redirige a nueva página?
@@ -69,275 +81,424 @@ Sección inferior con información institucional y canales de contacto personali
 
 ## 🏠 MÓDULO: HOME/LOGIN
 
-**Descripción:** Página principal del marketplace donde el usuario accede al buscador de actividades y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test).
+### 📋 Descripción del Módulo
 
----
+Página principal del marketplace donde el usuario accede al buscador de actividades y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test).
 
-### Widget de Búsqueda de Actividades
+### 🎨 FUNCIONALIDADES
 
-**Descripción:** Formulario principal para búsqueda de actividades con selectores de destino, fecha y participantes.
+#### 🔹 Funcionalidad: Widget de Búsqueda de Actividades
 
-**Componentes:**
+##### 📖 Descripción Funcional
+
+Formulario principal para búsqueda de actividades con selectores de destino, rango de fechas y visitantes. Permite configurar criterios básicos antes de buscar experiencias y tours disponibles.
+
+**Ubicación:** Centro de la página de inicio, debajo del header y tabs de productos  
+**Tipo de componente:** Formulario interactivo con modal de destinos y calendario  
+**Acceso:** Disponible para todos los usuarios autenticados
+
+##### 🧩 Componentes
 
 1. **Selector "Destino":**
    - Campo con ícono de ubicación
    - Placeholder: "¿A dónde quieres ir?"
    - Clic abre modal de búsqueda de destinos
+   - Campo obligatorio
 
-2. **Selector "Fecha":**
+2. **Selector "Selecciona tus fechas":**
    - Campo con ícono de calendario
-   - Placeholder: "Selecciona tu fecha"
-   - Clic abre calendario mensual
-   - Nota: Actividades típicamente requieren solo UNA fecha (día de la actividad)
+  - Placeholder: "Selecciona tus fechas"
+  - Clic abre calendario mensual (rango inicio/fin)
+   - Campo obligatorio
 
-3. **Selector "Participantes" o "Viajeros":**
+3. **Dropdown "Visitantes":**
    - Campo con ícono de personas
-   - Placeholder: "Participantes"
-   - Clic abre dropdown con controles por rango de edad
+  - Placeholder: "Visitantes"
+  - Valor por defecto: "1 adulto"
+  - Clic abre modal de visitantes con controles +/-
+  - Muestra resumen dinámico (ej: "1 adulto", "2 pasajeros")
+   - Campo obligatorio
 
-4. **Botón Buscar:**
-   - Botón verde para ejecutar la búsqueda
-   - Deshabilitado si faltan campos obligatorios
+4. **Botón "Buscar":**
+   - Color: Verde institucional (#00563F)
+   - Texto: "Buscar" en blanco, centrado
+   - Estado deshabilitado (gris) si faltan campos obligatorios
+   - Habilitado (verde) cuando todos los campos están completos
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
-- **Destino:** Clic abre modal con buscador de ciudades/países
-- **Fecha:** Clic abre calendario mensual con navegación, validación de fechas pasadas
-- **Participantes:** Dropdown con controles + / - por rango de edad (adultos, niños, infantes)
-- **Validación:** Destino, fecha y participantes son obligatorios antes de buscar
-- Al hacer clic en "Buscar" → Redirige a módulo de Disponibilidad con resultados filtrados
+**Interacción con selector de destino (Modal de búsqueda):**
+- Clic en campo "Destino" abre modal emergente "¿A dónde quieres ir?"
+- **Componentes del modal:**
+  - Título: "¿A dónde quieres ir?" o "Buscar destino"
+  - Botón Cerrar (X) en esquina superior derecha
+  - Campo de búsqueda con ícono de lupa, placeholder: "Ciudad o país"
+  - Lista scrollable de resultados con formato: "Nombre Ciudad | País"
+    - Ejemplo: "San José | Costa Rica"
+  - Sugerencias populares (opcional) cuando el campo está vacío
+  - Mensaje de estado vacío: "No se encontraron resultados" / "Intenta con otro destino"
+- **Comportamiento de búsqueda:**
+  - Usuario escribe destino → Sistema filtra en tiempo real (< 1 seg)
+  - Resultados encontrados → Muestra lista de ciudades coincidentes
+  - Sin resultados → Muestra mensaje de estado vacío
+  - Clic en destino de la lista → Cierra modal y actualiza campo "Destino" con selección
+  - Botón X o clic fuera del modal → Cierra sin aplicar cambios
 
-**Variaciones Móviles:**
-
-- **Campos apilados verticalmente:** Cada campo ocupa ancho completo
-- **Modal de destino:** Pantalla completa con buscador
-- **Calendario:** Vista en pantalla completa con navegación táctil
-- **Dropdown participantes:** Expansión fullscreen con controles grandes
-- **Botón "Buscar":** Sticky en la parte inferior de la pantalla
-
----
-
-### Modal de Búsqueda de Destinos
-
-**Descripción:** Modal emergente que permite buscar y seleccionar destinos para actividades.
-
-**Componentes:**
-
-- **Título del Modal:** "¿A dónde quieres ir?" o "Buscar destino"
-- **Botón Cerrar (X):** Esquina superior derecha
-- **Campo de Búsqueda:**
-  - Barra de texto con ícono de lupa
-  - Placeholder: "Ciudad o país"
-- **Lista de Resultados:**
-  - Panel scrollable con formato: Nombre Ciudad | País
-  - Ejemplo: "San José | Costa Rica"
-- **Sugerencias Populares (opcional):**
-  - Lista de destinos frecuentes o destacados
-  - Aparece cuando el campo está vacío
-- **Mensaje de Estado Vacío:**
-  - "No se encontraron resultados"
-  - "Intenta con otro destino"
-
-**Comportamiento esperado:**
-
-- **Apertura:** Clic en campo "Destino" del widget principal
-- **Búsqueda:** Usuario escribe destino → Sistema filtra en tiempo real
-- **Resultados encontrados:** Muestra lista de ciudades coincidentes
-- **Selección:** Clic en destino → Cierra modal y actualiza campo "Destino"
-- **Sin resultados:** Muestra mensaje de estado vacío
-- **Cerrar:** Botón X o clic fuera → Cierra sin cambios
-
----
-
-### Calendario de Fecha
-
-**Descripción:** Componente de calendario para seleccionar fecha de la actividad.
-
-**Componentes:**
-
-- **Navegación de Mes/Año:**
-  - Flechas izquierda/derecha para cambiar mes
+**Interacción con selector de fecha (Calendario):**
+- Clic en campo "Selecciona tus fechas" abre calendario interactivo (selección de rango)
+- **Componentes del calendario:**
+  - Navegación de mes/año: Flechas < > para cambiar mes
   - Selector de mes y año en encabezado
-- **Grilla de Días:**
-  - Días de la semana (Lun-Dom)
-  - Días del mes con estado visual
-- **Indicadores Visuales:**
-  - Día actual destacado
-  - Fechas pasadas deshabilitadas
-  - Fecha seleccionada (verde)
-- **Botones de Acción:**
-  - "Cancelar" (cierra sin cambios)
-  - "Aceptar" (confirma selección) - botón verde
+  - Vista desktop (según UI): Calendario dual (dos meses lado a lado)
+  - Grilla de días: Días de la semana (L, M, M, J, V, S, D)
+  - Indicadores visuales:
+    - Día actual destacado
+    - Fechas pasadas deshabilitadas (gris)
+    - Fecha inicio seleccionada (verde)
+    - Rango seleccionado (verde claro)
+    - Fecha fin seleccionada (verde)
+  - Botones de acción: "Cancelar" (cierra sin cambios) y "Aceptar" (verde, confirma selección)
+- **Comportamiento de selección:**
+  - Primer clic selecciona fecha inicio
+  - Segundo clic selecciona fecha fin (debe ser posterior)
+  - No permite fechas pasadas
+  - Botón "Cancelar" cierra calendario sin aplicar cambios
+  - Botón "Aceptar" actualiza el campo principal con el rango y cierra calendario
 
-**Comportamiento esperado:**
+**Interacción con selector de participantes (Dropdown):**
+- Clic en campo "Visitantes" abre modal con control de cantidad y edades
+- **Controles de visitantes:**
+  - **Sección Pasajeros:**
+    - Label: "Pasajeros"
+    - Contador numérico con botones - / +
+    - Validación: mínimo 1 pasajero
+  - **Dropdowns condicionales "Edad del pasajero":**
+    - Aparecen dinámicamente según cantidad de pasajeros
+    - Label: "Edad del pasajero 1", "Edad del pasajero 2", etc.
+    - Placeholder: "Selecciona la edad"
+    - Obligatorio seleccionar edad para cada pasajero
+  - **Botones de acción del modal:**
+    - "Cancelar": descarta cambios y cierra modal sin aplicar
+    - "Aceptar": guarda configuración, actualiza texto del dropdown y cierra modal
+- **Comportamiento:**
+  - Botones +/- ajustan cantidad
+  - Al aumentar pasajeros, aparecen dropdowns de edad adicionales
+  - Al disminuir pasajeros, se eliminan dropdowns de edad correspondientes
+  - Al cerrar, el campo principal actualiza su resumen (ej: "1 adulto", "2 pasajeros")
 
-- **Selección:** Clic en día disponible establece fecha de actividad
-- **Validación:** No permite seleccionar fechas pasadas
-- **Visual feedback:** Fecha seleccionada se destaca en verde
-- **Cancelar:** Cierra calendario sin aplicar cambios
-- **Aceptar:** Actualiza campo y cierra calendario
+**Validaciones del sistema:**
+- **Todos los campos son obligatorios** antes de poder buscar
+- **Destino:** Debe seleccionar ciudad/país de la lista del modal
+- **Fechas:** No permite fechas pasadas, fecha inicio debe ser anterior a fecha fin
+- **Visitantes:** Mínimo 1 pasajero y edades obligatorias para cada pasajero
+- **Botón "Buscar":**
+  - Deshabilitado (gris) si faltan campos obligatorios
+  - Habilitado (verde) cuando todos los campos están completos
+- Al hacer clic en "Buscar" → Redirige a módulo Disponibilidad con resultados filtrados según destino, fecha y participantes
 
----
+**Variaciones móviles:**
+- **Layout:** Campos apilados verticalmente, cada campo ocupa ancho completo
+- **Modal de destino:** Pantalla completa con buscador
+- **Calendario:** Vista en pantalla completa con navegación táctil optimizada
+- **Dropdown participantes:** Modal de pantalla completa con controles +/- grandes y áreas táctiles amplias
+- **Botón "Buscar":** Sticky en la parte inferior, siempre visible durante scroll
 
-### Dropdown Participantes
+##### ✅ VALIDACIONES DE QA
 
-**Descripción:** Control desplegable para configurar cantidad de participantes por rango de edad.
+Estas validaciones deben incluirse en todos los casos de prueba que involucren el Widget de Búsqueda:
 
-**Componentes:**
+- [ ] **VAL-ACT-HOME-001:** Todos los campos son obligatorios
+  - **Verificar:** Botón "Buscar" deshabilitado (gris) si falta algún campo, habilitado (verde) solo con todos completos
+  
+- [ ] **VAL-ACT-HOME-002:** Modal de destinos abre correctamente
+  - **Verificar:** Clic en campo "Destino" abre modal con buscador funcional
+  
+- [ ] **VAL-ACT-HOME-003:** Búsqueda de destinos filtra en tiempo real
+  - **Verificar:** Al escribir ciudad, resultados se filtran (< 1 seg)
+  
+- [ ] **VAL-ACT-HOME-004:** Selección de destino actualiza campo
+  - **Verificar:** Clic en resultado cierra modal y actualiza campo "Destino" correctamente
+  
+- [ ] **VAL-ACT-HOME-005:** Calendario no permite fechas pasadas
+  - **Verificar:** Fechas anteriores a hoy están deshabilitadas (gris) y no seleccionables
+  
+- [ ] **VAL-ACT-HOME-006:** Calendario valida rango de fechas
+  - **Verificar:** Permite seleccionar rango inicio/fin; inicio/fin resaltados (verde) y rango (verde claro)
+  
+- [ ] **VAL-ACT-HOME-007:** Dropdown participantes valida límites
+  - **Verificar:** Mínimo 1 pasajero; dropdowns de edad aparecen por pasajero; edades obligatorias
+  
+- [ ] **VAL-ACT-HOME-008:** Resumen de participantes correcto
+  - **Verificar:** Campo muestra resumen dinámico (ej: "1 adulto", "2 pasajeros") actualizado correctamente
+  
+- [ ] **VAL-ACT-HOME-009:** Botón "Buscar" redirige a Disponibilidad
+  - **Verificar:** Clic en "Buscar" redirige a módulo Disponibilidad con resultados según criterios
+  
+- [ ] **VAL-ACT-HOME-010:** Variaciones móviles
+  - **Verificar:** Layout apilado vertical, modal/calendario/dropdown en pantalla completa, botón sticky en móviles
 
-1. **Adultos:**
-   - Label: "Adultos" (edad: ⚠️ Pendiente definir rango, típicamente 12+ o 18+)
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 1, máximo ⚠️ por definir
+##### 🧪 Escenarios de Prueba
 
-2. **Niños:**
-   - Label: "Niños" (edad: ⚠️ Pendiente definir rango, típicamente 3-11)
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 0, máximo ⚠️ por definir
-   - ⚠️ **Pendiente:** Validar si requiere edad específica de cada niño
+**Escenario 1: Búsqueda exitosa de actividades - San José - 2 adultos**
+- **Prioridad:** 1 (Crítico)
+- **Modelo de pago:** Puntos + Plata
+- **Precondición:** Usuario autenticado en home Actividades
+- **Pasos:**
+  1. Clic en campo "Destino"
+  2. Modal se abre, escribir "San José"
+  3. Seleccionar "San José | Costa Rica" de la lista
+  4. **Validar:** Campo "Destino" actualiza a "San José, Costa Rica"
+  5. Clic en campo "Fecha"
+  6. Calendario se abre, seleccionar fecha 7 días adelante
+  7. Clic en "Aceptar"
+  8. **Validar:** Campo "Fecha" muestra fecha seleccionada
+  9. Clic en campo "Participantes"
+  10. Dropdown se abre, configurar "2 adultos" con botón +
+  11. Clic en "Listo"
+  12. **Validar:** Campo muestra "2 adultos"
+  13. **Validar:** Botón "Buscar" habilitado (verde)
+  14. Clic en "Buscar"
+  15. **Validar:** Redirige a Disponibilidad con resultados
+- **Resultado esperado:** Búsqueda exitosa, resultados de actividades en San José para 2 adultos
+- **Resultado esperado:** Búsqueda exitosa, resultados de actividades en San José con criterios seleccionados
+- **Título ADO:** `[PROM] Actividades - Home - Búsqueda exitosa - San José - 2 pasajeros - Puntos + Plata`
 
-3. **Infantes (opcional):**
-   - Label: "Infantes" (edad: ⚠️ Pendiente definir rango, típicamente 0-2)
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 0, máximo ⚠️ por definir
+**Escenario 2: Validación de campos obligatorios**
+- **Prioridad:** 1 (Crítico)
+- **Precondición:** Usuario autenticado en home Actividades
+- **Pasos:**
+  1. **NO** llenar campo "Destino"
+  2. **Validar:** Botón "Buscar" deshabilitado (gris)
+  3. Seleccionar destino "San José, Costa Rica"
+  4. **Validar:** Botón "Buscar" sigue deshabilitado (falta fecha)
+  5. Seleccionar rango de fechas
+  6. **Validar:** Botón "Buscar" sigue deshabilitado (faltan visitantes)
+  7. Configurar "1 pasajero" y seleccionar su edad
+  8. **Validar:** Botón "Buscar" ahora habilitado (verde)
+- **Resultado esperado:** Sistema valida campos obligatorios correctamente
+- **Título ADO:** `[PROM] Actividades - Home - Validación campos obligatorios - San José`
 
-4. **Botón "Listo":**
-   - Botón verde para confirmar configuración
+**Escenario 3: Validación de fechas pasadas en calendario**
+- **Prioridad:** 2 (Importante)
+- **Precondición:** Usuario en home Actividades
+- **Pasos:**
+  1. Clic en campo "Selecciona tus fechas"
+  2. Calendario se abre
+  3. Intentar seleccionar fecha pasada (ej: día anterior)
+- **Resultado esperado:** Fechas pasadas deshabilitadas (gris), no permite selección
+- **Título ADO:** `[PROM] Actividades - Home - Calendario bloquea fechas pasadas`
 
-**Comportamiento esperado:**
+**Escenario 4: Búsqueda modal de destinos - sin resultados**
+- **Prioridad:** 2 (Importante)
+- **Precondición:** Usuario en home Actividades
+- **Pasos:**
+  1. Clic en campo "Destino"
+  2. Modal se abre
+  3. Escribir texto sin coincidencias (ej: "XYZABC123")
+  4. **Validar:** Mensaje "No se encontraron resultados" o similar
+  5. **Validar:** Lista de destinos vacía
+- **Resultado esperado:** Sistema muestra mensaje claro cuando no hay resultados
+- **Título ADO:** `[PROM] Actividades - Home - Modal destinos sin resultados`
 
-- **Incremento/Decremento:** Botones +/- ajustan cantidades
-- **Límites:** Botones se deshabilitan al alcanzar mínimo/máximo
-- **Validación:** Mínimo 1 participante (típicamente al menos 1 adulto)
-- **Edades específicas:** ⚠️ Pendiente definir si solicita edad exacta de niños/infantes
-- **Resumen:** Al cerrar, campo principal muestra "X adulto(s), Y niño(s), Z infante(s)"
-
-**Variaciones Móviles:**
-
-- **Pantalla completa:** Dropdown ocupa toda la pantalla
-- **Controles más grandes:** Botones +/- con áreas táctiles amplias
-- **Botón "Listo":** Sticky en parte inferior
+**Escenario 5: Dropdown participantes - límites mínimos/máximos**
+- **Prioridad:** 2 (Importante)
+- **Precondición:** Usuario en home Actividades
+- **Pasos:**
+  1. Clic en campo "Visitantes"
+  2. Modal se abre
+  3. Intentar reducir pasajeros a 0 con botón -
+  4. **Validar:** Botón - deshabilitado, mínimo 1 pasajero
+  5. Aumentar a 2 pasajeros con botón +
+  6. **Validar:** Aparecen "Edad del pasajero 1" y "Edad del pasajero 2"
+  7. Seleccionar edades para ambos pasajeros
+  8. Clic en "Aceptar"
+  9. **Validar:** Campo muestra resumen (ej: "2 pasajeros")
+- **Resultado esperado:** Sistema respeta límites mínimos y exige edades por pasajero
+- **Título ADO:** `[PROM] Actividades - Home - Visitantes límites y edades obligatorias`
 
 ---
 
 ## 📋 MÓDULO: DISPONIBILIDAD
 
-**Descripción:** Módulo que muestra los resultados de búsqueda de actividades disponibles según los criterios del usuario. Incluye widget persistente, filtros laterales y cards de actividades.
+### Descripción del Módulo
+
+Módulo que muestra los resultados de búsqueda de actividades disponibles según los criterios del usuario (destino, fechas, visitantes). Permite filtrar y comparar opciones de tours, excursiones y experiencias turísticas del proveedor HotelBeds.
+
+**Características principales:**
+- Widget de búsqueda persistente para modificar criterios
+- Filtros laterales por categoría, precio, duración, calificación
+- Cards de actividades con información básica y botón de acción
+- Paginación o scroll infinito según cantidad de resultados
+
+### 🎨 FUNCIONALIDADES
+
+#### 🔹 Funcionalidad: Widget de Búsqueda Persistente
+
+##### 📖 Descripción Funcional
+
+Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad. Permite al usuario modificar destino, fecha o participantes sin perder su posición en los resultados.
+
+**Ubicación:** Parte superior del módulo Disponibilidad, debajo del header  
+**Tipo de componente:** Barra informativa con campos editables  
+**Persistencia:** Visible durante toda la navegación en Disponibilidad
+
+##### 🧩 Componentes
+
+| Componente | Descripción | Tipo | Editable |
+|------------|-------------|------|----------|
+| **Campo "Destino"** | Muestra destino seleccionado (ej: "San José, Costa Rica") | Text/Link | ✅ Clic abre modal de destinos |
+| **Campo "Fechas"** | Muestra rango con formato corto | Text/Link | ✅ Clic abre calendario |
+| **Campo "Visitantes"** | Muestra resumen (ej: "2 pasajeros") | Text/Link | ✅ Clic abre modal de configuración |
+| **Botón "Buscar"** | Ejecuta nueva búsqueda con criterios modificados | Button (CTA verde) | ✅ Actualiza resultados |
+| **Link "Ocultar búsqueda"** | Colapsa widget para dar más espacio a resultados | Text Link | ✅ Alterna visibilidad |
+
+##### 💻 Comportamiento Esperado
+
+**Widget persistente:**
+- Permanece visible mientras el usuario navega por los resultados (sticky)
+- Scroll en resultados no oculta el widget
+- Usuario mantiene contexto de su búsqueda en todo momento
+
+**Edición de criterios:**
+- Clic en campo "Destino" → Abre modal de búsqueda de destinos con valor precargado
+- Clic en campo "Fechas" → Abre calendario con selección actual
+- Clic en campo "Visitantes" → Abre modal con configuración actual y edades
+- Modificar cualquier campo no ejecuta búsqueda automáticamente, requiere clic en "Buscar"
+
+**Botón "Buscar":**
+- Habilitado siempre (criterios ya validados en HOME)
+- Clic ejecuta nueva búsqueda con criterios modificados
+- Muestra indicador de carga (spinner/skeleton) durante búsqueda
+- Actualiza resultados sin recargar página completa
+- Scroll automático a inicio de resultados tras actualización
+
+**Ocultar/Mostrar widget:**
+- Link "Ocultar búsqueda" colapsa widget a barra mínima con solo destino visible
+- Link "Mostrar búsqueda" expande widget completo
+- Estado de colapso se mantiene durante navegación en resultados
+
+**Variaciones móviles:**
+- Widget colapsado por defecto: Barra compacta con resumen "Destino • Fecha • X participantes"
+- Tap en widget expande en modal de pantalla completa para editar
+- Campos abren modales/calendarios/dropdowns fullscreen
+- Botón "Buscar" sticky en parte inferior del modal
+- Botón "Cerrar" (X) en esquina superior para salir sin cambios
+
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-ACT-DISP-001:** Widget visible en todo momento
+  - **Verificar:** Widget persistente en parte superior, no desaparece al hacer scroll
+  
+- [ ] **VAL-ACT-DISP-002:** Campos editables funcionan correctamente
+  - **Verificar:** Clic en cada campo abre control correspondiente con valor actual precargado
+  
+- [ ] **VAL-ACT-DISP-003:** Modificaciones se reflejan correctamente
+  - **Verificar:** Cambios en campos se muestran en widget antes de buscar
+  
+- [ ] **VAL-ACT-DISP-004:** Botón "Buscar" actualiza resultados
+  - **Verificar:** Nueva búsqueda ejecuta, resultados se actualizan sin recargar página
+  
+- [ ] **VAL-ACT-DISP-005:** Indicador de carga visible
+  - **Verificar:** Spinner/skeleton aparece durante búsqueda, desaparece al cargar resultados
+  
+- [ ] **VAL-ACT-DISP-006:** Link "Ocultar/Mostrar" funciona
+  - **Verificar:** Colapsa y expande widget correctamente, estado se mantiene
+  
+- [ ] **VAL-ACT-DISP-007:** Variaciones móviles
+  - **Verificar:** Widget colapsado por defecto en móviles, expansión en modal fullscreen
+
+##### 🧪 Escenarios de Prueba
+
+**Escenario 1: Modificar fechas desde widget persistente**
+- **Prioridad:** 1 (Crítico)
+- **Precondición:** Usuario en Disponibilidad con resultados cargados (destino X, rango de fechas X-Y, visitantes configurados)
+- **Pasos:**
+  1. Localizar widget de búsqueda persistente en parte superior
+  2. Clic en campo "Fechas"
+  3. Calendario se abre con rango actual seleccionado
+  4. Seleccionar un nuevo rango de fechas
+  5. Clic en "Aceptar"
+  6. **Validar:** Campo "Fechas" actualiza el rango
+  7. Clic en botón "Buscar"
+  8. **Validar:** Spinner/skeleton aparece
+  9. **Validar:** Resultados se actualizan con actividades para el nuevo rango
+  10. **Validar:** Widget mantiene criterios actualizados
+- **Resultado esperado:** Nueva búsqueda con fecha actualizada, resultados sin recargar página
+- **Título ADO:** `[PROM] Actividades - Disponibilidad - Modificar fechas desde widget`
+
+**Escenario 2: Ocultar y mostrar widget de búsqueda**
+- **Prioridad:** 2 (Importante)
+- **Precondición:** Usuario en Disponibilidad con resultados
+- **Pasos:**
+  1. Localizar link "Ocultar búsqueda"
+  2. Clic en "Ocultar búsqueda"
+  3. **Validar:** Widget se colapsa a barra mínima
+  4. Scroll hacia abajo en resultados
+  5. **Validar:** Barra mínima sigue visible (sticky)
+  6. Clic en barra mínima o link "Mostrar búsqueda"
+  7. **Validar:** Widget se expande mostrando todos los campos
+- **Resultado esperado:** Widget colapsa/expande correctamente, estado sticky se mantiene
+- **Título ADO:** `[PROM] Actividades - Disponibilidad - Ocultar mostrar widget`
 
 ---
 
-### Widget de Búsqueda Persistente
+#### 🔹 Funcionalidad: Filtros Laterales
 
-**Descripción:** Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad.
+##### 📖 Descripción Funcional
+Panel lateral con controles para refinar los resultados de actividades por atributos como categoría, precio, duración, calificación, cancelación e inclusiones.
 
-**Componentes:**
+**Ubicación:** Panel lateral izquierdo en desktop; drawer/modal en móvil  
+**Actualización:** Dinámica (sin recarga de página)
 
-1. **Campo "Destino":**
-   - Muestra destino seleccionado (ej: "San José, Costa Rica")
-   - Ícono de ubicación
-   - Clic abre modal de destinos
+##### 🧩 Componentes
 
-2. **Campo "Fecha":**
-   - Muestra fecha con formato corto (ej: "22 Oct 2026")
-   - Ícono de calendario
-   - Clic abre calendario
+| Componente | Descripción | Tipo | Notas |
+|------------|-------------|------|------|
+| **Filtro: Categoría/Tipo** | Tour, excursión, entrada, experiencia, aventura, etc. | Multi-checkbox | ⚠️ Pendiente confirmar opciones disponibles |
+| **Filtro: Precio** | Rango min-max en Puntos o Plata | Range Slider | Formato según configuración |
+| **Filtro: Duración** | Menos de 4 horas, 4-8 horas, más de 8 horas, varios días | Multi-checkbox | ⚠️ Pendiente confirmar opciones disponibles |
+| **Filtro: Calificación** | Rating mínimo (estrellas/puntaje) | Checkbox/Slider | ⚠️ Pendiente confirmar si está disponible |
+| **Filtro: Horario/Momento del día** | Mañana, tarde, noche | Multi-checkbox | ⚠️ Pendiente confirmar si está disponible |
+| **Filtro: Incluye** | Transporte, comida, guía, entradas, equipo, etc. | Multi-checkbox | ⚠️ Pendiente confirmar servicios disponibles |
+| **Filtro: Cancelación** | Cancelación gratuita, reembolsable parcialmente, no reembolsable | Multi-checkbox | ⚠️ Pendiente confirmar opciones disponibles |
+| **Limpiar filtros** | Resetear todos los filtros aplicados | Button/Link | Restaura estado inicial |
 
-3. **Campo "Participantes":**
-   - Muestra resumen (ej: "2 adultos, 1 niño")
-   - Ícono de personas
-   - Clic abre dropdown de configuración
+##### 💻 Comportamiento Esperado
 
-4. **Botón "Buscar":** Botón verde para ejecutar nueva búsqueda
-
-5. **Link "Ocultar búsqueda":** Texto pequeño para colapsar widget
-
-**Comportamiento esperado:**
-
-- **Widget persistente:** Permanece visible mientras el usuario navega los resultados
-- **Edición de criterios:** Clic en cualquier campo permite modificar búsqueda
-- **Botón "Buscar":** Actualiza resultados con nuevos criterios sin recargar página
-- **Ocultar/Mostrar:** Colapsa widget para dar más espacio a resultados
-
-**Variaciones Móviles:**
-
-- **Widget colapsado por defecto:** Barra compacta con resumen
-- **Expansión:** Tap expande en pantalla completa
-- **Campos:** Abren modales/calendarios fullscreen
-- **Botón "Buscar":** Sticky en la parte inferior
-
----
-
-### Filtros Laterales
-
-**Descripción:** Panel lateral de filtros para refinar búsqueda de actividades según múltiples criterios.
-
-**Componentes:**
-
-1. **Título de Sección:** "Filtros" (texto destacado)
-
-2. **Filtro: Categoría de Actividad**
-   - Checkboxes: Tours, Experiencias, Parques, Museos, Deportes, Acuáticas, Aventura, Cultural, etc.
-   - ⚠️ Pendiente confirmar categorías disponibles en HotelBeds
-   - Selección múltiple permitida
-
-3. **Filtro: Precio**
-   - Rango de precio con slider doble
-   - Valores mínimo y máximo mostrados
-   - Formato: Puntos o Plata según configuración
-
-4. **Filtro: Duración**
-   - Checkboxes: Menos de 4 horas, 4-8 horas (medio día), Más de 8 horas (día completo), Varios días
-   - ⚠️ Pendiente confirmar opciones disponibles
-   - Selección múltiple permitida
-
-5. **Filtro: Horario/Momento del día (opcional)**
-   - Checkboxes: Mañana, Tarde, Noche
-   - ⚠️ Pendiente confirmar si está disponible
-
-6. **Filtro: Incluye**
-   - Checkboxes: Transporte, Comida, Guía, Entradas, Equipo, etc.
-   - ⚠️ Pendiente confirmar servicios disponibles
-   - Selección múltiple permitida
-
-7. **Filtro: Cancelación**
-   - Checkboxes: Cancelación gratuita, Reembolsable parcialmente, No reembolsable
-   - ⚠️ Pendiente confirmar opciones disponibles
-
-8. **Botón "Limpiar filtros":**
-   - Link o botón para resetear todos los filtros
-
-**Diseño Visual:**
-
-- Panel fijo en lado izquierdo de la pantalla
-- Fondo blanco con bordes suaves
-- Espaciado vertical entre secciones de filtro
-- Checkboxes y sliders con estilo Promerica (verde)
-
-**Comportamiento esperado:**
-
-- **Clic en checkbox:** Activa/desactiva filtro
-- **Slider de precio:** Ajuste dinámico de rango
-- **Selección múltiple:** Se aplican de forma acumulativa (AND dentro de categoría, OR entre categorías)
+- **Aplicación acumulativa:**
+  - Dentro de una misma categoría: OR lógico
+  - Entre categorías diferentes: AND lógico
 - **Actualización en tiempo real:** Resultados se actualizan al aplicar filtros
-- **Limpiar filtros:** Vuelve al estado inicial (todos desactivados)
-- **Persistencia:** Los filtros se mantienen al navegar detalles de actividades
+- **Slider de precio:** Ajuste dinámico del rango y actualización al soltar (o con delay)
+- **Limpiar filtros:** Remueve filtros activos y restaura resultados
+- **Persistencia:** Filtros se mantienen al navegar a detalle y regresar (según comportamiento del portal)
 
-**Variaciones Móviles:**
+**Variaciones móviles:**
+- Botón flotante "Filtros" con badge de filtros activos
+- Panel como modal/bottom sheet con secciones expandibles
+- Botones de acción "Limpiar" y "Aplicar" en parte inferior
+- Cerrar modal con swipe o tap en overlay
 
-- **Botón flotante "Filtros":** Ícono flotante (🔽) en esquina inferior
-- **Panel modal:** Filtros como modal/sheet desde el fondo
-- **Filtros apilados verticalmente:** Expansibles por sección
-- **Contador de filtros activos:** Badge numérico en botón flotante
-- **Botones de acción:** "Limpiar filtros" y "Aplicar" (verde) en parte inferior
-- **Cerrar modal:** Swipe hacia abajo o tap en overlay
+##### ✅ VALIDACIONES DE QA
+
+- [ ] **VAL-ACT-FIL-001:** Aplicación de filtros actualiza resultados
+  - **Verificar:** Al seleccionar un filtro, la lista se actualiza sin recargar página
+- [ ] **VAL-ACT-FIL-002:** Limpiar filtros restaura estado
+  - **Verificar:** "Limpiar filtros" remueve filtros activos y restablece resultados
+
+##### 🧪 Escenarios de Prueba
+
+[PENDIENTE: Agregar escenarios específicos de filtros]
 
 ---
 
-### Cards de Actividades (Vista Lista)
+#### 🔹 Funcionalidad: Cards de Actividades (Vista Lista)
 
-**Descripción:** Tarjetas individuales que muestran información detallada de cada actividad disponible.
+##### 📖 Descripción Funcional
 
-**Componentes (por cada card):**
+Listado de tarjetas individuales que muestran información resumida de cada actividad. Cada card permite acceder al detalle para revisar descripción completa, inclusiones, políticas y seleccionar la opción.
+
+##### 🧩 Componentes
 
 1. **Imagen de la actividad:**
    - Foto principal de la actividad en alta resolución
@@ -402,6 +563,14 @@ Sección inferior con información institucional y canales de contacto personali
 - **Clic en card completo:** ⚠️ Pendiente definir: ¿Abre modal de detalle o redirige a página?
 - **Clic en botón "Ver más":** Navega a vista de detalle con descripción completa
 - **Scroll:** Carga lazy de cards adicionales conforme usuario navega
+
+##### ✅ VALIDACIONES DE QA
+
+[PENDIENTE: Agregar validaciones específicas de cards de actividades]
+
+##### 🧪 Escenarios de Prueba
+
+[PENDIENTE: Agregar escenarios específicos de cards de actividades]
 
 **Variaciones Móviles:**
 
@@ -489,14 +658,14 @@ Sección inferior con información institucional y canales de contacto personali
 ## 📝 FORMATO DE TÍTULO
 
 ```
-[PROM] Actividades - [Ciudad] - [Tipo] - [Participantes] - [Modelo de pago]
+[PROM] Actividades - [Módulo/Escenario] - [Variante]
 ```
 
 **Ejemplos actualizados:**
 
-- `[PROM] Actividades - San José - City Tour - 2 adultos - Puntos + Plata`
-- `[PROM] Actividades - Cancún - Snorkel - 4 personas (2A 2N) - Solo Puntos`
-- `[PROM] Actividades - Quito - Aventura - 3 adultos 1 niño - Puntos + Plata (70%)`
+- `[PROM] Actividades - Home - Búsqueda - San José - 2 pasajeros - Puntos + Plata`
+- `[PROM] Actividades - Disponibilidad - Filtros - Duración + Cancelación - Puntos + Plata`
+- `[PROM] Actividades - Disponibilidad - Selección de card - Actividad X - Solo Puntos`
 
 ---
 
@@ -556,14 +725,14 @@ Sección inferior con información institucional y canales de contacto personali
 
 **Reglas del Slider:**
 
-- ⚠️ **CRÍTICO:** Confirmar si aplica slider en actividades como en otros productos
+- ⚠️ **CRÍTICO:** Confirmar reglas y ubicación del slider en Actividades (disponibilidad, detalle o checkout)
 - Porcentaje mínimo de puntos requerido
 - Fórmula de cálculo Puntos ↔ Plata (por persona o total)
 - Ubicación del slider (disponibilidad, detalle, checkout)
 
 **Políticas de Producto:**
 
-- Rangos de edad por categoría (adultos, niños, infantes)
+- Reglas de edades por pasajero (edades obligatorias en el modal de visitantes)
 - Máximo de participantes por actividad
 - Políticas de cancelación por tipo de actividad
 - Reembolsos parciales o totales según timing
@@ -589,13 +758,51 @@ Sección inferior con información institucional y canales de contacto personali
 
 **Guías relacionadas:**
 
-- [SHARED_QA_RULES.md](../../../../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB y Azure DevOps
-- [PROM_COMMON_RULES.md](../../../../shared/Reglas Marketplace/PROM_COMMON_RULES.md) - Reglas comunes Promerica
+- [PROM_QA_Assistant.agent.md](../../../../agents/PROM_QA_Assistant.agent.md) - Valores globales PROM (URL, país, modelo de negocio)
 - [PROM_VUELOS.md](PROM_VUELOS.md) - Referencia para estructura y componentes transversales
 
 ---
 
 ## 🔄 CONTROL DE CAMBIOS
+
+### Versión 1.0 - 2026-01-25
+
+**Cambios principales:**
+
+- ✅ **Restructuración completa según arquitectura híbrida estándar** (referencia: PROM_VUELOS.md)
+- ✅ Cambiado título H1 de "FLUJO E2E OBLIGATORIO PARA ACTIVIDADES" a "PRODUCTO: ACTIVIDADES"
+- ✅ Agregada H2 "Descripción General" con 6 características principales
+- ✅ Aplicada jerarquía H1 → H2 → H3 → H4 → H5 consistente
+- ✅ **Reorganizado CONTEXTO OPERATIVO:**
+  - H3 Proveedores Disponibles
+  - H3 Componentes Transversales con H4 (Header, Tabs, Footer)
+  - H3 Flujo E2E Obligatorio
+- ✅ **Módulo HOME/LOGIN:**
+  - H3 Descripción del Módulo
+  - H3 FUNCIONALIDADES (emoji 🎨)
+  - Widget de Búsqueda con estructura completa H5:
+    - 📖 Descripción Funcional (con lista de componentes DENTRO)
+    - 💻 Comportamiento Esperado (integra Modal Destinos, Calendario y Dropdown Participantes)
+    - ✅ VALIDACIONES DE QA (10 validaciones VAL-ACT-HOME-001 a 010)
+    - 🧪 Escenarios de Prueba (5 escenarios)
+- ✅ **Módulo DISPONIBILIDAD - Inicio:**
+  - H3 Descripción del Módulo
+  - H3 FUNCIONALIDADES
+  - Widget de Búsqueda Persistente con estructura completa H5:
+    - 📖 Descripción Funcional
+    - 🧩 Componentes (tabla Markdown con 5 componentes)
+    - 💻 Comportamiento Esperado
+    - ✅ VALIDACIONES DE QA (7 validaciones VAL-ACT-DISP-001 a 007)
+    - 🧪 Escenarios de Prueba (2 escenarios)
+- ✅ Modal de Búsqueda de Destinos, Calendario y Dropdown integrados en Comportamiento Esperado (no H3 separados)
+- ✅ "Descripción Funcional" con "Funcional", "Comportamiento Esperado" con "E" mayúscula
+- ✅ Variaciones Móviles integradas en Comportamiento Esperado (no H5 separado)
+
+**Pendiente para versión futura:**
+- ⚠️ Completar Filtros Laterales y Cards de Actividades en DISPONIBILIDAD con misma estructura H5
+- ⚠️ Documentar Módulos CHECKOUT y CONFIRMACIÓN con misma estructura
+- ⚠️ Confirmar rangos de edad, límites de participantes, ubicación de slider P+P
+- ⚠️ Confirmar categorías HotelBeds y políticas específicas de actividades
 
 ### Versión 0.3 - 2026-01-23
 
