@@ -6,7 +6,7 @@
 **Tecnología:** Angular (TypeScript/JavaScript)  
 **Métodos de pago:** Solo Millas (100%) o Millas+Plata (Copago con Slider en CheckOut, mínimo 20%)  
 **Fee de procesamiento:** TARJETA DE CRÉDITO (obligatorio, formulario en CheckOut)  
-**Pasarela:** PlacetoPay (bash, sin interfaz visual)
+**Pasarela:** PlacetoPay (bash en background, sin interfaz visual)
 
 ---
 
@@ -30,16 +30,33 @@
 ## ✈️ SEGURO DE CANCELACIÓN
 
 **Disponibilidad:** Solo para vuelos  
-**Momento:** **DESPUÉS** de la pantalla Resumen
+**Servicio API:** cancellation-insurance (Api Core)  
+**Momento:** Modal después del Resumen, componente checkbox en CheckOut
 
-**Flujo:**
-1. Se muestra Modal de Seguro de Cancelación (después del Resumen)
-2. El socio puede Aceptar o Denegar
-3. Si acepta:
-   - Confirmación muestra pantalla especial: Confirmación Vuelos+Seguro
-   - Incluye información del seguro de cancelación
+**Flujo completo:**
 
-**IMPORTANTE:** Voucher NO disponible para reservas de Vuelos+Seguro de Cancelación
+1. **Modal de Seguro (después del Resumen):**
+   - Se muestra Modal con información del seguro
+   - Socio visualiza beneficios y costo
+
+2. **Componente Checkbox en CheckOut:**
+   - **Opción 1:** "Pago con Millas: Seguro de cancelación aprobado" ✅
+   - **Opción 2:** "No quiero asegurar mi viaje" ❌
+   - Solo una opción puede estar seleccionada
+
+3. **Pantalla Previa a Confirmación:**
+   - Valida qué checkbox está marcado
+   - **Si "Seguro aprobado"** → Redirige a **Confirmación Vuelos+Seguro**
+   - **Si "No quiero asegurar"** → Redirige a **Confirmación convencional**
+   - **Si servicio "cancellation-insurance" falla** → Redirige a **Confirmación convencional**
+
+4. **Confirmación según selección:**
+   - **Con seguro:** Pantalla especial mostrando vuelo + seguro
+   - **Sin seguro:** Pantalla estándar solo con vuelo
+
+**IMPORTANTE:** 
+- Voucher NO disponible para reservas de Vuelos+Seguro de Cancelación
+- Si el servicio "cancellation-insurance" (Api Core) falla, el flujo continúa sin seguro
 
 ---
 
@@ -76,9 +93,9 @@
 
 ### FEE DE PROCESAMIENTO:
 - **Obligatorio** para todos los vuelos
-- **Formulario TC en CheckOut** (NO lightbox)
-- **PlacetoPay bash** (sin interfaz visual)
-- Se cobra al reservar mediante conexión bash
+- **Formulario TC en CheckOut** (integrado en la misma pantalla)
+- **PlacetoPay batch** (procesamiento en background, sin interfaz visual)
+- Se procesa al reservar mediante conexión batch en segundo plano
 
 ### ESCENARIOS DE PAGO:
 
@@ -132,20 +149,22 @@
 10. Validar datos de resumen (vuelo, fechas, pasajeros, millas totales, fee de procesamiento) | Datos correctos y consistentes con la selección
 11. Click en botón Continuar | Sistema redirige al checkout
 12. Diligenciar todos los campos obligatorios (datos de pasajeros: nombre, apellido, documento, fecha nacimiento; datos de contacto: email, teléfono) | Campos completados correctamente
-13. Validar que el fee de procesamiento es visible en el resumen del checkout | Fee mostrado correctamente
-14. Validar que el logo P2P está visible (exclusivo de vuelos) | Logo P2P visible en checkout
-15. Marcar check de Tratamiento de datos | Check seleccionado
-16. Marcar check de Términos y condiciones | Check seleccionado
-17. Validar que el botón Canjear se habilita al completar todos los campos obligatorios | Botón Canjear habilitado
-18. Click en botón Canjear | Se despliega el lightbox de pago de fee
-19. Ingresar datos de tarjeta de crédito en el lightbox (número, fecha vencimiento, CVV, titular) | Tarjeta validada y datos registrados correctamente
-20. Click en botón Confirmar pago en el lightbox | Pago del fee procesado, lightbox se cierra y se muestra pantalla de confirmación
-21. Validar pantalla de confirmación con código de reserva, resumen de pagos (millas canjeadas + fee pagado) | Código de reserva generado, pagos mostrados correctamente
-22. Ingresar al módulo de administración CME | Admin cargado correctamente
-23. Buscar reserva por código | Reserva localizada y visible
-24. Validar que los pagos en admin coinciden con la confirmación (millas + fee) | Pagos correctos en admin
-25. Validar que la reserva queda en estado EMITIDA automáticamente (100% millas - proceso automático) | Reserva en estado EMITIDA
-26. [Solo para SABRE EDIFACT] Validar dispersión de fondos (fee a PPM, valor del vuelo según el proveedor correspondiente) | Dispersión realizada correctamente en Sabre
+13. Ingresar datos de tarjeta de crédito en el formulario de CheckOut (número, fecha vencimiento, CVV, titular) | Datos de tarjeta ingresados y validados
+14. Validar que el fee de procesamiento es visible en el resumen del checkout | Fee mostrado correctamente
+15. Validar que el logo P2P está visible (exclusivo de vuelos) | Logo P2P visible en checkout
+16. Validar componente de seguro de cancelación con opciones (si aplica): "Pago con Millas: Seguro aprobado" o "No quiero asegurar mi viaje" | Componente visible con opciones seleccionables
+17. Seleccionar opción de seguro según el escenario de prueba | Opción seleccionada correctamente
+18. Marcar check de Tratamiento de datos | Check seleccionado
+19. Marcar check de Términos y condiciones | Check seleccionado
+20. Validar que el botón Canjear se habilita al completar todos los campos obligatorios | Botón Canjear habilitado
+21. Click en botón Canjear | Se muestra pantalla previa a confirmación, procesamiento batch PlacetoPay en background
+22. Validar pantalla previa que resume la reserva (vuelo, pasajeros, millas, fee) | Resumen correcto antes de confirmación final
+23. Click en Confirmar | Se procesa pago con PlacetoPay batch y se muestra pantalla de confirmación (convencional o con seguro según selección)
+24. Validar pantalla de confirmación con código de reserva, resumen de pagos (millas canjeadas + fee pagado) | Código de reserva generado, pagos mostrados correctamente
+25. Ingresar al módulo de administración CME | Admin cargado correctamente
+26. Buscar reserva por código | Reserva localizada y visible
+27. Validar que los pagos en admin coinciden con la confirmación (millas + fee) | Pagos correctos en admin
+28. Validar que la reserva queda en estado EMITIDA automáticamente | Reserva en estado EMITIDA
 
 ---
 
@@ -154,12 +173,12 @@
 **Tipo de viaje:**
 - Ida y vuelta
 - Solo ida
-- Multidestino (máximo 4 tramos)
+- Multidestino (máximo 6 trayectos Ida y Vuelta)
 
 **Proveedores:**
-- AGGREGATOR - NETACTICA (sin dispersión)
-- AGGREGATOR - SABRE (sin dispersión)
-- SABRE EDIFACT (con dispersión de fondos)
+- AGGREGATOR - NETACTICA
+- AGGREGATOR - SABRE NDC
+- SABRE EDIFACT
 
 **Pasajeros:**
 - 1 pasajero
@@ -180,17 +199,19 @@
 
 ## ✅ VALIDACIONES CRÍTICAS
 
-✅ **Integridad de datos:** Consistencia entre búsqueda → disponibilidad → upsell → resumen → checkout → confirmación → admin  
-✅ **Fee de procesamiento:** Siempre visible y cobrado con tarjeta de crédito en lightbox  
+✅ **Integridad de datos:** Consistencia entre búsqueda → disponibilidad → upsell → resumen → checkout → previa confirmación → confirmación → admin  
+✅ **Fee de procesamiento:** Siempre visible y procesado con tarjeta de crédito en formulario CheckOut  
+✅ **PlacetoPay batch:** Procesamiento en background sin interfaz visual durante el canje  
 ✅ **Logo P2P:** Visible en checkout (exclusivo de vuelos)  
+✅ **Componente seguro:** Checkbox con opciones "Seguro aprobado" o "No asegurar" funcionando correctamente  
+✅ **Pantalla previa:** Validar que redirige a confirmación correcta según selección de seguro  
+✅ **Servicio cancellation-insurance:** Si falla, flujo continúa a confirmación convencional  
 ✅ **Cálculo de millas:** Millas totales correctas según tarifa y cantidad de pasajeros  
-✅ **Campos obligatorios:** Datos de todos los pasajeros, contacto, aceptación de términos  
+✅ **Campos obligatorios:** Datos de todos los pasajeros, tarjeta de crédito, contacto, aceptación de términos  
 ✅ **Links funcionales:** Términos y condiciones, tratamiento de datos abren correctamente  
-✅ **Lightbox:** Formulario de tarjeta funcional, validación de datos  
 ✅ **Estados de reserva:** Confirmada en admin con todos los datos completos  
 ✅ **Emisión automática:** Reserva en estado EMITIDA sin intervención manual  
-✅ **Proveedor:** Validar proveedor correcto (NETACTICA, SABRE, SABRE EDIFACT)  
-✅ **Dispersión:** Solo en SABRE EDIFACT, validar fee a PPM y valor vuelo al proveedor  
+✅ **Proveedor:** Validar proveedor correcto (NETACTICA, SABRE NDC, SABRE EDIFACT)  
 
 ---
 
@@ -201,9 +222,9 @@
 ```
 
 **Ejemplos:**
-- `[CME] Vuelos - Ida y vuelta - SABRE EDIFACT - Fee con lightbox - 2 pasajeros`
+- `[CME] Vuelos - Ida y vuelta - SABRE EDIFACT - Con seguro cancelación - 2 pasajeros`
 - `[CME] Vuelos - Solo ida - NETACTICA - Tarifa Premium - 1 pasajero`
-- `[CME] Vuelos - Multidestino - AGGREGATOR SABRE - 3 tramos - 4 pasajeros`
+- `[CME] Vuelos - Multidestino - AGGREGATOR SABRE NDC - 6 trayectos - 4 pasajeros`
 
 ---
 
@@ -215,9 +236,11 @@ Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 - Disponibilidad-vuelos-CME.png - Lista de vuelos disponibles con millas y fee
 - upsell-vuelos-CME.png - Popup de selección de tarifas
 - Resumen-vuelos-CME.png - Pantalla de resumen antes del checkout
-- Checkout-vuelos-CME.png - Formulario de checkout completo con logo P2P
-- lightBox-vuelos-CME.png - Lightbox de pago del fee con tarjeta
+- ModalSeguro-vuelos-CME.png - Modal de seguro de cancelación (si aplica)
+- Checkout-vuelos-CME.png - Formulario de checkout completo con logo P2P y componente seguro
+- PreviaConfirmacion-vuelos-CME.png - Pantalla previa a confirmación final
 - Confirmacion-vuelos-CME.png - Pantalla de confirmación con código de reserva
+- ConfirmacionSeguro-vuelos-CME.png - Confirmación con seguro (si aplica)
 - Admin.png - Validación en módulo admin CME
 
 ---
@@ -226,7 +249,8 @@ Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 
 **Fee de procesamiento:**
 - SIEMPRE requerido en vuelos (diferencia con hoteles, autos, actividades, disney)
-- Pago SOLO con tarjeta de crédito en lightbox
+- Pago con tarjeta de crédito en formulario integrado en CheckOut
+- Procesamiento PlacetoPay batch en background (sin interfaz visual)
 - No se puede canjear con millas
 
 **Logo P2P:**
@@ -234,160 +258,31 @@ Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 - Debe ser visible en checkout
 - NO aparece en otros productos
 
-**Dispersión de fondos:**
-- Solo en SABRE EDIFACT
-- Fee se dispersa a PPM (Plataforma de pagos)
-- Valor del vuelo se dispersa al proveedor correspondiente
-- NETACTICA y AGGREGATOR SABRE NO tienen dispersión
+**Seguro de cancelación:**
+- Solo disponible para vuelos
+- Servicio API: "cancellation-insurance" (Api Core)
+- Si el servicio falla, flujo continúa sin seguro
+- Voucher NO disponible si se acepta seguro
 
 **Emisión:**
-- Siempre automática (100% millas)
+- Siempre automática
 - Estado EMITIDA inmediato tras confirmación
-- Sin proceso manual (diferente a BGR con pago mixto)
+- Sin proceso manual
 
 ---
-
-**Última actualización:** 2026-01-06  
-**Versión:** 1.0.0  
-**Mantenido por:** QA Team Ultragroup
-
-✅ **Emisión:** Automática (100% millas) / Manual (mixto)  
-✅ **Admin - Solo Millas:** Estado EMITIDA automáticamente  
-✅ **Admin - Millas + Plata:** Proceso manual (debitar → emitir cash)  
-
----
-
-## 📝 FORMATO DE TÍTULO
-
-```
-[{PORTAL}] {PRODUCTO} - [Escenario] - [Variante] - [Característica especial]
-```
-
-**Ejemplos:**
-- `[{PORTAL}] {PRODUCTO} - [Escenario A] - [Variante X] - {PROVEEDOR}`
-- `[{PORTAL}] {PRODUCTO} - [Escenario B] - [Variante Y] - [Característica especial]`
-- `[{PORTAL}] {PRODUCTO} - [Escenario C] - [Múltiples opciones]`
-
-**Para PM:**
-```
-[PM] {PRODUCTO} - [Escenario] - [Variante] - {PROVEEDOR}
-```
-
-**Para BGR:**
-```
-[BGR] {PRODUCTO} - [Escenario] - [Modelo de pago] - {PROVEEDOR}
-```
-
----
-
-## 🖼️ RECURSOS VISUALES (Opcional)
-
-**Si existen capturas de pantalla del flujo:**
-
-Agregar a `.github/imagenes/{PORTAL}/{producto}/`:
-- Home-{producto}-{PORTAL}.png
-- Disponibilidad-{producto}-{PORTAL}.png
-- Checkout-{producto}-{PORTAL}.png
-- Confirmacion-{producto}-{PORTAL}.png
-- Admin.png
-
-**Referencias en Descriptions:**
-```html
-<strong>📸 Imágenes de referencia del flujo:</strong><br>
-• Home-{producto}-{PORTAL}.png - Pantalla principal<br>
-• Disponibilidad-{producto}-{PORTAL}.png - Resultados de búsqueda<br>
-• Checkout-{producto}-{PORTAL}.png - Pantalla de checkout<br>
-• Confirmacion-{producto}-{PORTAL}.png - Confirmación de reserva<br>
-• Admin.png - Módulo administrativo<br>
-```
-
----
-
-## ⚙️ CONFIGURACIÓN TÉCNICA
-
-**Tecnología:** {TECNOLOGIA}  
-**Framework:** [Especificar si es Angular con TypeScript, Meteor con MongoDB, etc.]  
-**Proveedor externo:** {PROVEEDOR}  
-**API de integración:** [Si aplica]  
-**Proceso de emisión:** [Automático/Manual/Mixto]  
-
----
-
-## 📊 MATRIZ DE ESCENARIOS
-
-| Escenario | Variante | Validaciones clave | Prioridad |
-|-----------|----------|-------------------|-----------|
-| [Escenario A] | [Variante X] | [Lista de validaciones] | Alta |
-| [Escenario B] | [Variante Y] | [Lista de validaciones] | Media |
-| [Escenario C] | [Variante Z] | [Lista de validaciones] | Baja |
 
 ---
 
 ## 🔗 REFERENCIAS
 
 **Documentación relacionada:**
-- [{PORTAL}_COMMON_RULES.md](../shared/{PORTAL}_COMMON_RULES.md) - Reglas comunes del portal
-- [SHARED_QA_RULES.md](../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB
-
-**Documentación del proveedor:**
-- [Link a documentación oficial del proveedor si está disponible]
+- [CME_COMMON_RULES.md](../../../shared/Reglas%20Marketplace/CME_COMMON_RULES.md) - Reglas comunes CME
+- [SHARED_QA_RULES.md](../../../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB
+- [Kepler_Models_Comparison.md](../../../docs/comparisons/Kepler_Models_Comparison.md) - Comparación entre modelos
 
 ---
 
-## ✅ CHECKLIST FINAL (Verificar antes de commit)
-
-- [ ] Metadata YAML completa
-- [ ] Portal correcto (PM o BGR)
-- [ ] Pasos E2E completos (mínimo 15-30)
-- [ ] Inicio desde login (paso 1)
-- [ ] Cada paso tiene resultado esperado
-- [ ] Validaciones críticas documentadas
-- [ ] Variaciones según escenario incluidas
-- [ ] Formato de título definido
-- [ ] Proveedor identificado
-- [ ] Modelo de pago descrito
-- [ ] Referencias a COMMON_RULES
-- [ ] Imágenes agregadas (si aplica)
-- [ ] CHANGELOG.md actualizado
-- [ ] Agente actualizado con referencia a este archivo
-- [ ] COMMON_RULES actualizado con nuevo producto
-- [ ] Sin duplicación de información compartida
-
----
-
-## 🚀 PRÓXIMOS PASOS
-
-Después de completar este archivo:
-
-1. **Actualizar agente:**
-   ```markdown
-   En {PORTAL}_QA_Assistant.agent.md agregar:
-   🎨 [{PORTAL}_{PRODUCTO}.md](../products/{PORTAL}_{PRODUCTO}.md) - Flujo E2E completo de {PRODUCTO}
-   ```
-
-2. **Actualizar COMMON_RULES:**
-   ```markdown
-   En {PORTAL}_COMMON_RULES.md agregar a estructura de proveedores:
-   ├─ 🎨 {PRODUCTO} [{TECNOLOGIA}]
-   │  └─ {PROVEEDOR}
-   ```
-
-3. **Documentar en CHANGELOG:**
-   ```markdown
-   ## [Unreleased]
-   ### Added
-   - ✅ {PORTAL}_{PRODUCTO}.md (X pasos E2E)
-   - ✅ Proveedor: {PROVEEDOR}
-   - ✅ Tecnología: {TECNOLOGIA}
-   ```
-
-4. **Validar:**
-   ```powershell
-   .\validation\validate-structure.ps1
-   ```
-
----
-
-**Template versión:** 1.0.0  
-**Fecha creación:** 2026-01-05  
-**Mantenido por:** QA Team Ultragroup
+**Última actualización:** 2026-01-23  
+**Versión:** 2.0.0  
+**Mantenido por:** QA Team Ultragroup  
+**Cambios:** Eliminadas referencias a lightbox (ahora PlacetoPay batch), eliminada dispersión de fondos (no aplica en CME), corregido multidestino (6 trayectos), actualizado flujo completo del seguro de cancelación con componente checkbox y servicio cancellation-insurance

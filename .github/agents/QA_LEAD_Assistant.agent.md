@@ -369,7 +369,25 @@ instructions: |
   
   ## CÉLULA ROCKET
   
-  [Agregar modelos de Rocket cuando estén definidos]
+  ### **Santander (SANT)**
+  - **País:** [Pendiente definir]
+  - **Prefijo:** [SANT]
+  - **Aliado:** Fidelity
+  - **Modelo:** B2B2C (Business to Business to Consumer)
+  - **Cliente:** Banco Santander
+  - **Usuario Final:** Clientes del banco Santander
+  - **Moneda:** [Pendiente definir]
+  - **Programa:** Puntos Santander (programa de fidelización del banco)
+  - **Agente Especializado:** `Rocket/SANTANDER_QA_Assistant`
+  - **Productos:** Vuelos, Autos, Hoteles, Actividades, Tickets Disney (5 productos)
+  - **Características:**
+    - Autenticación con credenciales de cliente Santander
+    - Canje de puntos del programa de fidelización del banco
+    - Modelo de pago: ⚠️ Pendiente definir (100% Puntos / Slider / Mixto)
+    - Emisión: ⚠️ Pendiente definir (Automática / Manual)
+    - Pasarela de pago: ⚠️ Pendiente definir (si aplica tarjeta)
+    - Proveedores: ⚠️ Pendiente definir para cada producto
+  - **Estado Documentación:** ⚠️ En construcción
   
   ---
   
@@ -497,7 +515,7 @@ instructions: |
   - Emma Del Carmen Gonzalez Sanchez
   
   **Agentes QA Asociados:**
-  - [Pendiente configurar cuando se definan los modelos]
+  - Rocket/SANTANDER_QA_Assistant ✅ (Santander - B2B2C)
   
   ---
   
@@ -508,7 +526,7 @@ instructions: |
   | **A-Skynet** | Juan Camilo Estrada | - | 3 QA | Pendiente | PCO, Mastercard, BAC |
   | **B-Kepler** | Oscar Julian Buitrago Castro | Fernando Zapata Montes | 8 personas | ✅ 7 activos | PM, BGR, CME, CMP, PROM, CCOP (6 modelos) |
   | **C-Pixel** | Santiago Monsalve Calderon | - | 3 QA | Pendiente | Aéreo, Autos, Disney, Hoteles, Modernización |
-  | **E-Rocket** | Cristian Garzon Sanchez | - | 3 QA | Pendiente | Fidelity/Muscle Interno |
+  | **E-Rocket** | Cristian Garzon Sanchez | - | 3 QA | ✅ 1 activo | Santander (1 modelo) |
   | **Transversales** | [Por definir] | [Por definir] | [Por definir] | Pendiente | [Por definir] |
   | **Corporativo** | [Por definir] | [Por definir] | [Por definir] | ✅ 1 activo | USD (B2B - Solo vuelos) |
   
@@ -547,6 +565,22 @@ instructions: |
   | **Centro Costos** | Obligatorio |
   | **Aprobaciones** | Sí (manager) |
   | **Complejidad QA** | Alta (flujos corporativos) |
+  
+  ### **SANTANDER (Modelo B2B2C - Célula Rocket)**
+  
+  | Aspecto | Santander |
+  |---------|-----------|
+  | **Tipo Cliente** | B2B2C (Banco → Clientes del banco) |
+  | **Aliado** | Fidelity |
+  | **País** | ⚠️ Pendiente definir |
+  | **Modelo Pago** | ⚠️ Pendiente definir (100% Puntos / Slider / Mixto) |
+  | **Emisión** | ⚠️ Pendiente definir (Automática / Manual) |
+  | **Pasarela Pago** | ⚠️ Pendiente definir |
+  | **Productos** | Vuelos, Autos, Hoteles, Actividades, Disney (5 productos) |
+  | **Proveedores** | ⚠️ Pendiente definir para cada producto |
+  | **Estado Doc** | ⚠️ En construcción |
+  | **Complejidad QA** | Media-Alta (B2B2C + múltiples productos) |
+  | **Agente QA** | ✅ SANTANDER_QA_Assistant (activo) |
 
   --------------------------------------------------------------------
   🔍 ARQUITECTURA DE PROVEEDORES
