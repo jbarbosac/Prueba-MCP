@@ -9,6 +9,7 @@
 El producto **Autos** permite a los usuarios del programa Promerica Rewards buscar, comparar y reservar vehículos de renta utilizando el modelo de pago híbrido **Puntos + Plata (Slider)**. El sistema integra múltiples rentadoras (Hertz, Dollar, Thrifty) a través de Sabre y ofrece búsqueda avanzada por localidades con mapa interactivo.
 
 **Características principales:**
+
 - Búsqueda por aeropuertos y ciudades con mapa sincronizado
 - Flexibilidad de devolución en mismo lugar o ubicación diferente (dropoff)
 - Modelo de pago flexible con slider Puntos + Plata
@@ -177,22 +178,19 @@ Estas validaciones deben incluirse en todos los casos de prueba que involucren e
 
 - [ ] **VAL-AUT-HOME-001:** Recogida y devolución son obligatorias
   - **Verificar:** Botón "Buscar" deshabilitado si falta alguna ubicación
-  
 - [ ] **VAL-AUT-HOME-002:** Fechas y horas obligatorias
   - **Verificar:** No permite buscar sin seleccionar rango de fechas
-  
 - [ ] **VAL-AUT-HOME-006:** Dropoff diferente funciona
   - **Verificar:** Permite seleccionar devolución en ubicación diferente a recogida
-  
 - [ ] **VAL-AUT-HOME-007:** Códigos Hertz son opcionales
   - **Verificar:** Búsqueda funciona sin ingresar códigos de descuento
-  
 - [ ] **VAL-AUT-HOME-008:** Botón "Buscar" redirige a Disponibilidad
   - **Verificar:** URL cambia y se muestran resultados según búsqueda
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 1: Búsqueda mismo lugar - MIA a MIA - 1 día - Hertz - P+P**
+
 - **Prioridad:** 1 (Crítico)
 - **Rentadora:** Hertz
 - **Modelo de pago:** Puntos + Plata (ejemplo 50% - según configuración)
@@ -223,6 +221,7 @@ Estas validaciones deben incluirse en todos los casos de prueba que involucren e
 - **Título ADO:** `[PROM] Autos - Home - Búsqueda mismo lugar - MIA a MIA - 1 día - Hertz - P+P`
 
 **Escenario 2: Búsqueda dropoff diferente - MIA a JFK - 1 día - Dollar - P+P**
+
 - **Prioridad:** 1 (Crítico)
 - **Rentadora:** Dollar
 - **Modelo de pago:** Puntos + Plata (ejemplo 70% - según configuración)
@@ -249,6 +248,7 @@ Estas validaciones deben incluirse en todos los casos de prueba que involucren e
 - **Título ADO:** `[PROM] Autos - Home - Búsqueda dropoff diferente - MIA a JFK - 1 día - Dollar - P+P`
 
 **Escenario 3: Validación campos obligatorios**
+
 - **Prioridad:** 1 (Crítico)
 - **Precondición:** Usuario autenticado en el portal
 - **Pasos:**
@@ -313,30 +313,31 @@ Modal emergente que permite buscar y seleccionar ubicaciones mediante campo de b
 Estas validaciones deben incluirse en casos que involucren la selección de localidades (Recogida/Devolución).
 
 - [ ] **VAL-AUT-HOME-003:** Modal de localidades abre correctamente
-   - **Verificar:** Clic en "Recogida" o "Ver todas las localidades" abre modal con buscador
+  - **Verificar:** Clic en "Recogida" o "Ver todas las localidades" abre modal con buscador
 
 - [ ] **VAL-AUT-HOME-004:** Búsqueda por localidades filtra en tiempo real
-   - **Verificar:** Al escribir ciudad, resultados se filtran en tiempo razonable
+  - **Verificar:** Al escribir ciudad, resultados se filtran en tiempo razonable
 
 - [ ] **VAL-AUT-HOME-005:** Mapa sincronizado con lista
-   - **Verificar:** Hover/clic en lista resalta marcador y clic en marcador resalta item correspondiente
+  - **Verificar:** Hover/clic en lista resalta marcador y clic en marcador resalta item correspondiente
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 9: Home - Modal de localidades - Búsqueda y sincronización mapa-lista**
+
 - **Prioridad:** 2 (Alta)
 - **Precondición:** Usuario autenticado y en tab "Autos"
 - **Pasos:**
-   1. Clic en campo "Recogida" o en "Ver todas las localidades"
-   2. **Validar:** Se abre el modal con buscador y lista
-   3. Escribir un término de búsqueda (ej.: ciudad/aeropuerto)
-   4. **Validar:** La lista se filtra y el mapa se actualiza acorde
-   5. Hacer hover/clic sobre un resultado en la lista
-   6. **Validar:** El marcador correspondiente se resalta en el mapa
-   7. Clic en un marcador del mapa
-   8. **Validar:** El item correspondiente se resalta en la lista
-   9. Clic en "Seleccionar" en un resultado
-   10. **Validar:** El modal se cierra y el campo de ubicación se actualiza
+  1.  Clic en campo "Recogida" o en "Ver todas las localidades"
+  2.  **Validar:** Se abre el modal con buscador y lista
+  3.  Escribir un término de búsqueda (ej.: ciudad/aeropuerto)
+  4.  **Validar:** La lista se filtra y el mapa se actualiza acorde
+  5.  Hacer hover/clic sobre un resultado en la lista
+  6.  **Validar:** El marcador correspondiente se resalta en el mapa
+  7.  Clic en un marcador del mapa
+  8.  **Validar:** El item correspondiente se resalta en la lista
+  9.  Clic en "Seleccionar" en un resultado
+  10. **Validar:** El modal se cierra y el campo de ubicación se actualiza
 - **Resultado esperado:** El modal permite búsqueda, sincronización mapa-lista y selección sin inconsistencias
 - **Título ADO:** `[PROM] Autos - Home - Modal localidades - Búsqueda y sincronización`
 
@@ -351,7 +352,41 @@ Estas validaciones deben incluirse en casos que involucren la selección de loca
 
 ## 📋 MÓDULO: DISPONIBILIDAD
 
-**Descripción:** Módulo que muestra los resultados de búsqueda de autos disponibles según los criterios del usuario. Incluye widget persistente, categorías, filtros y dos vistas (lista/matriz).
+### 📋 Descripción del Módulo
+
+Módulo que muestra los resultados de búsqueda de autos disponibles según los criterios del usuario. Incluye widget persistente, categorías, filtros y dos vistas (lista/matriz).
+
+---
+
+#### 🔄 Flujo de Interacción General
+
+**Estado inicial al cargar el módulo (desde Home):**
+
+1. **Elementos visibles:**
+   - Widget de Búsqueda Persistente: VISIBLE (compacto con resumen de criterios)
+   - Categorías de Vehículos: VISIBLE (pestañas horizontales con Standard seleccionado por defecto)
+   - Filtros: VISIBLES en sidebar izquierdo (Tipo de auto, Rentadora, Transmisión)
+   - Cards de Resultados: Listado principal visible en Vista Lista (por defecto)
+   - Botones de Vista: Lista (activo) y Matriz (inactivo)
+
+2. **Interacción del usuario - Secuencia típica:**
+   - Usuario puede EDITAR criterios desde Widget Persistente → Nueva búsqueda
+   - Usuario puede CAMBIAR categoría (Standard, Vans, SUV, etc.) → Filtrado inmediato
+   - Usuario puede APLICAR filtros laterales (Rentadora, Transmisión) → Actualización en tiempo real
+   - Usuario puede ALTERNAR entre Vista Lista y Vista Matriz → Cambio de visualización
+   - Usuario puede OCULTAR widget persistente → Maximiza espacio para resultados
+
+3. **Selección de vehículo:**
+   - **Vista Lista:** Clic en card → Abre Modal de Protecciones → Seleccionar protección → Checkout
+   - **Vista Matriz:** Clic en celda (precio) → Selecciona vehículo + rentadora + protección → Checkout directamente
+
+4. **En módulo CHECKOUT:**
+   - Usuario ve resumen de vehículo + protección seleccionada
+   - Usuario completa datos del conductor y licencia
+   - Usuario ajusta Slider Puntos + Plata (si aplica)
+   - Usuario procede al pago
+
+**Nota importante:** El Modal de Protecciones se documenta aquí porque es parte del journey de Disponibilidad, aunque también puede influir en el flujo de checkout.
 
 ---
 
@@ -361,7 +396,11 @@ Estas validaciones deben incluirse en casos que involucren la selección de loca
 
 ##### 📖 Descripción Funcional
 
-Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad.
+Widget expandible que muestra los criterios de búsqueda activos y permite modificarlos sin salir de la página de resultados. Puede colapsarse para maximizar espacio de visualización.
+
+**Ubicación:** Parte superior del módulo Disponibilidad  
+**Tipo de componente:** Widget colapsable/expandible con resumen de búsqueda  
+**Estado inicial:** Expandido (muestra todos los campos)
 
 ##### 🧩 Componentes
 
@@ -396,40 +435,67 @@ Resumen compacto de criterios de búsqueda que permanece visible en la parte sup
 
 ##### 💻 Comportamiento Esperado
 
-- **Widget persistente:** Permanece visible mientras el usuario navega los resultados
-- **Edición de criterios:** Clic en cualquier campo permite modificar búsqueda
-- **Botón "Buscar":** Actualiza resultados con nuevos criterios sin recargar página
-- **Ocultar/Mostrar:** Colapsa widget para dar más espacio a resultados
+**Widget persistente:** Permanece visible mientras el usuario navega los resultados
+
+**Edición de criterios:** Clic en cualquier campo permite modificar búsqueda sin perder contexto
+
+**Botón "Buscar":** Actualiza resultados con nuevos criterios sin recargar página
+
+**Ocultar/Mostrar:**
+
+- Link "Ocultar búsqueda" → Colapsa widget a barra compacta con resumen mínimo
+- Barra compacta muestra: "MIA → MIA • 3 días" + ícono expandir
+- Clic en barra compacta → Expande widget completo nuevamente
+
+**Persistencia:** Campos mantienen últimos valores ingresados durante la sesión
 
 ##### 📱 Variaciones Móviles
 
-- **Widget colapsado por defecto:** Aparece como barra compacta con resumen
-- **Expansión del widget:** Tap en barra compacta expande en pantalla completa
-- **Campos de ubicación:** Abren pantalla completa con lista scrollable
-- **Selector de fechas:** Calendario en pantalla completa con ruedas nativas
-- **Botón "Buscar":** Sticky en la parte inferior
-- **Botón "Cerrar/Colapsar":** Icono X permite volver a vista compacta
+- **Estado inicial:** Colapsado, muestra barra compacta con resumen
+- **Barra compacta:** "MIA → MIA • 3 días" con ícono de editar (✏️)
+- **Expansión:** Tap en barra → Widget se expande en sección superior
+- **Widget expandido:**
+  - Ocupa ~40% superior de pantalla
+  - Fondo blanco con separador visual
+  - Campos apilados verticalmente
+- **Campos de ubicación:** Tap abre modal de localidades en pantalla completa
+- **Selector de fechas:** Calendario fullscreen con selectores de hora nativos
+- **Códigos Hertz/Descuentos:** Secciones expandibles con tap
+- **Botón "Buscar":**
+  - Verde, ancho completo
+  - Sticky en parte inferior del widget
+- **Botón "Ocultar búsqueda":**
+  - Link en esquina superior derecha
+  - Colapsa widget a barra compacta
+- **Gestos:** Swipe hacia arriba en barra colapsa (opcional según implementación)
 
 ##### ✅ VALIDACIONES DE QA
 
 - [ ] **VAL-AUT-DISP-001:** Widget persistente muestra criterios correctos
-   - **Verificar:** Recogida, devolución, fechas/horas y descuentos reflejan la búsqueda ejecutada
+  - **Verificar:** Recogida, devolución, fechas/horas y descuentos reflejan la búsqueda ejecutada
 
 - [ ] **VAL-AUT-DISP-002:** Widget persistente permite editar criterios
-   - **Verificar:** Clic en Recogida/Devolución/Fechas permite editar y al presionar "Buscar" actualiza resultados
+  - **Verificar:** Clic en Recogida/Devolución/Fechas permite editar y al presionar "Buscar" actualiza resultados
+
+- [ ] **VAL-AUT-DISP-009:** Widget puede colapsarse/expandirse
+  - **Verificar:** Link "Ocultar búsqueda" colapsa widget; clic en barra compacta lo expande
+
+- [ ] **VAL-AUT-DISP-010:** Barra compacta muestra resumen correcto
+  - **Verificar:** Formato "Origen → Destino • X días" con datos correctos
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 7: Disponibilidad - Widget persistente - Editar criterios y refrescar resultados**
+
 - **Prioridad:** 2 (Alta)
 - **Precondición:** Usuario autenticado
 - **Pasos:**
-   1. Login → Acceder al portal Promerica
-   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
-   3. **Validar:** Widget persistente visible con criterios actuales
-   4. Clic en campo "Recogida" del widget persistente y seleccionar una ubicación diferente
-   5. Clic en "Buscar"
-   6. **Validar:** Resultados se actualizan según el nuevo criterio sin recargar la página
+  1.  Login → Acceder al portal Promerica
+  2.  Navegar a tab "Autos" y ejecutar una búsqueda válida
+  3.  **Validar:** Widget persistente visible con criterios actuales
+  4.  Clic en campo "Recogida" del widget persistente y seleccionar una ubicación diferente
+  5.  Clic en "Buscar"
+  6.  **Validar:** Resultados se actualizan según el nuevo criterio sin recargar la página
 - **Resultado esperado:** El widget permite editar y refrescar resultados correctamente
 - **Título ADO:** `[PROM] Autos - Disponibilidad - Widget persistente - Editar criterios`
 
@@ -481,20 +547,21 @@ Navegación por pestañas para filtrar rápidamente por categoría de auto.
 ##### ✅ VALIDACIONES DE QA
 
 - [ ] **VAL-AUT-DISP-003:** Categorías filtran resultados y conservan estado
-   - **Verificar:** Clic en categoría cambia resultados y la categoría se mantiene al cambiar de vista Lista/Matriz
+  - **Verificar:** Clic en categoría cambia resultados y la categoría se mantiene al cambiar de vista Lista/Matriz
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 8: Disponibilidad - Categorías - Filtrado por pestañas y persistencia al cambiar vista**
+
 - **Prioridad:** 3 (Media)
 - **Precondición:** Usuario autenticado
 - **Pasos:**
-   1. Login → Acceder al portal Promerica
-   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
-   3. Seleccionar una categoría diferente (ej.: "Vans")
-   4. **Validar:** Resultados cambian según la categoría seleccionada
-   5. Cambiar a vista matriz (🔲) y volver a vista lista (📋)
-   6. **Validar:** La categoría seleccionada se mantiene activa tras el cambio de vista
+  1.  Login → Acceder al portal Promerica
+  2.  Navegar a tab "Autos" y ejecutar una búsqueda válida
+  3.  Seleccionar una categoría diferente (ej.: "Vans")
+  4.  **Validar:** Resultados cambian según la categoría seleccionada
+  5.  Cambiar a vista matriz (🔲) y volver a vista lista (📋)
+  6.  **Validar:** La categoría seleccionada se mantiene activa tras el cambio de vista
 - **Resultado esperado:** Las categorías filtran y mantienen estado al alternar vistas
 - **Título ADO:** `[PROM] Autos - Disponibilidad - Categorías - Filtrado y persistencia`
 
@@ -553,23 +620,24 @@ Panel lateral de filtros para refinar búsqueda de autos según tipo, rentadora 
 ##### ✅ VALIDACIONES DE QA
 
 - [ ] **VAL-AUT-DISP-004:** Filtros laterales aplican de forma acumulativa
-   - **Verificar:** Tipo de auto + rentadora + transmisión aplican AND; seleccionar "Todas" resetea
+  - **Verificar:** Tipo de auto + rentadora + transmisión aplican AND; seleccionar "Todas" resetea
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 4: Disponibilidad - Filtros acumulativos por rentadora y transmisión**
+
 - **Prioridad:** 2 (Alta)
 - **Precondición:** Usuario autenticado
 - **Pasos:**
-   1. Login → Acceder al portal Promerica
-   2. Navegar a tab "Autos"
-   3. Ejecutar una búsqueda válida (recogida, devolución, fechas)
-   4. **Validar:** Se muestra módulo Disponibilidad y el widget persistente
-   5. En filtros, seleccionar una **Rentadora** (ej.: Hertz)
-   6. Seleccionar **Transmisión** (ej.: Automática)
-   7. **Validar:** Resultados se actualizan dinámicamente (sin recargar página)
-   8. Cambiar el filtro de Rentadora a "Todas"
-   9. **Validar:** Resultados vuelven a incluir múltiples rentadoras
+  1.  Login → Acceder al portal Promerica
+  2.  Navegar a tab "Autos"
+  3.  Ejecutar una búsqueda válida (recogida, devolución, fechas)
+  4.  **Validar:** Se muestra módulo Disponibilidad y el widget persistente
+  5.  En filtros, seleccionar una **Rentadora** (ej.: Hertz)
+  6.  Seleccionar **Transmisión** (ej.: Automática)
+  7.  **Validar:** Resultados se actualizan dinámicamente (sin recargar página)
+  8.  Cambiar el filtro de Rentadora a "Todas"
+  9.  **Validar:** Resultados vuelven a incluir múltiples rentadoras
 - **Resultado esperado:** Filtros se aplican acumulativamente y se pueden resetear
 - **Título ADO:** `[PROM] Autos - Disponibilidad - Filtros acumulativos - Rentadora + Transmisión`
 
@@ -634,22 +702,23 @@ Tarjetas individuales que muestran información detallada de cada vehículo disp
 ##### ✅ VALIDACIONES DE QA
 
 - [ ] **VAL-AUT-DISP-005:** Cards muestran información mínima requerida
-   - **Verificar:** Categoría/modelo, specs (👤, 🚪, 🧳, ❄️A/C, ⚙️), precio y logos de rentadora
+  - **Verificar:** Categoría/modelo, specs (👤, 🚪, 🧳, ❄️A/C, ⚙️), precio y logos de rentadora
 
 - [ ] **VAL-AUT-DISP-006:** Clic en card abre modal de protecciones
-   - **Verificar:** Clic en card de vehículo abre el modal con info del vehículo y opciones de protección
+  - **Verificar:** Clic en card de vehículo abre el modal con info del vehículo y opciones de protección
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 10: Disponibilidad - Cards - Filtrado por logo de rentadora**
+
 - **Prioridad:** 3 (Media)
 - **Precondición:** Usuario autenticado y con resultados en Disponibilidad
 - **Pasos:**
-   1. Identificar una card que muestre múltiples logos de rentadora
-   2. Clic en el logo de una rentadora (ej.: Hertz)
-   3. **Validar:** Los resultados se filtran para mostrar únicamente esa rentadora
-   4. Clic en el ícono de información (i) de una card
-   5. **Validar:** Se muestra tooltip con información adicional del vehículo
+  1.  Identificar una card que muestre múltiples logos de rentadora
+  2.  Clic en el logo de una rentadora (ej.: Hertz)
+  3.  **Validar:** Los resultados se filtran para mostrar únicamente esa rentadora
+  4.  Clic en el ícono de información (i) de una card
+  5.  **Validar:** Se muestra tooltip con información adicional del vehículo
 - **Resultado esperado:** El logo filtra resultados y el tooltip se presenta correctamente
 - **Título ADO:** `[PROM] Autos - Disponibilidad - Cards - Filtrado por rentadora`
 
@@ -664,26 +733,26 @@ Visualización alternativa que muestra múltiples vehículos en formato de tabla
 ##### 🧩 Componentes
 
 1. **Encabezado de Vehículos (3 columnas):**
-    - Cada columna incluye:
-       - Imagen del vehículo
-       - Categoría (negrita)
-       - Modelo (gris)
-       - Especificaciones con íconos (👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A)
-       - Precio desde (ejemplo: "USD $300")
+   - Cada columna incluye:
+     - Imagen del vehículo
+     - Categoría (negrita)
+     - Modelo (gris)
+     - Especificaciones con íconos (👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A)
+     - Precio desde (ejemplo: "USD $300")
 
 2. **Banner de Comparación de Precios:**
-    - Texto de comparación
-    - Fondo verde oscuro
-    - Ubicación: debajo de los encabezados de vehículos
+   - Texto de comparación
+   - Fondo verde oscuro
+   - Ubicación: debajo de los encabezados de vehículos
 
 3. **Tabla de Protecciones por Rentadora:**
-    - Fila de encabezados por tipo de protección (ej.: "Solo auto", "Protección Básica", "Protección Básica Plus", "Protección Full")
-    - Íconos de información (❓) por tipo de protección
-    - Filas por rentadora con logo + precios por celda
+   - Fila de encabezados por tipo de protección (ej.: "Solo auto", "Protección Básica", "Protección Básica Plus", "Protección Full")
+   - Íconos de información (❓) por tipo de protección
+   - Filas por rentadora con logo + precios por celda
 
 4. **Indicadores Visuales:**
-    - Badge "Recomendado" (cuando aplique)
-    - Bordes sutiles entre celdas
+   - Badge "Recomendado" (cuando aplique)
+   - Bordes sutiles entre celdas
 
 ##### 💻 Comportamiento Esperado
 
@@ -702,20 +771,21 @@ Visualización alternativa que muestra múltiples vehículos en formato de tabla
 ##### ✅ VALIDACIONES DE QA
 
 - [ ] **VAL-AUT-DISP-008:** Vista Matriz permite selección por celda
-   - **Verificar:** Clic en precio/celda selecciona vehículo+rentadora+protección y redirige a Checkout
+  - **Verificar:** Clic en precio/celda selecciona vehículo+rentadora+protección y redirige a Checkout
 
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 6: Disponibilidad - Vista matriz selecciona configuración por celda**
+
 - **Prioridad:** 2 (Alta)
 - **Precondición:** Usuario autenticado
 - **Pasos:**
-   1. Login → Acceder al portal Promerica
-   2. Navegar a tab "Autos" y ejecutar una búsqueda válida
-   3. En controles superiores, activar vista matriz (🔲)
-   4. **Validar:** Se muestra tabla comparativa con rentadoras y tipos de protección
-   5. Clic en una celda de precio
-   6. **Validar:** Sistema selecciona vehículo + rentadora + protección y continúa a Checkout
+  1.  Login → Acceder al portal Promerica
+  2.  Navegar a tab "Autos" y ejecutar una búsqueda válida
+  3.  En controles superiores, activar vista matriz (🔲)
+  4.  **Validar:** Se muestra tabla comparativa con rentadoras y tipos de protección
+  5.  Clic en una celda de precio
+  6.  **Validar:** Sistema selecciona vehículo + rentadora + protección y continúa a Checkout
 - **Resultado esperado:** Vista matriz permite selección directa por celda
 - **Título ADO:** `[PROM] Autos - Disponibilidad - Selección vista matriz - Por celda`
 
@@ -730,16 +800,16 @@ Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuari
 ##### 🧩 Componentes
 
 1. **Información del Vehículo (Header del modal):**
-    - Categoría y modelo (ejemplo)
-    - Especificaciones: 👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A
-    - Precio base (ejemplo)
+   - Categoría y modelo (ejemplo)
+   - Especificaciones: 👤 | 🚪 | 🧳 | ❄️A/C | ⚙️A
+   - Precio base (ejemplo)
 
 2. **Opciones de Protección (4 cards):**
-    - "Solo Auto"
-    - "Protección Básica"
-    - "Protección Básica Plus" (puede estar marcada como ⭐ Recomendado)
-    - "Protección Full"
-    - Cada opción presenta: lista de coberturas (bullets), precio (ejemplo) y botón "Ver detalle"
+   - "Solo Auto"
+   - "Protección Básica"
+   - "Protección Básica Plus" (puede estar marcada como ⭐ Recomendado)
+   - "Protección Full"
+   - Cada opción presenta: lista de coberturas (bullets), precio (ejemplo) y botón "Ver detalle"
 
 ##### 💻 Comportamiento Esperado
 
@@ -757,6 +827,7 @@ Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuari
 ##### 🧪 Escenarios de Prueba
 
 **Escenario 5: Disponibilidad - Selección en vista lista abre modal y continúa a Checkout**
+
 - **Prioridad:** 1 (Crítico)
 - **Precondición:** Usuario autenticado
 - **Pasos:**
@@ -773,12 +844,44 @@ Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuari
 
 ##### 🔗 Trazabilidad (VAL → Escenarios)
 
-- **VAL-AUT-DISP-001, VAL-AUT-DISP-002:** Escenario 7
+- **VAL-AUT-DISP-001, VAL-AUT-DISP-002, VAL-AUT-DISP-009, VAL-AUT-DISP-010:** Escenario 7
 - **VAL-AUT-DISP-003:** Escenario 8
 - **VAL-AUT-DISP-004:** Escenario 4
 - **VAL-AUT-DISP-005:** Escenario 10
 - **VAL-AUT-DISP-006, VAL-AUT-DISP-007:** Escenario 5
 - **VAL-AUT-DISP-008:** Escenario 6
+
+---
+
+#### 🔹 Funcionalidad: Slider Puntos + Plata
+
+##### 📋 Referencia al Knowledge Base
+
+> **📖 Documentación Completa:** [Knowledge_Base_Promerica.md - Modelo de Pago Slider Puntos + Plata](../../../../documentation/knowledge-bases/Knowledge_Base_Promerica.md#modelo-de-pago-slider-puntos--plata)
+
+**Para casos de prueba del Slider en Autos, consultar el Knowledge Base para:**
+
+- Descripción funcional completa
+- Componentes del slider (visual, labels, displays)
+- Comportamiento esperado (cálculos en tiempo real, validaciones automáticas)
+- Estados del sistema (normal, error saldo, loading)
+- Ejemplos de cálculo con diferentes porcentajes
+- Validaciones de QA específicas del slider
+- Escenarios de prueba detallados (ajuste exitoso, bloqueo por saldo)
+
+**Resumen rápido:**
+
+- **Función:** Ajustar dinámicamente proporción Puntos/Plata para pago de auto
+- **Ubicación:** ⚠️ Pendiente confirmar (¿cards de resultados, modal de protecciones, checkout?)
+- **Validación:** Tiempo real de saldo disponible
+- **Rango:** Mínimo configurable hasta 100% puntos
+
+**⚠️ Importante:**
+
+- **Pendiente confirmar:** Ubicación exacta del slider en el flujo de autos
+- **Pendiente confirmar:** Si aparece en disponibilidad o solo en checkout
+- El slider es una funcionalidad transversal crítica del modelo de negocio Promerica
+- Referirse siempre al Knowledge Base para información actualizada sobre tasas de conversión, porcentajes mínimos y reglas de negocio
 
 ---
 
@@ -964,6 +1067,18 @@ Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuari
 
 ## 🔄 CONTROL DE CAMBIOS
 
+### Versión 1.1 - 2026-02-03
+
+**Cambios principales:**
+
+- ✅ **Módulo Disponibilidad:** Agregado Flujo de Interacción General con estados iniciales
+- ✅ **Actualizado:** Widget de Búsqueda Persistente con funcionalidad colapsable/expandible
+- ✅ **Completado:** Variaciones Móviles en Widget Persistente (gestos, estados, expansión)
+- ✅ **Agregado:** Referencia al Slider Puntos + Plata en Knowledge Base
+- ✅ **Nuevas validaciones:** VAL-AUT-DISP-009 (colapsar/expandir) y VAL-AUT-DISP-010 (barra compacta)
+- ✅ **Actualizado:** Trazabilidad de validaciones a escenarios
+- ✅ Total funcionalidades documentadas: 6 (Widget Persistente, Categorías, Filtros, Cards Lista, Vista Matriz, Modal Protecciones)
+
 ### Versión 1.0 - 2026-01-25
 
 **Cambios principales:**
@@ -976,6 +1091,7 @@ Modal emergente que se activa al seleccionar un vehículo, permitiendo al usuari
   - 💻 Comportamiento Esperado
   - ✅ Validaciones de QA (8 validaciones)
   - 🧪 Escenarios de Prueba (4 escenarios detallados)
+- ✅ Módulo Disponibilidad con 6 funcionalidades documentadas
 - ✅ Escenarios E2E con rutas reales:
   - **MIA → MIA:** Miami mismo lugar (Hertz, Thrifty)
   - **MIA → JFK:** Miami a Nueva York dropoff diferente (Dollar)
