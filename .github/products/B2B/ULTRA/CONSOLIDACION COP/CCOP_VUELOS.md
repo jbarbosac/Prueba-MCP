@@ -68,17 +68,19 @@ MÉTODO 2: Pago en Agencia
 
 ```
 1. Tarifa Administrativa (TA) - Visible
-   → Tipo: Fija o Porcentual
+   → Tipo: Fija o Porcentual (configurable en Admin)
    → Visibilidad: Cliente ve el cargo desglosado
    → Se suma al precio final
    → Es opcional (se configura por marketplace)
+   → Configuración: Según configuración en el Admin
 
 2. Fee Oculto (No Visible)
-   → Tipo: Fijo o Porcentual
+   → Tipo: Fijo o Porcentual (configurable en Admin)
    → Visibilidad: Cliente NO lo ve desglosado
    → Incluido en precio final
    → REGLA: Solo se activa si la TA está configurada
    → NO existe escenario donde Fee Oculto activo + TA inactiva
+   → Configuración: Según configuración en el Admin
 ```
 
 **Componentes:**
@@ -171,10 +173,17 @@ MÉTODO 2: Pago en Agencia
 
 **Información del vuelo:**
 - Detalles completos del itinerario
-- Política de equipaje
+- Política de equipaje (según información del proveedor)
 - Términos y condiciones
 - Política de cambios/cancelación
 - Servicios incluidos
+
+**Política de Equipaje:**
+- Se muestra la información de equipaje que retorna el proveedor
+- NO hay opción de agregar equipaje adicional en checkout
+- El cliente NO puede pagar por equipaje extra
+- La reserva se realiza con el equipaje incluido por el proveedor
+- Puede variar según aerolínea y proveedor
 
 **Validaciones:**
 - Disponibilidad confirmada antes de continuar
@@ -192,6 +201,15 @@ MÉTODO 2: Pago en Agencia
 - Número de documento - Obligatorio
 - Fecha de nacimiento - Obligatorio
 - Nacionalidad - Obligatorio (para vuelos internacionales)
+- **Para vuelos internacionales:**
+  - Fecha de expiración del pasaporte - Obligatorio
+
+**Categorías de pasajeros:**
+- Adultos: Mayores de 12 años
+- Niños: De 2 a 11 años
+- Infantes: Menores de 2 años
+- **Nota:** No hay restricciones especiales para infantes
+- **Nota:** No hay validaciones adicionales para infantes en checkout
 
 **2. Datos de Contacto:**
 - Email - Obligatorio
@@ -231,7 +249,7 @@ MÉTODO 2: Pago en Agencia
 - **Aplica solo para:** Vuelos internacionales
 - **Se aplica:** Por cada pasajero
 - **Restricción:** No aplica para personas mayores a 74 años
-- **Costo:** Adicional si se selecciona
+- **Costo:** El proveedor AssistViaje retorna la tarifa específica para el vuelo
 - **Pantalla de confirmación:** Si se agrega seguro ILS, se muestra pantalla especial de confirmación (NO la estándar de marketplace)
 
 **6. Habeas Data:**
@@ -275,9 +293,13 @@ Reserva creada en estado: PENDIENTE
        ↓
 Cliente recibe instrucciones para pagar en agencia
        ↓
-Cliente acude a agencia física y paga
+Cliente acude a agencia física y paga (efectivo, datafono o transferencia)
        ↓
-Agente confirma pago en Admin
+Agente NO recibe notificación automática
+       ↓
+Agente consulta reserva PENDIENTE en Admin (ve: vuelo, pasajeros, facturación, valor, proveedor, etc.)
+       ↓
+Agente confirma pago recibido
        ↓
 Agente emite la reserva desde Admin
        ↓
@@ -332,10 +354,13 @@ Estado: EMITIDA + Email automático
   - Ambos: Dirección, Ciudad, Teléfono
 
 ### **Validación 6: Política de Equipaje**
-- **Cuándo:** En detalle y checkout
-- **Qué valida:** Usuario está informado de la política de equipaje incluida
+- **Cuándo:** En disponibilidad, resumen y checkout
+- **Qué valida:** Usuario está informado de la política de equipaje incluida (según proveedor)
 - **Mensaje de error:** N/A (informativo)
-- **Comportamiento esperado:** Mostrar claramente equipaje de mano y bodega incluido
+- **Comportamiento esperado:** 
+  - Mostrar claramente equipaje incluido según información del proveedor
+  - NO permitir agregar equipaje adicional
+  - Información puede variar según aerolínea y proveedor
 
 ---
 
@@ -633,8 +658,8 @@ Estado: EMITIDA + Email automático
 - [CCOP_QA_Assistant.agent.md](../../../agents/CCOP_QA_Assistant.agent.md)
 
 **Azure DevOps:**
-- Test Plan: [planId a definir]
-- Test Suite Vuelos: [suiteId a definir]
+- NO hay suite específica de "Vuelos" para CCOP
+- Test Plan ID: Será proporcionado por QA cuando se requiera
 
 ---
 
@@ -648,15 +673,23 @@ Estado: EMITIDA + Email automático
 - ✅ Modelo de pago: 100% Efectivo (Tarjeta o Agencia)
 - ✅ Emisión: Automática (tarjeta) / Manual (agencia)
 - ✅ Estados: EMITIDA, PENDIENTE, CANCELADA
-- ✅ Fees: TA visible (opcional) + Fee Oculto (solo si TA está activa)
-- ✅ Seguro ILS (AssistViaje): Solo vuelos internacionales, por pasajero, no >74 años
+- ✅ Fees: TA visible (opcional, configurable en Admin: fija o porcentual) + Fee Oculto (configurable en Admin: fijo o porcentual, solo si TA está activa)
+- ✅ Seguro ILS (AssistViaje): Solo vuelos internacionales, por pasajero, no >74 años, tarifa retornada por AssistViaje según vuelo
+- ✅ Pantalla confirmación con ILS: Reemplaza completamente la estándar (es otra plantilla)
 - ✅ Pasarela de pago: PlacetoPay
 - ✅ Datos tarjeta: Nombre, apellido, tipo doc, número doc, tarjeta, mes, año, CVV
 - ✅ Habeas Data y Términos: Obligatorios antes de ejecutar reserva
 - ✅ Login: Puede ser desde home (no pide login en checkout si ya está autenticado)
-- ✅ Notificaciones: NO se notifica al agente (ni pagos fallidos, ni rechazados, ni emitidos)
+- ✅ Notificaciones: NO se notifica al agente (ni pagos fallidos, ni rechazados, ni emitidos, ni reservas pendientes)
 - ✅ Pagos rechazados: NO permiten reintentos
 - ✅ Emisión fallida: NO notifica al agente
+- ✅ Admin - Emisión manual:
+  - Agente NO recibe notificación de reservas pendientes
+  - Cliente paga en agencia (efectivo, datafono, transferencia)
+  - Agente ve toda la info: vuelo, pasajeros, facturación, valor, proveedor
+  - Agente confirma pago y emite desde Admin
+- ✅ Vuelos internacionales: Nacionalidad y Fecha expiración pasaporte obligatorios
+- ✅ Azure DevOps: NO hay suite específica de Vuelos, NO hay planId predefinido (QA lo proporciona cuando lo requiera)
 - ✅ Cancelación QA: Obligatoria antes de las 12 de la noche en test/demo
 - ✅ Sincronización Admin:
   - Sabre EDIFACT/Aggregator Sabre:
@@ -669,24 +702,15 @@ Estado: EMITIDA + Email automático
   - Niño NO puede viajar solo (requiere mínimo 1 adulto)
   - 1 adulto máximo con 2 niños y 1 infante
   - Máximo por reserva: 5 adultos + 4 niños y/o infantes
+  - No hay restricciones especiales para infantes
+  - No hay validaciones adicionales para infantes en checkout
+- ✅ Equipaje:
+  - Se muestra información según proveedor
+  - NO hay opción de agregar equipaje adicional
+  - Varía según aerolínea y proveedor
 - ✅ Filtros disponibles: Precio, Escala, Equipaje, Horarios, Carrousel aerolíneas, Fechas Flexibles, Tendencia precios, Explorar Destinos
 - ✅ Funcionalidades: Nueva búsqueda desde disponibilidad, Opciones avanzadas, Código promocional
 
-**Pendientes de Validación:**
-- [ ] Validar políticas específicas de equipaje por aerolínea/proveedor
-- [ ] Confirmar límite máximo de pasajeros por reserva
-- [ ] Validar flujo de cambios/modificaciones (si existe)
-- [ ] Confirmar tiempos de expiración de cotización (si aplica)
-- [ ] Definir particularidades específicas por proveedor (timeout, formatos, etc.)
-- [ ] Configurar suiteId "Vuelos" en Azure DevOps
-- [ ] Validar integración con Admin para emisión manual
-- [ ] Confirmar flujo de reintento de emisión fallida desde Admin
-- [ ] Validar tipos de documento aceptados por cada proveedor
-- [ ] Confirmar campos adicionales para vuelos internacionales
-- [ ] Validar cálculo exacto del seguro ILS (monto por pasajero)
-- [ ] Confirmar pantalla especial de confirmación con seguro ILS
-- [ ] Validar monto/porcentaje de TA y Fee Oculto por configuración
-- [ ] Confirmar proceso de reembolso (si aplica) para cancelaciones
 
 **Última actualización:** 2026-02-03  
 **Responsable:** QA Team CCOP
