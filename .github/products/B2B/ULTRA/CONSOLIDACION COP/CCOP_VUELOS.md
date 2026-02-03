@@ -132,6 +132,12 @@ MÉTODO 2: Pago en Agencia
 
 ### **2. DISPONIBILIDAD (Resultados de Búsqueda)**
 
+**Endpoint:** Flights V3.1
+- Expone recomendaciones de los 3 proveedores (Netactica, Sabre NDC, Sabre EDIFACT)
+- Ordenadas por tarifa: menor a mayor precio
+- **Filtrado dinámico:** OBLIGATORIO configurar para v3.1 (ver documentación técnica en Referencias)
+- Paginador: Scroll infinito carga siguiente página de recomendaciones
+
 **Información mostrada:**
 - Aerolínea
 - Número de vuelo
@@ -361,6 +367,29 @@ Estado: EMITIDA + Email automático
   - Mostrar claramente equipaje incluido según información del proveedor
   - NO permitir agregar equipaje adicional
   - Información puede variar según aerolínea y proveedor
+
+### **Validación 7: Registro de Transacciones en P2P**
+- **Cuándo:** En todos los procesos de pago con tarjeta
+- **Qué valida:** Todas las transacciones se registran correctamente en P2P (PlacetoPay)
+- **Comportamiento esperado:**
+  - Transacciones exitosas: Registradas con estado APROBADO
+  - Transacciones fallidas: Registradas con estado RECHAZADO
+  - Validar trazabilidad completa de intentos de pago
+
+### **Validación 8: Estados y Liquidación en Admin**
+- **Cuándo:** Después de ejecutar reserva
+- **Qué valida:** Información correcta en Admin de Consolidación COP
+- **Comportamiento esperado:**
+  - Estados de reserva mapeados correctamente (EMITIDA/PENDIENTE/CANCELADA)
+  - Liquidación de valores coincide con lo seleccionado:
+    - Tarifa base del vuelo
+    - Impuestos desglosados
+    - TA (si aplica)
+    - Fee oculto (si aplica)
+    - Seguro ILS (si aplica)
+    - Descuento de promocode (si aplica)
+  - Monto cobrado en tarjeta(s) coincide con total calculado
+  - Promocode aplicado correctamente y reflejado en liquidación
 
 ---
 
@@ -624,17 +653,32 @@ Estado: EMITIDA + Email automático
 
 ## 📊 MATRIZ DE CASOS RECOMENDADA
 
+### **CASOS E2E CRÍTICOS (Prioridad Alta):**
+
+| # | Escenario Crítico E2E | Proveedor | Variante | Validaciones Clave |
+|---|----------------------|-----------|----------|--------------------|
+| 1 | Pago exitoso 1 tarjeta + TA + Fee Oculto | Netactica | 1 adulto | P2P transacción exitosa, Admin liquidación correcta (tarifa+TA+fee) |
+| 2 | Pago exitoso 2 tarjetas + Promocode + TA + Fee Oculto | Sabre NDC | 2 adultos | P2P 2 transacciones exitosas, Promocode aplicado, Admin liquidación correcta |
+| 3 | Pago tarjeta fallido | Netactica | 1 adulto | P2P transacción fallida registrada, Estado PENDIENTE en Admin |
+| 4 | Pago mixto: 1 tarjeta aprobada + 1 fallida | Sabre EDIFACT | 1 adulto | P2P ambas transacciones registradas, Validar estado resultante |
+| 5 | Pago en agencia | Netactica | 1 adulto | Estado PENDIENTE, Emisión manual desde Admin |
+| 6 | Pago en agencia + Promocode | Sabre NDC | 2 adultos | Promocode aplicado, Estado PENDIENTE, Emisión manual |
+| 7 | Seguro ILS varios pasajeros (todos aplican) | Netactica | 3 adultos <74 años | ILS aplicado a todos, Pantalla especial confirmación, Liquidación ILS x3 |
+| 8 | Seguro ILS varios pasajeros (solo uno aplica) | Sabre NDC | 2 adultos (1 >74 años) | ILS solo para <74 años, Validar cálculo correcto |
+
+### **CASOS FUNCIONALES (Combinaciones):**
+
 | Escenario | Proveedor | Variante | Método Pago | Prioridad | Complejidad |
 |-----------|-----------|----------|--------------|-----------|-------------|
-| Compra exitosa ida - Pago Tarjeta | Netactica | 1 adulto nacional | Tarjeta | Alta | Baja |
-| Compra exitosa ida y vuelta - Pago Tarjeta | Sabre Aggregator | 1 adulto nacional | Tarjeta | Alta | Media |
-| Compra exitosa - Pago Agencia | Netactica | 1 adulto nacional | Agencia | Alta | Media |
+| Compra exitosa ida - Nacional | Netactica | 1 adulto | Tarjeta | Alta | Baja |
+| Compra exitosa ida y vuelta - Nacional | Sabre NDC | 1 adulto | Tarjeta | Alta | Media |
+| Compra exitosa ida - Internacional | Netactica | 1 adulto | Tarjeta | Alta | Media |
+| Compra exitosa solo ida | Sabre EDIFACT | 1 adulto | Tarjeta | Media | Baja |
+| Compra exitosa multidestino | Netactica | 1 adulto | Tarjeta | Media | Alta |
 | Compra con múltiples pasajeros | Netactica | 2 adultos + 1 niño | Tarjeta | Alta | Media |
-| Compra vuelo internacional | Sabre Aggregator | 1 adulto | Tarjeta | Alta | Media |
-| Compra con seguro de cancelación ILS | Netactica | 1 adulto internacional | Tarjeta | Alta | Media |
+| Compra con TA fija | Sabre NDC | 1 adulto | Tarjeta | Alta | Baja |
+| Compra con TA porcentual | Netactica | 1 adulto | Tarjeta | Alta | Baja |
 | Validación autenticación (sin login) | Cualquier proveedor | Cualquiera | N/A | Alta | Baja |
-| Validación pago tarjeta rechazado | Netactica | 1 adulto | Tarjeta | Alta | Media |
-| Validación emisión fallida | Sabre Aggregator | 1 adulto | Tarjeta | Alta | Alta |
 | Validación vuelo no disponible | Netactica | Cualquiera | Tarjeta | Media | Media |
 | Validación datos facturación - Persona Natural | Netactica | 1 adulto | Tarjeta | Alta | Baja |
 | Validación datos facturación - Persona Jurídica | Netactica | 1 adulto | Tarjeta | Alta | Baja |
@@ -642,9 +686,10 @@ Estado: EMITIDA + Email automático
 | Validación máximo pasajeros por reserva | Cualquier proveedor | 6 adultos (excede límite) | N/A | Media | Baja |
 | Vuelo con múltiples escalas | Sabre EDIFACT | 2+ escalas | Tarjeta | Media | Media |
 | Cancelación por agente | Cualquier proveedor | Cualquier estado | N/A | Media | Media |
-| Emisión manual desde Admin (pago agencia) | Netactica | 1 adulto | Agencia | Alta | Alta |
 
-**Total casos recomendados:** 17 casos mínimos
+**Total casos E2E críticos:** 8 casos  
+**Total casos funcionales:** 16 casos  
+**Total general recomendado:** 24 casos mínimos
 
 ---
 
@@ -653,6 +698,9 @@ Estado: EMITIDA + Email automático
 **Reglas comunes:**
 - [CCOP_COMMON_RULES.md](../../../shared/Reglas Marketplace/CCOP_COMMON_RULES.md)
 - [SHARED_QA_RULES.md](../../../shared/SHARED_QA_RULES.md)
+
+**Documentación técnica:**
+- [Flights V3.1 - Paginación y Filtros Dinámicos](https://dev.azure.com/ultragrouplaorg/ultragroupla/_wiki/wikis/Ultra%20Group%20Wiki/1168/Informe-paso-a-produccion-paginacion-y-filtros-dinamicos-para-vuelos-v3.1)
 
 **Agente especializado:**
 - [CCOP_QA_Assistant.agent.md](../../../agents/CCOP_QA_Assistant.agent.md)
@@ -669,6 +717,7 @@ Estado: EMITIDA + Email automático
 
 **Información Confirmada:**
 - ✅ Framework: Angular
+- ✅ Endpoint disponibilidad: Flights V3.1 (paginador con scroll, filtrado dinámico)
 - ✅ Proveedores: Aggregator Netactica, Aggregator Sabre (Sabre NDC), Sabre EDIFACT
 - ✅ Modelo de pago: 100% Efectivo (Tarjeta o Agencia)
 - ✅ Emisión: Automática (tarjeta) / Manual (agencia)
@@ -710,6 +759,11 @@ Estado: EMITIDA + Email automático
   - Varía según aerolínea y proveedor
 - ✅ Filtros disponibles: Precio, Escala, Equipaje, Horarios, Carrousel aerolíneas, Fechas Flexibles, Tendencia precios, Explorar Destinos
 - ✅ Funcionalidades: Nueva búsqueda desde disponibilidad, Opciones avanzadas, Código promocional
+- ✅ Validaciones críticas:
+  - P2P: Registro de todas las transacciones (exitosas y fallidas)
+  - Admin: Estados correctos, liquidación precisa (tarifa + impuestos + TA + fee oculto + seguro ILS + descuento promocode)
+  - Cobro en tarjetas: Coincide con total calculado
+  - Promocodes: Aplicados correctamente y reflejados en liquidación
 
 
 **Última actualización:** 2026-02-03  
