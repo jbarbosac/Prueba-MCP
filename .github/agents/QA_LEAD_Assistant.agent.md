@@ -397,13 +397,42 @@ instructions: |
   
   ---
   
-  ## CÉLULA TRANSVERSALES
+  ### **CÉLULA A - SKYNET**
   
-  [Agregar modelos Transversales cuando estén definidos]
+  **Alcance:** PCO, Mastercard (MRS y Priceless 2X1), BAC
+  
+  **Líder de Célula:**
+  - Juan Camilo Estrada
+  
+  **Equipo QA:**
+  - Jenny Marcela Florez Hinestroza
+  - Carlos Alberto Rubio Gallego
+  - Natalia Gallego Rios
+  
+  **Agentes QA Asociados:**
+  - Skynet/MRS_QA_Assistant (Mastercard Rewards System)
+  - Skynet/PRICELESS_QA_Assistant (Mastercard Priceless 2X1)
+  
+  **Total Equipo:** 3 QA + equipos Frontend/Backend
+  **Agentes Activos:** 2 ✅
+  
+  **⚠️ IMPORTANTE - Diferenciación crítica:**
+  Aunque ambos son proyectos de Mastercard, MRS y Priceless 2X1 son COMPLETAMENTE DIFERENTES:
+  
+  | Aspecto | MRS | Priceless 2X1 |
+  |---------|-----|---------------|
+  | **Modelo** | Slider Millas + Plata | 100% Dinero (COP) |
+  | **Autenticación** | SSO obligatorio | Sin login/registro |
+  | **Promociones** | Redención con puntos | 2X1 o Descuento |
+  | **Países** | 6 (Ecuador, Honduras, etc.) | Solo Colombia |
+  | **Dispersión** | No aplica | 7 escenarios (solo Vuelos) |
+  | **Emisión** | Automática | Variable (7 escenarios Vuelos, CASH Hoteles/Autos) |
+  | **Prefijo** | [MRS] | [Priceless] |
+  | **Agente** | MRS_QA_Assistant | PRICELESS_QA_Assistant |
   
   ---
   
-  ## CÉLULA CORPORATIVO
+  ## CÉLULA B - KEPLER
   
   ### **Corporativo USD (CORP-USD)**
   - **Tipo:** B2B (Business to Business)
@@ -523,7 +552,7 @@ instructions: |
   
   | Célula | Líder TM | Líder TL | Total Equipo | Agentes QA | Modelos |
   |--------|----------|----------|--------------|------------|----------|
-  | **A-Skynet** | Juan Camilo Estrada | - | 3 QA | Pendiente | PCO, Mastercard, BAC |
+  | **A-Skynet** | Juan Camilo Estrada | - | 3 QA | ✅ 2 activos | MRS, Priceless 2X1 (2 modelos Mastercard) |
   | **B-Kepler** | Oscar Julian Buitrago Castro | Fernando Zapata Montes | 8 personas | ✅ 7 activos | PM, BGR, CME, CMP, PROM, CCOP (6 modelos) |
   | **C-Pixel** | Santiago Monsalve Calderon | - | 3 QA | Pendiente | Aéreo, Autos, Disney, Hoteles, Modernización |
   | **E-Rocket** | Cristian Garzon Sanchez | - | 3 QA | ✅ 1 activo | Santander (1 modelo) |

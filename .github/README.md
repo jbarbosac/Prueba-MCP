@@ -40,6 +40,8 @@
 **Producto Owner (PO) PCO:** Daniel Restrepo Restrepo
 **Producto Owner (PO) Mastercard y BAC:** Juan Bernardo Arias Hurtado
 
+**Agentes Activos:** 2 (MRS, Priceless 2X1) ✅
+
 ---
 
 ### 📦 **Célula B - Kepler**
@@ -94,7 +96,7 @@
 
 | Célula | Líder | # Miembros | Agentes QA |
 |--------|-------|------------|------------|
-| 🤖 **A-Skynet** | Juan Camilo Estrada | 3 | Pendiente |
+| 🤖 **A-Skynet** | Juan Camilo Estrada | 3 | ✅ 2 activos |
 | 📦 **B-Kepler** | Oscar Julian Buitrago Castro | 3 | ✅ 5 activos |
 | 🎯 **C-Pixel** | Santiago Monsalve Calderon | 3 | Pendiente |
 | 🚀 **E-Rocket** | Cristian Garzon Sanchez | 3 | Pendiente |
@@ -247,6 +249,17 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 | **Correos Millas Panamá** | Kepler/CMP_QA_Assistant | [CMP] | Panamá | ⏳ Pendiente |
 | **Promerica Rewards** | Kepler/PROM_QA_Assistant | [PROM] | - | ⏳ Pendiente |
 
+### **🤖 Célula SKYNET** (2 modelos configurados)
+
+| Modelo | Agente | Prefijo | País | Estado |
+|--------|--------|---------|------|--------|
+| **Mastercard Rewards System** | Skynet/MRS_QA_Assistant | [MRS] | 6 países | ✅ Activo |
+| **Mastercard Priceless 2X1** | Skynet/PRICELESS_QA_Assistant | [Priceless] | Colombia | ✅ Activo |
+
+**Diferenciación crítica:**
+- **MRS:** Slider millas + plata, SSO obligatorio, múltiples países
+- **Priceless 2X1:** 100% dinero (COP), promociones 2X1/Descuento, sin login, solo Colombia
+
 ### **🎯 Célula PIXEL**
 
 **Sin modelos configurados.** [Ver cómo agregar →](agents/Pixel/README.md)
@@ -254,10 +267,6 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 ### **🚀 Célula ROCKET**
 
 **Sin modelos configurados.** [Ver cómo agregar →](agents/Rocket/README.md)
-
-### **🤖 Célula SKYNET**
-
-**Sin modelos configurados.** [Ver cómo agregar →](agents/Skynet/README.md)
 
 ### **🔄 Célula TRANSVERSALES**
 
@@ -284,6 +293,13 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 | **CME QA Assistant** | [CME_QA_Assistant.agent.md](agents/CME_QA_Assistant.agent.md) | Club Miles Ecuador | Crear casos de prueba específicos para CME |
 | _CMP, Promerica_ | _Pendiente configurar_ | Club Millas Perú, Promerica | Agentes por implementar |
 
+#### 🤖 **Célula SKYNET - Agentes Especializados**
+
+| Agente | Archivo | Portal/Modelo | Cuándo usar |
+|--------|---------|---------------|-------------|
+| **MRS QA Assistant** | [MRS_QA_Assistant.agent.md](agents/MRS_QA_Assistant.agent.md) | Mastercard Rewards System | Crear casos de prueba para MRS (slider millas + plata, 6 países) |
+| **Priceless QA Assistant** | [PRICELESS_QA_Assistant.agent.md](agents/PRICELESS_QA_Assistant.agent.md) | Mastercard Priceless 2X1 | Crear casos de prueba para Priceless 2X1 (promociones 2X1/Descuento, Colombia) |
+
 #### 🎯 **Célula PIXEL - Agentes Especializados**
 
 | Estado | Mensaje |
@@ -295,12 +311,6 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
 | Estado | Mensaje |
 |--------|---------|
 | 📦 Sin modelos configurados | Ver [Rocket/README.md](agents/Rocket/README.md) para agregar modelos |
-
-#### 🤖 **Célula SKYNET - Agentes Especializados**
-
-| Estado | Mensaje |
-|--------|---------|
-| 📦 Sin modelos configurados | Ver [Skynet/README.md](agents/Skynet/README.md) para agregar modelos |
 
 #### 🔄 **Célula TRANSVERSALES - Agentes Especializados**
 
@@ -316,12 +326,12 @@ Este sistema proporciona **arquitectura de agentes QA en 3 capas** organizados p
                             │
         ┌───────────────────┬───────────┼──────────┬────────────┬──────────┐
         │                   │           │          │            │          │
-    KEPLER                PIXEL       ROCKET    SKYNET      TRANSVERSALES  |
+    KEPLER              SKYNET        PIXEL       ROCKET    TRANSVERSALES  |
         │                   │           │          │            │          |
-  ┌─────┴─────────|         │           │          │            │          |
-  │  │   │   │    |         │           │          │            │          │
- PM BGR CME CMP PMRICA      │           │          │            │          |
-                       [modelos]    [modelos]   [modelos]     [modelos]
+  ┌─────┴─────────|    ┌────┴───┐      │          │            │          |
+  │  │   │   │    |    │         │      │          │            │          │
+ PM BGR CME CMP PROM  MRS   Priceless   │          │            │          |
+                                2X1   [modelos]   [modelos]     [modelos]
 ```
 
 ### 3. Preparar información (QA ejecutores)

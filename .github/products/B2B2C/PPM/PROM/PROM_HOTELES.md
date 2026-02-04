@@ -1,10 +1,26 @@
-# 🏨 FLUJO E2E OBLIGATORIO PARA HOTELES - PROMERICA REWARDS
+# 🏨 PRODUCTO: HOTELES - PROMERICA REWARDS
 
 > **📖 Información Global:** Ver [PROM_QA_Assistant.agent.md](../../../../agents/PROM_QA_Assistant.agent.md) para URL del portal, país activo, modelo de negocio y versión del marketplace.
 
 ---
 
-## 📦 PROVEEDORES DISPONIBLES
+## 📌 Descripción General
+
+El producto **Hoteles** permite a los usuarios del programa Promerica Rewards buscar, comparar y reservar alojamientos utilizando el modelo de pago híbrido **Puntos + Plata (Slider)**. El sistema integra HotelBeds como proveedor principal, ofreciendo búsqueda por destinos a nivel mundial con filtrado avanzado por estrellas, precios, servicios y tipos de propiedad.
+
+**Características principales:**
+- Búsqueda de hoteles por ciudad, país o región
+- Selección flexible de fechas con calendario mensual
+- Configuración de habitaciones múltiples y huéspedes por habitación
+- Modelo de pago flexible con slider Puntos + Plata
+- Filtrado avanzado por categorías, servicios y tipos de alojamiento
+- Integración con HotelBeds para inventario global
+
+---
+
+## 📦 CONTEXTO OPERATIVO
+
+### Proveedores Disponibles
 
 **Proveedor confirmado:**
 
@@ -12,29 +28,25 @@
 
 ⚠️ **Pendiente validar:** Si existen proveedores adicionales o alternativas
 
----
-
-## 🔧 COMPONENTES TRANSVERSALES
+### Componentes Transversales
 
 > **Nota:** Estos componentes son compartidos por todos los productos del marketplace (Vuelos, Autos, **Hoteles**, Disney, Actividades). Ver detalle completo en [PROM_VUELOS.md](PROM_VUELOS.md#-componentes-transversales).
 
-### Header Global
+#### Header Global
 
 Barra superior con navegación principal, branding personalizado de Promerica y acceso de usuario.
 
-### Tabs de Productos
+#### Tabs de Productos
 
 Pestañas horizontales para navegación entre productos (Vuelos, Autos, **Hoteles**, Disney, Actividades).
 
-### Footer Global
+#### Footer Global
 
 Sección inferior con información institucional y canales de contacto personalizados por país.
 
----
+### Flujo E2E Obligatorio
 
-## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
-
-**Siempre incluir estos pasos desde login para el flujo completo de Hoteles:**
+**Estos pasos deben incluirse en todos los casos de prueba para asegurar trazabilidad completa:**
 
 1. **Acceder al portal** → https://traveltest-club-promerica.preprodppm.com/es-cr | El portal carga correctamente y muestra la pantalla de inicio
 2. **Realizar login** → Ingresar usuario y contraseña válidos | Login exitoso y acceso al home con tabs de productos visibles
@@ -46,7 +58,7 @@ Sección inferior con información institucional y canales de contacto personali
 8. **Confirmar rango de fechas** → Seleccionar fecha inicio y fecha fin | Calendario se cierra y campos muestran fechas seleccionadas
 9. **Configurar habitaciones y huéspedes** → Clic en campo "Habitaciones y huéspedes" | Dropdown expansible se abre
 10. **Ajustar cantidad** → Seleccionar número de habitaciones, adultos y niños | Campos se actualizan con cantidades seleccionadas
-11. **Confirmar configuración** → Clic en "Listo" o fuera del dropdown | Dropdown se cierra y campo muestra resumen (ej: "1 habitación, 2 adultos")
+11. **Confirmar configuración** → Clic en "Listo" o fuera del dropdown | Dropdown se cierra y campo muestra resumen (ej: "2 personas, 1 habitación")
 12. **Ejecutar búsqueda** → Clic en botón "Buscar" verde | Sistema redirige a módulo de Disponibilidad con resultados
 13. **Revisar widget de búsqueda persistente** → Verificar resumen de criterios en parte superior | Widget compacto muestra destino, fechas, habitaciones
 14. **Navegar por lista de hoteles** → Scroll por resultados | Cards de hoteles se muestran con información básica
@@ -68,344 +80,412 @@ Sección inferior con información institucional y canales de contacto personali
 
 ## 🏠 MÓDULO: HOME/LOGIN
 
-**Descripción:** Página principal del marketplace donde el usuario accede al buscador de hoteles y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test).
+### 📋 Descripción del Módulo
+
+Página principal del marketplace donde el usuario accede al buscador de hoteles y navega entre productos disponibles. La interfaz es personalizable según el país configurado (Costa Rica en Test). Este módulo proporciona búsqueda por destinos globales con modal especializado y configuración flexible de habitaciones/huéspedes.
+
+### 🎨 FUNCIONALIDADES
+
+> 🔗 **Componentes Transversales:** Para Header, Tabs de Productos y Footer ver sección [Componentes Transversales](#componentes-transversales)
 
 ---
 
-### Widget de Búsqueda de Hoteles
+#### 🔹 Funcionalidad: Widget de Búsqueda de Hoteles
 
-**Descripción:** Formulario principal para búsqueda de hoteles con selectores de destino, fechas y configuración de habitaciones/huéspedes.
+##### 📖 Descripción Funcional
 
-**Componentes:**
+Formulario principal para búsqueda de hoteles con diseño limpio y moderno. Permite configurar destino, fechas de estancia (check-in/check-out) y cantidad de habitaciones con huéspedes. Incluye modal especializado para búsqueda de destinos y controles numéricos para gestión de habitaciones.
 
-1. **Selector "Destino":**
-   - Campo con ícono de ubicación
-   - Placeholder: "Ingresa tu destino"
-   - Clic abre modal de búsqueda de destinos
+**Ubicación:** Centro de la página de inicio, debajo del header y tabs de productos  
+**Tipo de componente:** Formulario interactivo con modal de destinos y controles numéricos  
+**Acceso:** Disponible para todos los usuarios autenticados
 
-2. **Selector "Check-in":**
-   - Campo con ícono de calendario
-   - Placeholder: "Fecha de entrada"
-   - Clic abre calendario mensual
+##### 🧩 Componentes
 
-3. **Selector "Check-out":**
-   - Campo con ícono de calendario
-   - Placeholder: "Fecha de salida"
-   - Clic abre calendario mensual
-   - Validación: Debe ser posterior al check-in
+1. **Campo "Destino":**
+   - Label: "Destino"
+   - Placeholder: "Selecciona un destino"
+   - Ícono de ubicación (verde) posicionado a la derecha del campo
+   - Campo obligatorio para realizar búsqueda
 
-4. **Selector "Habitaciones y huéspedes":**
-   - Campo con ícono de personas
-   - Placeholder: "1 habitación, 2 adultos"
-   - Clic abre dropdown con controles numéricos
+2. **Campo "Selecciona tus fechas":**
+   - Label: "Selecciona tus fechas"
+   - Placeholder inicial: "Selecciona tus fechas"
+   - Ícono de calendario posicionado a la derecha
+   - Después de selección muestra formato: "Vie, 31 Oct - Vie, 7 Nov"
 
-5. **Botón Buscar:**
-   - Botón verde para ejecutar la búsqueda
-   - Deshabilitado si faltan campos obligatorios
-
-**Comportamiento esperado:**
-
-- **Destino:** Clic abre modal con buscador de ciudades/países/hoteles
-- **Check-in/Check-out:** Clic abre calendario mensual con navegación
-- **Fechas:** Validación automática (check-out después de check-in, no fechas pasadas)
-- **Habitaciones/Huéspedes:** Dropdown con controles + / - para ajustar cantidades
-- **Validación:** Destino y fechas son obligatorios antes de buscar
-- Al hacer clic en "Buscar" → Redirige a módulo de Disponibilidad con resultados filtrados
-
-**Variaciones Móviles:**
-
-- **Campos apilados verticalmente:** Cada campo ocupa ancho completo
-- **Modal de destino:** Pantalla completa con buscador
-- **Calendario:** Vista en pantalla completa con navegación táctil
-- **Dropdown habitaciones:** Expansión fullscreen con controles grandes
-- **Botón "Buscar":** Sticky en la parte inferior de la pantalla
-- **Touch targets:** Áreas de toque optimizadas
-
----
-
-### Modal de Búsqueda de Destinos
-
-**Descripción:** Modal emergente que permite buscar y seleccionar destinos mediante campo de búsqueda y lista de resultados.
-
-**Componentes:**
-
-- **Título del Modal:** "¿A dónde quieres ir?"
-- **Botón Cerrar (X):** Esquina superior derecha
-- **Campo de Búsqueda:**
-  - Barra de texto con ícono de lupa
-  - Placeholder: "Ciudad, hotel, punto de interés"
-- **Lista de Resultados:**
-  - Panel scrollable con formato: Nombre | Tipo (Ciudad/Hotel) | País
-  - Ejemplo: "San José | Ciudad | Costa Rica"
-- **Sugerencias Populares (opcional):**
-  - Lista de destinos frecuentes o destacados
-  - Aparece cuando el campo está vacío
-- **Mensaje de Estado Vacío:**
-  - "No se encontraron resultados para tu búsqueda"
-  - "Intenta con otro destino"
-
-**Comportamiento esperado:**
-
-- **Apertura:** Clic en campo "Destino" del widget principal
-- **Búsqueda:** Usuario escribe destino → Sistema filtra en tiempo real
-- **Resultados encontrados:** Muestra lista de destinos coincidentes
-- **Selección:** Clic en destino → Cierra modal y actualiza campo "Destino"
-- **Sin resultados:** Muestra mensaje de estado vacío
-- **Cerrar:** Botón X o clic fuera → Cierra sin cambios
-
----
-
-### Calendario de Fechas
-
-**Descripción:** Componente de calendario para seleccionar check-in y check-out.
-
-**Componentes:**
-
-- **Navegación de Mes/Año:**
-  - Flechas izquierda/derecha para cambiar mes
-  - Selector de mes y año en encabezado
-- **Grilla de Días:**
-  - Días de la semana (Lun-Dom)
-  - Días del mes con estado visual
-- **Indicadores Visuales:**
-  - Día actual destacado
-  - Fechas pasadas deshabilitadas
-  - Check-in seleccionado (verde)
-  - Rango seleccionado (verde claro)
-  - Check-out seleccionado (verde)
-- **Botones de Acción:**
-  - "Cancelar" (cierra sin cambios)
-  - "Aceptar" (confirma selección) - botón verde
-
-**Comportamiento esperado:**
-
-- **Primer clic:** Establece check-in
-- **Segundo clic:** Establece check-out (debe ser posterior al check-in)
-- **Validación:** No permite seleccionar fechas pasadas
-- **Rango visual:** Muestra días entre check-in y check-out resaltados
-- **Cancelar:** Cierra calendario sin aplicar cambios
-- **Aceptar:** Actualiza campos y cierra calendario
-
----
-
-### Dropdown Habitaciones y Huéspedes
-
-**Descripción:** Control desplegable para configurar cantidad de habitaciones, adultos y niños.
-
-**Componentes:**
-
-1. **Habitaciones:**
+3. **Dropdown "Habitaciones":**
    - Label: "Habitaciones"
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 1, máximo ⚠️ por definir
+   - Valor por defecto: "1 persona, 1 habitación"
+   - Ícono chevron-down indicando desplegable
 
-2. **Adultos:**
-   - Label: "Adultos"
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 1, máximo ⚠️ por definir
+4. **Botón "Buscar":**
+   - Color de fondo: Verde institucional (#00563F)
+   - Texto: "Buscar" en color blanco, centrado
+   - Ancho completo (full-width)
+   - Bordes redondeados
+   - Efecto hover: cambio de opacidad
+   - Estado deshabilitado si faltan campos obligatorios
 
-3. **Niños:**
-   - Label: "Niños"
-   - Controles: Botón "-" | Número | Botón "+"
-   - Rango: Mínimo 0, máximo ⚠️ por definir
-   - ⚠️ **Pendiente:** Validar si pide edades de niños
+##### 💻 Comportamiento Esperado
 
-4. **Botón "Listo":**
-   - Botón verde para confirmar configuración
+**Comportamiento del campo "Destino":**
+- Al hacer clic despliega modal "¿A dónde quieres ir?"
+- **Modal incluye:**
+  - Botón Cerrar (X) en esquina superior derecha
+  - Campo de búsqueda con ícono de lupa
+  - Placeholder: "Ciudad, hotel, punto de interés"
+  - Lista scrollable de resultados con formato: "Nombre | Tipo (Ciudad/Hotel) | País"
+  - Ejemplos: "San José | Ciudad | Costa Rica", "Miami Area - FL - Estados Unidos (MIA)"
+  - Sugerencias populares cuando el campo está vacío (opcional)
+  - Mensaje de estado vacío: "No se encontraron resultados para tu búsqueda"
+- Búsqueda filtra resultados en tiempo real mientras el usuario escribe
+- Borde con enfoque verde al seleccionar
+- Permite selección con clic o tecla Enter
+- Clic en destino → Cierra modal y actualiza campo "Destino"
+- Botón X o clic fuera → Cierra sin cambios
 
-**Comportamiento esperado:**
+**Comportamiento del campo "Fechas":**
+- Al hacer clic abre calendario interactivo
+- **Navegación del calendario:**
+  - Flechas simples < > con visualización de mes/año (ej: "ENE 2024")
+  - Flechas dobles << >> para saltar múltiples meses
+  - Calendario en formato grid con días de semana: L, M, M, J, V, S, D
+- **Indicadores visuales:**
+  - Día actual destacado
+  - Fechas pasadas deshabilitadas (no se pueden seleccionar)
+  - Check-in seleccionado resaltado en verde (#00563F)
+  - Rango entre fechas con conexión gráfica en verde claro
+  - Check-out seleccionado resaltado en verde (#00563F)
+- **Proceso de selección:**
+  - Primer clic: Establece check-in
+  - Segundo clic: Establece check-out (debe ser posterior al check-in)
+  - Rango visual muestra días entre check-in y check-out resaltados
+- **Validaciones:**
+  - Restricción: no permite seleccionar fechas pasadas
+  - Validación automática: Check-out debe ser posterior a check-in
+  - Cálculo automático de número de noches
+- **Botones del modal:**
+  - "Cancelar": cierra sin guardar cambios
+  - "Aceptar": confirma selección, actualiza campo con formato "Vie, 31 Oct - Vie, 7 Nov" y cierra calendario
 
+**Comportamiento del dropdown "Habitaciones":**
+- Al hacer clic abre modal de configuración con fondo blanco
+- Permite configurar múltiples habitaciones (Habitación 1, Habitación 2, etc.)
+- **Controles por cada habitación:**
+  - **Sección Adultos:**
+    - Contador numérico con botones - / +
+    - Valor editable en el centro
+    - Texto informativo: "Desde 18 años"
+    - Validación: mínimo 1 adulto por habitación
+  - **Sección Niños:**
+    - Contador numérico con botones - / +
+    - Valor editable en el centro
+    - Texto informativo: "0 a 17 años" con ícono de información (i)
+    - Rango: 0 a múltiples niños
+    - **Dropdown condicional "Edad del niño":**
+      - Aparece solo si se agrega al menos 1 niño
+      - Label: "Edad del niño"
+      - Placeholder: "Selecciona la edad"
+      - Opciones: edades de 0 a 17 años
+      - Se replica por cada niño agregado
+- **Botón "Agregar habitación":**
+  - Estilo: texto verde (#00563F) con borde, sin fondo
+  - Permite añadir habitaciones adicionales
+  - Cada nueva habitación replica la estructura completa de controles
 - **Incremento/Decremento:** Botones +/- ajustan cantidades
 - **Límites:** Botones se deshabilitan al alcanzar mínimo/máximo
-- **Validación:** Mínimo 1 habitación y 1 adulto siempre
-- **Niños:** ⚠️ Pendiente definir si solicita edades y rangos permitidos
-- **Resumen:** Al cerrar, campo principal muestra "X habitación(es), Y adulto(s), Z niño(s)"
+- **Botones de acción del modal:**
+  - "Cancelar": descarta cambios y cierra modal sin aplicar
+  - "Aplicar": guarda configuración, actualiza texto del dropdown en formato "{X} persona(s), {Y} habitación(es)" y cierra modal
 
-**Variaciones Móviles:**
+**Validaciones del sistema:**
+- Destino es campo obligatorio
+- Fechas son obligatorias con check-in anterior a check-out
+- Mínimo 1 habitación con 1 adulto
+- Botón "Buscar" se habilita solo cuando todos los campos requeridos estén completos
+- Al presionar "Buscar" → Redirige al módulo de Disponibilidad con parámetros de búsqueda
 
-- **Pantalla completa:** Dropdown ocupa toda la pantalla
-- **Controles más grandes:** Botones +/- con áreas táctiles amplias
-- **Botón "Listo":** Sticky en parte inferior
+**Variaciones móviles:**
+- Layout vertical: Los campos se apilan verticalmente en lugar de horizontal para optimizar espacio
+- Campo "Destino": Se despliega modal de pantalla completa con resultados de autocompletado
+- Campo "Fechas": Abre datepicker de pantalla completa con teclado numérico virtual en la parte inferior
+- Selector de habitaciones: Abre modal de pantalla completa con contadores +/- más grandes para facilitar interacción táctil
+- Botón "Buscar": Permanece fijo (sticky) en la parte inferior de la pantalla móvil, siempre visible al hacer scroll
+
+##### ✅ VALIDACIONES DE QA
+
+Estas validaciones deben incluirse en todos los casos de prueba que involucren el Widget de Búsqueda:
+
+- [ ] **VAL-HOT-HOME-001:** Destino y fechas son obligatorios
+  - **Verificar:** Botón "Buscar" deshabilitado si falta destino o fechas
+  
+- [ ] **VAL-HOT-HOME-002:** Check-out posterior a check-in
+  - **Verificar:** Sistema valida que check-out sea al menos 1 día después
+  
+- [ ] **VAL-HOT-HOME-003:** No permite fechas pasadas
+  - **Verificar:** Calendario bloquea días anteriores a hoy
+  
+- [ ] **VAL-HOT-HOME-004:** Modal de destinos abre correctamente
+  - **Verificar:** Clic en "Destino" abre modal con buscador
+  
+- [ ] **VAL-HOT-HOME-005:** Búsqueda de destinos filtra en tiempo real
+  - **Verificar:** Al escribir ciudad, resultados se filtran (< 1 seg)
+  
+- [ ] **VAL-HOT-HOME-006:** Configuración de habitaciones funciona
+  - **Verificar:** Botones +/- ajustan cantidades, mínimos/máximos respetados
+  
+- [ ] **VAL-HOT-HOME-007:** Resumen de huéspedes actualiza
+  - **Verificar:** Campo muestra "X persona(s), Y habitación(es)" (X = adultos + niños)
+  
+- [ ] **VAL-HOT-HOME-008:** Botón "Buscar" redirige a Disponibilidad
+  - **Verificar:** URL cambia y se muestran resultados según búsqueda
+
+##### 🧪 Escenarios de Prueba
+
+[PENDIENTE: Agregar escenarios específicos de hoteles]
 
 ---
 
 ## 📋 MÓDULO: DISPONIBILIDAD
 
-**Descripción:** Módulo que muestra los resultados de búsqueda de hoteles disponibles según los criterios del usuario. Incluye widget persistente, filtros laterales y cards de hoteles.
+### 📋 Descripción del Módulo
+
+Módulo que muestra los resultados de búsqueda de hoteles disponibles según los criterios del usuario. Incluye widget persistente con resumen de búsqueda, panel lateral con filtros avanzados, y listado de hoteles en formato cards. Este módulo permite refinar la búsqueda mediante múltiples criterios y comparar opciones antes de seleccionar un hotel específico.
+
+### 🎨 FUNCIONALIDADES
+
+#### 🔹 Funcionalidad: Widget de Búsqueda Persistente
+
+##### 📖 Descripción Funcional
+
+Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad, permitiendo modificar la búsqueda sin volver al módulo Home.
+
+**Ubicación:** Parte superior del módulo Disponibilidad, encima de los resultados  
+**Tipo de componente:** Barra informativa con acción de edición  
+**Persistencia:** Visible durante toda la navegación en Disponibilidad
+
+##### 🧩 Componentes
+
+| Componente | Descripción | Tipo | Editable |
+|------------|-------------|------|----------|
+| **Destino** | Ciudad o región seleccionada (ej: "San José, Costa Rica") | Text | ✅ |
+| **Check-in** | Fecha de entrada con formato corto (ej: "22 Oct") | Text | ✅ |
+| **Check-out** | Fecha de salida con formato corto (ej: "25 Oct") | Text | ✅ |
+| **Habitaciones y huéspedes** | Resumen (ej: "2 personas, 1 habitación") | Text | ✅ |
+| **Botón Buscar** | Botón verde para ejecutar nueva búsqueda | Button | ✅ |
+| **Link ocultar** | "Ocultar búsqueda" para colapsar widget | Link | ✅ |
+
+##### 💻 Comportamiento Esperado
+
+**Visualización:**
+- Widget permanece visible mientras el usuario navega los resultados (sticky)
+- Formato compacto optimizado para no ocupar demasiado espacio vertical
+
+**Interacción con campos:**
+- Clic en "Destino" → Abre mismo modal que en HOME con búsqueda en tiempo real
+- Clic en fechas → Abre mismo calendario que en HOME con validaciones
+- Clic en "Habitaciones y huéspedes" → Abre mismo dropdown que en HOME con controles +/-
+- Botón "Buscar" → Actualiza resultados con nuevos criterios sin recargar página completa
+
+**Comportamiento de colapsar:**
+- Clic en "Ocultar búsqueda" → Colapsa widget para optimizar espacio de resultados
+- Widget colapsado muestra solo resumen en una línea
+- Clic en resumen colapsado → Expande widget nuevamente
+
+**Variaciones móviles:**
+
+- **Widget persistente:** Permanece visible mientras el usuario navega los resultados (sticky)
+- **Edición de criterios:** Tap en cualquier campo abre su modal correspondiente (destino/fechas/huéspedes)
+- **Botón "Buscar":** Ejecuta nueva búsqueda y actualiza resultados sin recargar página completa
+- **Ocultar/Mostrar:** Permite colapsar el widget para optimizar espacio de resultados
+- **Expansión:** Widget puede abrirse en vista completa en móvil (según comportamiento del portal)
+
+##### ✅ VALIDACIONES DE QA
+
+[PENDIENTE: Agregar validaciones específicas del widget persistente]
+
+##### 🧪 Escenarios de Prueba
+
+[PENDIENTE: Agregar escenarios específicos del widget persistente]
 
 ---
 
-### Widget de Búsqueda Persistente
+#### 🔹 Funcionalidad: Filtros Laterales
 
-**Descripción:** Resumen compacto de criterios de búsqueda que permanece visible en la parte superior del módulo de disponibilidad.
+##### 📖 Descripción Funcional
 
-**Componentes:**
+Panel lateral interactivo con múltiples categorías de filtros para refinar la búsqueda de hoteles según precio, estrellas, tipo de alojamiento, servicios y políticas de cancelación. Los filtros se aplican de forma acumulativa y actualizan resultados en tiempo real.
 
-1. **Campo "Destino":**
-   - Muestra destino seleccionado (ej: "San José, Costa Rica")
-   - Ícono de ubicación
-   - Clic abre modal de destinos
+**Ubicación:** Panel lateral izquierdo en desktop, drawer expandible en móvil  
+**Tipo de componente:** Panel de filtros con controles múltiples  
+**Actualización:** Dinámica (sin recarga de página)
 
-2. **Campos de Fechas:**
-   - Check-in: Muestra fecha con formato corto (ej: "22 Oct")
-   - Check-out: Muestra fecha con formato corto (ej: "25 Oct")
-   - Ícono de calendario
-   - Clic abre calendario
+##### 🧩 Componentes
 
-3. **Campo "Habitaciones y huéspedes":**
-   - Muestra resumen (ej: "1 habitación, 2 adultos")
-   - Ícono de personas
-   - Clic abre dropdown de configuración
+| Componente | Descripción | Tipo | Funcionalidad |
+|------------|-------------|------|---------------|
+| **Filtro precio** | Rango deslizante min-max en Puntos o Plata | Range Slider | Definir rango de precios |
+| **Filtro estrellas** | Checkboxes: ★ 1, ★★ 2, ★★★ 3, ★★★★ 4, ★★★★★ 5 | Multi-checkbox | Filtrar por categoría de hotel |
+| **Filtro tipo de alojamiento** | Checkboxes: Hotel, Resort, Apartamento, etc. | Multi-checkbox | Filtrar por tipo de propiedad |
+| **Filtro servicios/amenidades** | Checkboxes: Wi-Fi, Piscina, etc. | Multi-checkbox | Filtrar por servicios disponibles |
+| **Filtro políticas de cancelación** | Checkboxes: Cancelación gratuita, No reembolsable, etc. | Multi-checkbox | Filtrar por condiciones de tarifa |
+| **Limpiar filtros** | Link o botón secundario | Button/Link | Resetear filtros a estado inicial |
 
-4. **Botón "Buscar":** Botón verde para ejecutar nueva búsqueda
+- **Filtro: Estrellas del hotel**
+  - Checkboxes con estrellas visuales: ★ 1, ★★ 2, ★★★ 3, ★★★★ 4, ★★★★★ 5
+  - Selección múltiple permitida
+  - Contador de resultados por categoría (opcional)
 
-5. **Link "Ocultar búsqueda":** Texto pequeño para colapsar widget
+- **Filtro: Tipo de alojamiento**
+  - Checkboxes: Hotel, Resort, Apartamento, Hostal, Villa, etc.
+  - Selección múltiple permitida
+  - ⚠️ Pendiente confirmar tipos exactos disponibles en HotelBeds
 
-**Comportamiento esperado:**
+- **Filtro: Servicios/Amenidades**
+  - Checkboxes: Wi-Fi gratuito, Piscina, Estacionamiento, Desayuno incluido, Gimnasio, Spa, Restaurante, etc.
+  - Selección múltiple permitida
+  - ⚠️ Pendiente confirmar servicios exactos disponibles
 
-- **Widget persistente:** Permanece visible mientras el usuario navega los resultados
-- **Edición de criterios:** Clic en cualquier campo permite modificar búsqueda
-- **Botón "Buscar":** Actualiza resultados con nuevos criterios sin recargar página
-- **Ocultar/Mostrar:** Colapsa widget para dar más espacio a resultados
+- **Filtro: Políticas de cancelación**
+  - Checkboxes: Cancelación gratuita, No reembolsable, Prepago requerido
+  - Selección múltiple permitida
+  - ⚠️ Pendiente confirmar opciones exactas disponibles
 
-**Variaciones Móviles:**
+- **Botón "Limpiar filtros":**
+  - Link o botón secundario para resetear todos los filtros aplicados
 
-- **Widget colapsado por defecto:** Barra compacta con resumen
-- **Expansión:** Tap expande en pantalla completa
-- **Campos:** Abren modales/calendarios fullscreen
-- **Botón "Buscar":** Sticky en la parte inferior
+##### 💻 Comportamiento Esperado
 
----
+**Aplicación de filtros:**
+- Filtros se aplican de forma acumulativa
+  - Dentro de misma categoría: OR lógico (ej: 3 estrellas O 4 estrellas)
+  - Entre categorías diferentes: AND lógico (ej: 4 estrellas Y Piscina Y Cancelación gratuita)
+- Actualización de resultados en tiempo real sin recargar página completa (< 1 segundo)
+- Contador dinámico muestra cantidad de hoteles disponibles
 
-### Filtros Laterales
+**Interacción:**
+- Clic en checkbox → Filtro se aplica inmediatamente
+- Movimiento de slider de precio → Actualiza al soltar (onMouseUp) o con delay (300ms)
+- Indicador visual de filtros activos (checkboxes marcados, slider en posición, badge numérico)
 
-**Descripción:** Panel lateral de filtros para refinar búsqueda de hoteles según múltiples criterios.
+**Persistencia:**
+- Filtros se mantienen al navegar detalle de hotel y regresar
+- Al modificar búsqueda principal, filtros se resetean
+- Estado de filtros visible claramente
 
-**Componentes:**
+**Botón limpiar:**
+- Remueve todos los filtros aplicados
+- Restaura vista a resultados completos sin filtros
+- Resetea todos los controles a su estado inicial
 
-1. **Título de Sección:** "Filtros" (texto destacado)
+**Variaciones móviles:**
+- Botón flotante "Filtros": Ícono flotante (🔽) en esquina inferior derecha
+- Panel modal: Filtros se abren como modal/bottom sheet desde el fondo
+- Filtros apilados verticalmente: Secciones expandibles/colapsables por categoría
+- Contador de filtros activos: Badge numérico en botón flotante indicando cantidad aplicada
+- Botones de acción fijos: "Limpiar filtros" (secundario) y "Aplicar" (verde primario) en parte inferior del modal
+- Cerrar modal: Swipe hacia abajo o tap en overlay oscuro
+- Scroll dentro del modal: Permite navegar todos los filtros disponibles
 
-2. **Filtro: Precio**
-   - Rango de precio con slider doble
-   - Valores mínimo y máximo mostrados
-   - Formato: Puntos o Plata según configuración
+##### ✅ VALIDACIONES DE QA
 
-3. **Filtro: Estrellas del hotel**
-   - Checkboxes: ★ 1, ★★ 2, ★★★ 3, ★★★★ 4, ★★★★★ 5
-   - Selección múltiple permitida
+[PENDIENTE: Agregar validaciones específicas de filtros]
 
-4. **Filtro: Tipo de alojamiento**
-   - Checkboxes: Hotel, Resort, Apartamento, Hostal, etc.
-   - ⚠️ Pendiente confirmar tipos disponibles
+##### 🧪 Escenarios de Prueba
 
-5. **Filtro: Servicios/Amenidades**
-   - Checkboxes: Wi-Fi, Piscina, Estacionamiento, Desayuno incluido, Gimnasio, etc.
-   - ⚠️ Pendiente confirmar servicios disponibles
-
-6. **Filtro: Políticas de cancelación**
-   - Checkboxes: Cancelación gratuita, No reembolsable, Prepago
-   - ⚠️ Pendiente confirmar opciones disponibles
-
-7. **Botón "Limpiar filtros":**
-   - Link o botón para resetear todos los filtros
-
-**Diseño Visual:**
-
-- Panel fijo en lado izquierdo de la pantalla
-- Fondo blanco con bordes suaves
-- Espaciado vertical entre secciones de filtro
-- Checkboxes y sliders con estilo Promerica (verde)
-
-**Comportamiento esperado:**
-
-- **Clic en checkbox:** Activa/desactiva filtro
-- **Slider de precio:** Ajuste dinámico de rango
-- **Selección múltiple:** Se aplican de forma acumulativa (filtro AND dentro de categoría, OR entre categorías)
-- **Actualización en tiempo real:** Resultados se actualizan al aplicar filtros
-- **Limpiar filtros:** Vuelve al estado inicial (todos desactivados)
-- **Persistencia:** Los filtros se mantienen al navegar detalles de hoteles
-
-**Variaciones Móviles:**
-
-- **Botón flotante "Filtros":** Ícono flotante (🔽) en esquina inferior
-- **Panel modal:** Filtros como modal/sheet desde el fondo
-- **Filtros apilados verticalmente:** Expansibles por sección
-- **Contador de filtros activos:** Badge numérico en botón flotante
-- **Botones de acción:** "Limpiar filtros" y "Aplicar" (verde) en parte inferior
-- **Cerrar modal:** Swipe hacia abajo o tap en overlay
+[PENDIENTE: Agregar escenarios específicos de filtros]
 
 ---
 
-### Cards de Hoteles (Vista Lista)
+#### 🔹 Funcionalidad: Cards de Hoteles (Vista Lista)
 
-**Descripción:** Tarjetas individuales que muestran información detallada de cada hotel disponible.
+##### 📖 Descripción Funcional
 
-**Componentes (por cada card):**
+Listado vertical de tarjetas individuales que muestran información resumida y relevante de cada hotel disponible. Cada card permite acceso rápido al detalle completo del hotel con habitaciones y precios.
 
-1. **Imagen del hotel:**
-   - Foto principal del hotel en alta resolución
-   - Posibilidad de galería (indicador "1/10" si hay múltiples fotos)
+##### 🧩 Componentes
 
-2. **Nombre del hotel:**
-   - Título destacado (negrita)
-   - Ubicación: Ciudad, País (gris, texto más pequeño)
+**Por cada card:**
 
-3. **Estrellas:**
-   - Visualización de estrellas: ★★★★ (dorado/amarillo)
-   - Número de estrellas según categoría del hotel
+- **Imagen del hotel:**
+  - Foto principal en alta resolución
+  - Indicador de galería: "1/10" si hay múltiples fotos
+  - Proporción 16:9 o 4:3 según diseño
 
-4. **Servicios destacados (íconos):**
-   - 📶 Wi-Fi
-   - 🏊 Piscina
-   - 🅿️ Estacionamiento
-   - 🍳 Desayuno
-   - ⚠️ Máximo 4-5 íconos visibles
+- **Nombre del hotel:**
+  - Título destacado en negrita
+  - Ubicación debajo: "Ciudad, País" (gris, texto más pequeño)
 
-5. **Calificación de huéspedes:**
-   - Puntaje: 8.5/10 (ejemplo)
-   - Label: "Muy bueno" | "Excelente" | etc.
-   - Número de reseñas: "(124 opiniones)"
-   - ⚠️ Pendiente confirmar si está disponible
+- **Estrellas:**
+  - Visualización gráfica: ★★★★ (dorado/amarillo)
+  - Número de estrellas según categoría oficial del hotel
 
-6. **Precio:**
-   - Label: "Desde" (pequeño)
-   - Precio por noche en Puntos o Plata
-   - Ejemplo: "12,000 puntos/noche" o "USD $150/noche"
-   - Precio total de estadía (opcional)
+- **Servicios destacados (íconos):**
+  - 📶 Wi-Fi gratuito
+  - 🏊 Piscina
+  - 🅿️ Estacionamiento
+  - 🍳 Desayuno incluido
+  - Máximo 4-5 íconos visibles (los más relevantes)
 
-7. **Política de cancelación:**
-   - Badge verde: "Cancelación gratuita"
-   - Badge rojo: "No reembolsable"
-   - Texto pequeño con detalles
+- **Calificación de huéspedes:**
+  - Puntaje numérico: 8.5/10 (ejemplo)
+  - Label descriptivo: "Muy bueno" | "Excelente" | "Fabuloso"
+  - Número de reseñas: "(124 opiniones)"
+  - ⚠️ Pendiente confirmar disponibilidad de calificaciones
 
-8. **Botón de acción:**
-   - Botón "Ver más" o "Ver habitaciones" (verde)
-   - Clic redirige a detalle del hotel
+- **Precio:**
+  - Label: "Desde" (texto pequeño)
+  - Precio por noche en Puntos o Plata
+  - Ejemplos: "12,000 puntos/noche" o "USD $150/noche"
+  - Precio total de estadía (opcional, texto secundario)
 
-**Diseño Visual:**
+- **Política de cancelación:**
+  - Badge verde: "Cancelación gratuita" si aplica
+  - Badge rojo: "No reembolsable" si aplica
+  - Texto pequeño con detalles adicionales
 
-- Card con borde gris claro y sombra suave
-- Layout: Imagen izquierda | Información derecha | Precio esquina superior derecha
-- Espaciado uniforme entre elementos
-- Íconos en color gris/verde con estilo minimalista
+- **Botón de acción:**
+  - Botón "Ver habitaciones" o "Ver más" (verde primario)
+  - Posicionado en esquina inferior derecha del card
 
-**Comportamiento esperado:**
+##### 💻 Comportamiento Esperado
 
-- **Hover en card:** Sombra más pronunciada o borde destacado
-- **Clic en imagen:** ⚠️ Pendiente definir: ¿Abre galería de fotos?
-- **Clic en card completo:** ⚠️ Pendiente definir: ¿Abre modal de detalle o redirige a página?
-- **Clic en botón "Ver más":** Navega a vista de detalle con habitaciones disponibles
-- **Scroll:** Carga lazy de cards adicionales conforme usuario navega
+**Visualización:**
+- Cards se muestran en lista vertical con scroll
+- Layout: Imagen izquierda | Información centro | Precio esquina superior derecha
+- Espaciado uniforme entre cards con borde gris claro y sombra suave
 
-**Variaciones Móviles:**
+**Interacción:**
+- Hover en card (desktop): Sombra más pronunciada o borde destacado
+- Clic en imagen: ⚠️ Pendiente definir: ¿Abre galería de fotos o redirige a detalle?
+- Clic en nombre/card completo: ⚠️ Pendiente definir: ¿Abre modal de detalle o redirige a página?
+- Clic en botón "Ver habitaciones": Navega a vista de detalle con habitaciones disponibles y precios
 
-- **Cards apiladas verticalmente:** Ocupan ancho completo
-- **Layout reorganizado:** Imagen arriba, información abajo
-- **Precio más prominente:** En parte superior o inferior destacada
-- **Botón "Ver más":** Ocupa ancho completo en parte inferior del card
-- **Touch targets:** Áreas de toque optimizadas para móvil
-- **Galería de imágenes:** Swipe horizontal en imagen principal
+**Carga de resultados:**
+- Scroll infinito: Carga lazy de cards adicionales conforme usuario navega (load more)
+- Indicador de carga mientras se obtienen más resultados
+- Sin resultados: Mensaje "No se encontraron hoteles con los criterios seleccionados. Intenta ajustar los filtros."
 
+**Ordenamiento:**
+- ⚠️ Pendiente documentar opciones de ordenamiento disponibles
+- Posibles opciones: Precio (menor a mayor), Estrellas (mayor a menor), Calificación (mayor a menor), Recomendados
+
+**Variaciones móviles:**
+- Cards apiladas verticalmente: Ocupan ancho completo de la pantalla
+- Layout reorganizado: Imagen en parte superior, información debajo
+- Precio más prominente: Destacado en esquina superior derecha o inferior
+- Botón "Ver habitaciones": Ocupa ancho completo en parte inferior del card
+- Touch targets optimizados: Áreas de toque ampliadas para mejor UX móvil
+- Galería de imágenes: Swipe horizontal sobre imagen principal para ver más fotos
+- Servicios en una fila: Íconos en línea horizontal con scroll si exceden espacio
+##### ✅ VALIDACIONES DE QA
+
+[PENDIENTE: Agregar validaciones específicas de cards de hoteles]
+
+##### 🧪 Escenarios de Prueba
+
+[PENDIENTE: Agregar escenarios específicos de cards de hoteles]
 ---
 
 ## 💳 MÓDULO: CHECKOUT
@@ -482,14 +562,14 @@ Sección inferior con información institucional y canales de contacto personali
 ## 📝 FORMATO DE TÍTULO
 
 ```
-[PROM] Hoteles - [Noches] - [Proveedor] - [Habitaciones] - [Huéspedes] - [Modelo de pago]
+[PROM] Hoteles - [Módulo/Escenario] - [Variante]
 ```
 
 **Ejemplos actualizados:**
 
-- `[PROM] Hoteles - 2 noches - HotelBeds - 1 habitación - 2 adultos - Puntos + Plata`
-- `[PROM] Hoteles - 3 noches - HotelBeds - 2 habitaciones - 4 adultos 2 niños - Solo Puntos`
-- `[PROM] Hoteles - 5 noches - HotelBeds - 1 habitación - 1 adulto - Puntos + Plata (50%)`
+- `[PROM] Hoteles - Home - Búsqueda - HotelBeds - 2 personas - 1 habitación - Puntos + Plata`
+- `[PROM] Hoteles - Disponibilidad - Filtros - 4★ + Piscina + Cancelación gratuita - Puntos + Plata`
+- `[PROM] Hoteles - Home - Búsqueda - HotelBeds - 1 persona - 1 habitación - Solo Puntos`
 
 ---
 
@@ -548,7 +628,7 @@ Sección inferior con información institucional y canales de contacto personali
 
 **Reglas del Slider:**
 
-- ⚠️ **CRÍTICO:** Confirmar si aplica slider en hoteles como en otros productos
+- ⚠️ **CRÍTICO:** Confirmar reglas y ubicación del slider en Hoteles (disponibilidad, detalle o checkout)
 - Porcentaje mínimo de puntos requerido
 - Fórmula de cálculo Puntos ↔ Plata (por noche o estadía completa)
 - Ubicación del slider (disponibilidad, detalle, checkout)
@@ -576,29 +656,29 @@ Sección inferior con información institucional y canales de contacto personali
 
 **Guías relacionadas:**
 
-- [SHARED_QA_RULES.md](../../../../shared/SHARED_QA_RULES.md) - Fundamentos ISTQB y Azure DevOps
-- [PROM_COMMON_RULES.md](../../../../shared/Reglas Marketplace/PROM_COMMON_RULES.md) - Reglas comunes Promerica
+- [PROM_QA_Assistant.agent.md](../../../../agents/PROM_QA_Assistant.agent.md) - Valores globales PROM (URL, país, modelo de negocio)
 - [PROM_VUELOS.md](PROM_VUELOS.md) - Referencia para estructura y componentes transversales
 
 ---
 
 ## 🔄 CONTROL DE CAMBIOS
 
-### Versión 0.3 - 2026-01-23
+### Versión 1.0 - 2026-01-25
 
 **Cambios principales:**
 
-- ✅ Agregada URL Test Costa Rica (CR)
-- ✅ Confirmado modelo de negocio: Puntos + Plata (Slider)
-- ✅ Confirmado proveedor: HotelBeds
-- ✅ Referenciados Componentes Transversales (ver PROM_VUELOS.md)
-- ✅ Documentado Módulo Home/Login completo (Widget búsqueda + Modal destinos + Calendario + Dropdown habitaciones)
-- ✅ Documentado Módulo Disponibilidad (Widget persistente, Filtros laterales, Cards de hoteles)
-- ✅ Agregados Pasos Obligatorios del Flujo E2E (25 pasos)
-- ✅ Aplicada jerarquía de títulos consistente (H1 → H2 → H3)
-- ✅ Eliminadas duplicaciones entre secciones
-- ✅ Consolidadas Validaciones Críticas por módulo
-- ✅ Reorganizados Próximos Pasos en categorías lógicas
+- ✅ Aplicada jerarquía completa según estructura definida por el equipo: H1 (Producto) → H2 (Módulo) → H3 (Descripción/FUNCIONALIDADES) → H4 (Funcionalidad) → H5 (📖 Descripción, 🧩 Componentes, 💻 Comportamiento esperado)
+- ✅ **MÓDULO HOME:** Widget de Búsqueda reorganizado completamente
+  - Modal de Destinos, Calendario y Dropdown integrados en 💻 Comportamiento esperado (ya no como secciones H3 separadas)
+  - Estructura correcta: H2 MÓDULO → H3 Descripción del Módulo + FUNCIONALIDADES → H4 Widget → H5 📖🧩💻🎨(Variaciones Móviles)
+  - Componentes detallados: Campo Destino, Fechas, Habitaciones, Botón Buscar con comportamientos completos
+- ✅ **MÓDULO DISPONIBILIDAD:** 3 funcionalidades reestructuradas con jerarquía correcta
+  - H3 Descripción del Módulo + FUNCIONALIDADES → H4 (Widget Persistente, Filtros Laterales, Cards) → H5 📖🧩💻🎨
+  - Filtros Laterales: 5 categorías (Precio, Estrellas, Tipo, Servicios, Cancelación) con comportamiento en tiempo real
+  - Cards de Hoteles: 8 componentes por card (Imagen, Nombre, Estrellas, Servicios, Calificación, Precio, Política, Botón)
+- ✅ Preservados todos los flujos E2E y contenido existente sin modificaciones (solo cambios estructurales)
+- ✅ Modelo confirmado: Puntos + Plata (Slider)
+- ✅ Proveedor: HotelBeds
 
 ### Versión 0.2 - 2026-01-20
 
@@ -613,7 +693,6 @@ Sección inferior con información institucional y canales de contacto personali
 
 - ✅ Template inicial creado con estructura base
 - ✅ Definidas secciones principales del documento
-- `[PROM] Hoteles - 3 noches - HotelBeds - 2 habitaciones - 4 adultos - Cancelación gratuita`
 
 ---
 

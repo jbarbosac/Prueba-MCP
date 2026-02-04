@@ -207,7 +207,7 @@ Según el producto solicitado, cargar:
 
 Aplicar:
 - ✅ Técnicas ISTQB (partición equivalencia, valores límite)
-- ✅ Formato de título: `[PROM] [Producto] - [Escenario] - [Variante]`
+- ✅ Formato de título: `[PROM] [Producto] - [Módulo/Escenario] - [Variante]`
 - ✅ Pasos desde login (mínimo 15-30 pasos)
 - ✅ Validaciones críticas de Promerica
 
@@ -216,7 +216,7 @@ Aplicar:
 Mostrar al usuario en formato tabla:
 | # | Título | Prioridad | Descripción |
 |---|--------|-----------|-------------|
-| 1 | [PROM] Vuelos - Ida y vuelta - SABRE | 1 | Flujo completo... |
+| 1 | [PROM] Vuelos - Home - Búsqueda ida y vuelta - MGA a MIA - 1 adulto - P+P | 1 | Flujo completo... |
 
 ### **Paso 6: Confirmar Antes de Crear**
 
