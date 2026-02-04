@@ -30,6 +30,7 @@
 ## ✈️ SEGURO DE CANCELACIÓN
 
 **Disponibilidad:** Solo para vuelos  
+**Proveedor del Seguro:** ZURICH  
 **Servicio API:** cancellation-insurance (Api Core)  
 **Momento:** Modal después del Resumen, componente checkbox en CheckOut
 
@@ -54,9 +55,25 @@
    - **Con seguro:** Pantalla especial mostrando vuelo + seguro
    - **Sin seguro:** Pantalla estándar solo con vuelo
 
+### 📋 RESERVAS EN ADMIN (VUELO+SEGURO):
+
+**Cuando se acepta el seguro de cancelación, se crean DOS reservas separadas:**
+
+1. **Reserva del Vuelo:**
+   - Letra indicativa: **"F"** (Flights)
+   - Contiene toda la información del vuelo
+   - Se puede cancelar desde Admin
+
+2. **Reserva del Seguro:**
+   - Letra indicativa: **"I"** (Insurance)
+   - Proveedor: **ZURICH**
+   - Contiene información del seguro de cancelación
+   - ❌ **NO se puede cancelar desde Admin** (limitación actual)
+
 **IMPORTANTE:** 
 - Voucher NO disponible para reservas de Vuelos+Seguro de Cancelación
 - Si el servicio "cancellation-insurance" (Api Core) falla, el flujo continúa sin seguro
+- Solo la reserva del vuelo (F) puede ser cancelada; la reserva del seguro (I) no tiene opción de cancelación
 
 ---
 
@@ -75,61 +92,30 @@
 
 ---
 
-## 🎚️ SLIDER Y MÉTODOS DE PAGO
+## 🎚️ MÉTODOS DE PAGO Y FEE
 
-### MÉTODOS DISPONIBLES:
+### SLIDER Y COPAGO:
 
-**1. Solo Millas (100%):**
-- Ajustar slider al 100% del valor del producto
-- No se cobra nada en USD para el producto
-- Fee de vuelos obligatorio con TC
+> 📖 **Lógica completa del Slider:** Ver [CME_COMMON_RULES.md](../../../../shared/Reglas%20Marketplace/CME_COMMON_RULES.md) - Sección "MÉTODOS DE PAGO"
 
-**2. Millas+Plata (Copago):**
-- Slider visible en CheckOut
-- Mínimo: 20% del valor del producto
-- Máximo: 100% o Millas disponibles
-- Ajuste manual por el socio
-- Cálculo dinámico en tiempo real
+**Resumen para vuelos:**
+- Slider ajustable en CheckOut (mínimo 20%, máximo 100% o Millas disponibles)
+- Solo Millas (100%) o Millas+Plata (Copago)
+- Escenarios de redención 1-4 aplican igual que en otros productos
 
-### FEE DE PROCESAMIENTO:
-- **Obligatorio** para todos los vuelos
-- **Formulario TC en CheckOut** (integrado en la misma pantalla)
-- **PlacetoPay batch** (procesamiento en background, sin interfaz visual)
-- Se procesa al reservar mediante conexión batch en segundo plano
+### ✈️ FEE DE PROCESAMIENTO (EXCLUSIVO DE VUELOS):
 
-### ESCENARIOS DE PAGO:
+**Características:**
+- **Obligatorio** para todos los vuelos (diferenciador clave vs. otros productos)
+- **NO se puede pagar con Millas** (solo con Tarjeta de Crédito)
+- **Formulario TC integrado en CheckOut** (NO lightbox, dentro de la misma pantalla)
+- **Pasarela:** PlacetoPay bash (procesamiento en background, sin interfaz visual)
+- Se procesa al reservar mediante conexión bash en segundo plano
 
-**Escenario 1:** Millas ≥ 20% pero < 100%
-```
-✅ Mostrar Slider en CheckOut
-- Ajustar desde 20% hasta Millas disponibles
-- Cobrar restante en USD vía PlacetoPay bash
-- Fee obligatorio con TC
-```
-
-**Escenario 2:** Millas < 20%
-```
-❌ Mostrar CheckOut con popup sobrepuesto
-- Mensaje: "Debe comprar más Millas"
-- CheckOut de fondo con gris transparente
-- No permite continuar
-```
-
-**Escenario 3:** Millas ≥ 100%
-```
-✅ Mostrar Slider en CheckOut
-- Ajustar desde 20% hasta 100%
-- Socio decide cuántas Millas usar
-- Fee obligatorio con TC
-```
-
-**Escenario 4:** Pago 100% Millas
-```
-✅ Ajustar slider al 100%
-- No se cobra USD para el producto
-- Fee obligatorio con TC (único cargo USD)
-- Emisión automática
-```
+**Cobro del Fee:**
+- Se cobra SIEMPRE, independiente del método elegido (Solo Millas o Copago)
+- Si elige "Solo Millas 100%": Producto se paga con Millas, Fee se cobra en USD con TC
+- Si elige "Millas+Plata": Producto con Copago + Fee adicional en USD con TC
 
 ---
 
@@ -165,6 +151,29 @@
 26. Buscar reserva por código | Reserva localizada y visible
 27. Validar que los pagos en admin coinciden con la confirmación (millas + fee) | Pagos correctos en admin
 28. Validar que la reserva queda en estado EMITIDA automáticamente | Reserva en estado EMITIDA
+
+### 🚫 PASOS ADICIONALES PARA CANCELACIÓN DE RESERVA:
+
+**Para proveedores AGGREGATOR (Netactica, Sabre NDC):**
+
+29. En el detalle de la reserva en Admin, validar que se muestra el botón "CANCELAR RESERVA" | Botón visible y habilitado
+30. Click en botón "CANCELAR RESERVA" | Sistema procesa la cancelación
+31. Validar que la reserva cambia a estado CANCELADA | Estado actualizado correctamente
+
+**Para proveedor SABRE EDIFACT:**
+
+29. En el detalle de la reserva en Admin, identificar todos los tiquetes de los pasajeros | Lista de tiquetes visible
+30. Cancelar el tiquete de cada pasajero individualmente | Cada tiquete marcado como cancelado
+31. Una vez cancelados todos los tiquetes, click en botón "CANCELAR RESERVA" | Sistema procesa la cancelación de la reserva completa
+32. Validar que la reserva cambia a estado CANCELADA | Estado actualizado correctamente
+
+**Para reservas con Seguro de Cancelación (Vuelo+Seguro):**
+
+29. Validar que en Admin se muestran DOS reservas separadas: Vuelo (F) y Seguro (I) | Ambas reservas visibles con letras indicativas
+30. Identificar la reserva del Vuelo (letra "F") | Reserva de vuelo identificada
+31. Seguir el proceso de cancelación según el proveedor (Aggregator o Sabre Edifact) SOLO para la reserva del Vuelo | Reserva de vuelo cancelada
+32. Validar que la reserva del Seguro (letra "I", proveedor ZURICH) NO tiene opción de cancelación disponible | Opción de cancelación no disponible para seguro
+33. Validar que solo la reserva del Vuelo (F) queda en estado CANCELADA | Reserva de vuelo cancelada, reserva de seguro permanece activa
 
 ---
 
@@ -212,6 +221,11 @@
 ✅ **Estados de reserva:** Confirmada en admin con todos los datos completos  
 ✅ **Emisión automática:** Reserva en estado EMITIDA sin intervención manual  
 ✅ **Proveedor:** Validar proveedor correcto (NETACTICA, SABRE NDC, SABRE EDIFACT)  
+✅ **Cancelación Aggregator:** Botón "CANCELAR RESERVA" funcional directamente  
+✅ **Cancelación Sabre Edifact:** Cancelación de tiquetes individuales antes de cancelar reserva  
+✅ **Dos reservas (Vuelo+Seguro):** Validar letras indicativas F (vuelo) e I (seguro)  
+✅ **Proveedor ZURICH:** Información del seguro correcta en reserva con letra "I"  
+✅ **Cancelación seguro:** Validar que reserva de seguro (I) NO tiene opción de cancelación  
 
 ---
 
@@ -260,16 +274,22 @@ Incluir SIEMPRE estas imágenes en el campo Descriptions del Test Case:
 
 **Seguro de cancelación:**
 - Solo disponible para vuelos
+- Proveedor del seguro: ZURICH
 - Servicio API: "cancellation-insurance" (Api Core)
 - Si el servicio falla, flujo continúa sin seguro
 - Voucher NO disponible si se acepta seguro
+- Se crean dos reservas separadas: Vuelo (F) y Seguro (I)
+- Solo la reserva del vuelo puede cancelarse; seguro no tiene opción de cancelación
 
-**Emisión:**
+**Cancelación de reservas:**
+- **Aggregator (Netactica, Sabre NDC):** Cancelación directa con botón "CANCELAR RESERVA"
+- **Sabre Edifact:** Primero cancelar tiquetes de cada pasajero, luego "CANCELAR RESERVA"
+- **Vuelo+Seguro:** Solo se puede cancelar la reserva del vuelo (F), no la del seguro (I/ZURICH)
+
+**Emisión:****
 - Siempre automática
 - Estado EMITIDA inmediato tras confirmación
 - Sin proceso manual
-
----
 
 ---
 

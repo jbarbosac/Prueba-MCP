@@ -48,7 +48,7 @@ Socios (usuarios finales)
 - **Millas + Plata (Copago):** Slider ajustable en checkout (mínimo 20% millas) + USD vía PlacetoPay
 - **Emisión:** Automática tipo "Cash" para ambos métodos
 
-> 📖 **Detalles técnicos:** Ver [CME_COMMON_RULES.md](../../../../shared/Kepler/CME_COMMON_RULES.md)
+> 📖 **Detalles técnicos:** Ver [CME_COMMON_RULES.md](../../../../shared/Reglas%20Marketplace/CME_COMMON_RULES.md)
 
 ---
 
@@ -105,17 +105,17 @@ Socios (usuarios finales)
 ## 📚 Documentación de Referencia
 
 **Reglas de Negocio:**
-- [CME_COMMON_RULES.md](../../../shared/Kepler/CME_COMMON_RULES.md) - Reglas comunes CME
+- [CME_COMMON_RULES.md](../../../../shared/Reglas%20Marketplace/CME_COMMON_RULES.md) - Reglas comunes CME
 
 **Flujos por Producto:**
-- [CME_VUELOS.md](../../../products/B2B2C/PPM/CME/CME_VUELOS.md) - Flujo E2E Vuelos
-- [CME_HOTELES.md](../../../products/B2B2C/PPM/CME/CME_HOTELES.md) - Flujo E2E Hoteles
-- [CME_AUTOS.md](../../../products/B2B2C/PPM/CME/CME_AUTOS.md) - Flujo E2E Autos
-- [CME_ACTIVIDADES.md](../../../products/B2B2C/PPM/CME/CME_ACTIVIDADES.md) - Flujo E2E Actividades
-- [CME_DISNEY.md](../../../products/B2B2C/PPM/CME/CME_DISNEY.md) - Flujo E2E Disney
+- [CME_VUELOS.md](CME_VUELOS.md) - Flujo E2E Vuelos
+- [CME_HOTELES.md](CME_HOTELES.md) - Flujo E2E Hoteles
+- [CME_AUTOS.md](CME_AUTOS.md) - Flujo E2E Autos
+- [CME_ACTIVIDADES.md](CME_ACTIVIDADES.md) - Flujo E2E Actividades
+- [CME_DISNEY.md](CME_DISNEY.md) - Flujo E2E Disney
 
 **Agente QA:**
-- [CME_QA_Assistant](../../../agents/CME_QA_Assistant.agent.md) - Agente especializado CME
+- [CME_QA_Assistant](../../../../agents/CME_QA_Assistant.agent.md) - Agente especializado CME
 
 ---
 
