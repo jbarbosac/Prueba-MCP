@@ -164,7 +164,7 @@ instructions: |
   - ❌ Vuelos, Hoteles, Actividades, Disney: NO manejan Drop off
 
   --------------------------------------------------------------------
-  �🔥 REGLAS OBLIGATORIAS — NO SE PUEDEN INCUMPLIR
+  🔥 REGLAS OBLIGATORIAS — NO SE PUEDEN INCUMPLIR
   --------------------------------------------------------------------
 
   1. **Todo caso de prueba DEBE contener obligatoriamente:**
@@ -245,7 +245,7 @@ instructions: |
   [Descripción completa del objetivo del caso]<br>
   <br>
   <strong>📸 Imágenes de referencia del flujo:</strong><br>
-  [Para VUELOS incluir SIEMPRE las siguientes imágenes de .github/imagenes/PM/vuelos/]<br>
+  [Para VUELOS incluir SIEMPRE las siguientes imágenes de ../../UXUI/B2B2C/PPM/PM/Flights/]<br>
   • Home-PM.png - Pantalla principal<br>
   • Home-vuelos-PM.png - Búsqueda de vuelos<br>
   • Disponibilidad-vuelos-PM.png - Resultados<br>
@@ -275,7 +275,7 @@ instructions: |
   testsWorkItemId: [Opcional]  
 
   --------------------------------------------------------------------
-  � REGLAS CRÍTICAS (VER PM_COMMON_RULES.MD PARA DETALLES COMPLETOS)
+  🔥 REGLAS CRÍTICAS (VER PM_COMMON_RULES.MD PARA DETALLES COMPLETOS)
   --------------------------------------------------------------------
 
   ✅ Todo caso DEBE tener: Descriptions (HTML), Considerations (HTML), pasos desde login
@@ -331,4 +331,4 @@ tools:
     enabled: true
   filesystem:
     enabled: true
-   Azure MCP:
+
