@@ -1,55 +1,50 @@
 # 🎢 FLUJO E2E OBLIGATORIO PARA ACTIVIDADES - PICHINCHA MILES
 
-**Proveedor:** Pichincha Miles Ecuador  
-**Portal:** https://pichinchamiles-ec.preprodppm.com/  
-**Tecnología:** Angular (TypeScript/JavaScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
-**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Proveedor:** Pichincha Miles Ecuador
+
+**Portales:**
+
+- 🧪 **TEST:** https://pichinchamiles-ec.developppm.com/
+- 🎯 **DEMO:** https://pichinchamiles-ec.preprodppm.com/
+
+**Tecnología:** Angular (TypeScript/JavaScript)
+
+**Modelo de pago:** 100% Millas o Millas + Plata (sin fee, sin tarjeta de crédito)
+
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)
+
 **Markup:** ✅ SÍ APLICA (impuesto/recargo incluido en precio)  
 
 ---
 
 ## 💰 MARKUP EN ACTIVIDADES
 
-### ¿QUÉ ES EL MARKUP?
+**Markup:** Impuesto/recargo incluido en el precio final. No se muestra separado.
 
-**Markup** es un impuesto o recargo que se cobra **por debajo** en el servicio de actividades. Es un costo adicional que está incluido en el precio final mostrado al usuario.
+### Tipos
 
-### TIPOS DE MARKUP:
+#### 1️⃣ Porcentual (%)
 
-**1️⃣ Markup Porcentual (%):**
-- Se calcula como un porcentaje sobre el precio base
-- Ejemplo: 5%, 8%, 10%
-- Cálculo: `Precio base × (% markup)`
+**Fórmula:** `Precio base × % markup`
 
-**2️⃣ Markup Fijo:**
-- Cantidad fija de millas que se suma al precio
-- Ejemplo: 1,500 millas, 2,500 millas
-- Cálculo: `Precio base + Markup fijo`
+**Ejemplo:** 5%, 10%
 
-### CARACTERÍSTICAS:
+#### 2️⃣ Fijo
 
-✅ **Incluido en precio:** El precio mostrado en disponibilidad ya incluye el markup  
-✅ **No visible separado:** No aparece como línea separada en el desglose  
-✅ **Aplicado automáticamente:** Se calcula por el sistema  
-✅ **Puede ser % o fijo:** Según configuración de la actividad  
+**Fórmula:** `Precio base + Markup fijo`
 
-### EJEMPLO:
+**Ejemplo:** 1,500 millas, 2,500 millas
 
-**Actividad con Markup 10%:**
-```
-Precio base actividad: 15,000 millas
-Markup 10%: 15,000 × 0.10 = 1,500 millas
-Precio final mostrado: 16,500 millas
+### Ejemplo
 
-Para 2 personas: 16,500 × 2 = 33,000 millas
+```plaintext
+Precio base: 15,000 millas | Markup 10%: 1,500 millas
+Precio final: 16,500 millas → 2 personas: 33,000 millas
 ```
 
-### VALIDACIONES:
+### Validaciones
 
-✅ **Precio incluye markup:** Validar que el precio mostrado ya tiene el recargo  
-✅ **Cálculo correcto:** Verificar que el markup esté aplicado correctamente  
-✅ **Consistencia:** Precio igual en disponibilidad, detalle, checkout y confirmación  
+- ✅ Precio mostrado incluye markup | Cálculo correcto | Consistencia en todas las pantallas  
 
 ---
 
@@ -63,8 +58,9 @@ Para 2 personas: 16,500 × 2 = 33,000 millas
 
 **Siempre incluir estos pasos desde login para el flujo de Actividades:**
 
-1. Ingresar a la URL https://pichinchamiles-ec.preprodppm.com/ | El portal carga correctamente y muestra la pantalla de inicio
-2. Realizar login con un usuario válido | Login exitoso y acceso al home
+1. Ingresar al portal (TEST: https://pichinchamiles-ec.developppm.com/ o DEMO: https://pichinchamiles-ec.preprodppm.com/) | El portal carga correctamente y muestra la pantalla de inicio
+2. Ingresar usuario y contraseña válidos según el entorno | Credenciales aceptadas, sistema solicita código OTP
+3. Ingresar código OTP recibido en el correo pruebasotp@ultragroupla.com | Código OTP validado, login exitoso y acceso al home
 3. Click en la opción Actividades | Se despliega el formulario de búsqueda con opciones disponibles
 4. Diligenciar el campo Ciudad | Se despliega una lista de ciudades sugeridas
 5. Seleccionar una ciudad de la lista | La ciudad queda registrada correctamente
@@ -92,24 +88,29 @@ Para 2 personas: 16,500 × 2 = 33,000 millas
 
 ## 🔄 VARIACIONES SEGÚN ESCENARIO
 
-**Proveedor:**
+### Proveedor
+
 - HotelBeds (único)
 
-**Ciudades:**
+### Ciudades
+
 - Destinos nacionales (Quito, Guayaquil, Cuenca, Manta)
 - Internacionales (Lima, Bogotá, Buenos Aires, Cancún, etc.)
 
-**Tipo de actividades:**
+### Tipo de actividades
+
 - Tours
 - Experiencias
 - Entradas a parques
 - Actividades acuáticas
 - Actividades culturales
 
-**Edad:**
+### Edad
+
 - Algunas actividades requieren validación de edad (menores, adultos, tercera edad)
 
-**Participantes:**
+### Participantes
+
 - 1 persona
 - Grupos
 - Capacidad máxima por actividad
@@ -118,26 +119,24 @@ Para 2 personas: 16,500 × 2 = 33,000 millas
 
 ## ✅ VALIDACIONES CRÍTICAS
 
-✅ **Integridad de datos:** Consistencia entre búsqueda → disponibilidad → detalle → checkout → confirmación → admin  
-✅ **Proveedor:** HotelBeds (validar respuesta correcta del proveedor)  
-✅ **Detalle de actividad:** Precio, descripción completa, cantidad de personas, condiciones visibles  
-✅ **Cálculo de millas:** Millas totales = precio base × cantidad de personas  
-✅ **Campos obligatorios:** Datos de participantes, contacto, aceptación de términos  
-✅ **Links funcionales:** Términos y condiciones, tratamiento de datos abren correctamente  
-✅ **Estados de reserva:** Confirmada en admin con todos los datos completos  
-✅ **Fechas:** Validación de fecha de salida, disponibilidad de la actividad para fecha seleccionada  
-✅ **Edad:** Restricciones de edad validadas correctamente según tipo de actividad  
-✅ **Pago:** 100% Millas (sin fee, sin tarjeta de crédito)
+- ✅ **Flujo completo:** Home → Búsqueda → Disponibilidad → Detalle → Checkout → Confirmación → Admin
+- ✅ **Detalle actividad:** Precio, descripción, cantidad personas, condiciones visibles
+- ✅ **Cálculo millas:** Precio base × cantidad personas | Consistencia en todas pantallas
+- ✅ **Campos obligatorios:** Datos participantes, contacto, términos | Links funcionales
+- ✅ **Edad:** Restricciones validadas según tipo actividad | Fecha salida válida
+- ✅ **Emisión automática** 100% millas (sin fee, sin tarjeta) | Estado EMITIDA
+- ✅ **Proveedor HotelBeds:** Respuesta correcta
 
 ---
 
 ## 📝 FORMATO DE TÍTULO
 
-```
-[PM] Actividades - [Ciudad] - [Tipo de actividad] - [Característica especial]
+```plaintext
+[PM] Actividades - [Ciudad] - [Tipo] - [Variante]
 ```
 
 **Ejemplos:**
-- `[PM] Actividades - Quito - City Tour - HotelBeds - 2 personas`
-- `[PM] Actividades - Cancún - Actividad acuática - Validación edad mínima`
-- `[PM] Actividades - Lima - Entrada a parque - Grupo de 5 personas`
+
+- `[PM] Actividades - Quito - City Tour - 2 personas`
+- `[PM] Actividades - Cancún - Actividad acuática - Edad mínima`
+- `[PM] Actividades - Lima - Entrada parque - Grupo 5 personas`

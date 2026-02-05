@@ -1,55 +1,50 @@
 # 🏨 FLUJO E2E OBLIGATORIO PARA HOTELES - PICHINCHA MILES
 
-**Proveedor:** Pichincha Miles Ecuador  
-**Portal:** https://pichinchamiles-ec.preprodppm.com/  
-**Tecnología:** Angular (TypeScript/JavaScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
-**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Proveedor:** Pichincha Miles Ecuador
+
+**Portales:**
+
+- 🧪 **TEST:** https://pichinchamiles-ec.developppm.com/
+- 🎯 **DEMO:** https://pichinchamiles-ec.preprodppm.com/
+
+**Tecnología:** Angular (TypeScript/JavaScript)
+
+**Modelo de pago:** 100% Millas o Millas + Plata (sin fee, sin tarjeta de crédito)
+
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)
+
 **Markup:** ✅ SÍ APLICA (impuesto/recargo incluido en precio)  
 
 ---
 
 ## 💰 MARKUP EN HOTELES
 
-### ¿QUÉ ES EL MARKUP?
+**Markup:** Impuesto/recargo incluido en el precio final. No se muestra separado.
 
-**Markup** es un impuesto o recargo que se cobra **por debajo** en el servicio de hoteles. Es un costo adicional que está incluido en el precio final mostrado al usuario.
+### Tipos
 
-### TIPOS DE MARKUP:
+#### 1️⃣ Porcentual (%)
 
-**1️⃣ Markup Porcentual (%):**
-- Se calcula como un porcentaje sobre el precio base
-- Ejemplo: 5%, 8%, 10%
-- Cálculo: `Precio base × (% markup)`
+**Fórmula:** `Precio base × % markup`
 
-**2️⃣ Markup Fijo:**
-- Cantidad fija de millas que se suma al precio
-- Ejemplo: 2,000 millas, 3,500 millas
-- Cálculo: `Precio base + Markup fijo`
+**Ejemplo:** 8%, 10%
 
-### CARACTERÍSTICAS:
+#### 2️⃣ Fijo
 
-✅ **Incluido en precio:** El precio mostrado en disponibilidad ya incluye el markup  
-✅ **No visible separado:** No aparece como línea separada en el desglose  
-✅ **Aplicado automáticamente:** Se calcula por el sistema  
-✅ **Puede ser % o fijo:** Según configuración del hotel  
+**Fórmula:** `Precio base + Markup fijo`
 
-### EJEMPLO:
+**Ejemplo:** 2,000 millas, 3,500 millas
 
-**Hotel con Markup 8%:**
-```
-Precio base por noche: 10,000 millas
-Markup 8%: 10,000 × 0.08 = 800 millas
-Precio final por noche mostrado: 10,800 millas
+### Ejemplo
 
-Para 3 noches: 10,800 × 3 = 32,400 millas
+```plaintext
+Precio base/noche: 10,000 millas | Markup 8%: 800 millas
+Precio final/noche: 10,800 millas → 3 noches: 32,400 millas
 ```
 
-### VALIDACIONES:
+### Validaciones
 
-✅ **Precio incluye markup:** Validar que el precio mostrado ya tiene el recargo  
-✅ **Cálculo correcto:** Verificar que el markup esté aplicado correctamente  
-✅ **Consistencia:** Precio igual en disponibilidad, resumen, checkout y confirmación  
+- ✅ Precio mostrado incluye markup | Cálculo correcto | Consistencia en todas las pantallas  
 
 ---
 
@@ -63,14 +58,15 @@ Para 3 noches: 10,800 × 3 = 32,400 millas
 
 **Siempre incluir estos pasos desde login para el flujo de Hoteles:**
 
-1. Ingresar a la URL https://pichinchamiles-ec.preprodppm.com/ | Portal cargado correctamente, pantalla principal visible
-2. Realizar login con un usuario válido | Login exitoso y acceso al home del portal
-3. Click en la opción Hoteles | Se despliega el formulario de búsqueda de hoteles
-4. Diligenciar el campo Destino | Se habilita una lista de ciudades sugeridas
-5. Seleccionar un destino de la lista | El destino queda registrado correctamente
-6. Seleccionar Fecha de llegada (check-in) | Fecha seleccionada correctamente (no permite fechas pasadas)
-7. Seleccionar Fecha de salida (check-out) | Fecha seleccionada correctamente (posterior a fecha de llegada)
-8. Diligenciar Número de habitaciones | El valor queda registrado (mínimo 1)
+1. Ingresar al portal (TEST: https://pichinchamiles-ec.developppm.com/ o DEMO: https://pichinchamiles-ec.preprodppm.com/) | Portal cargado correctamente, pantalla principal visible
+2. Ingresar usuario y contraseña válidos según el entorno | Credenciales aceptadas, sistema solicita código OTP
+3. Ingresar código OTP recibido en el correo pruebasotp@ultragroupla.com | Código OTP validado, login exitoso y acceso al home del portal
+4. Click en la opción Hoteles | Se despliega el formulario de búsqueda de hoteles
+5. Diligenciar el campo Destino | Se habilita una lista de ciudades sugeridas
+6. Seleccionar un destino de la lista | El destino queda registrado correctamente
+7. Seleccionar Fecha de llegada (check-in) | Fecha seleccionada correctamente (no permite fechas pasadas)
+8. Seleccionar Fecha de salida (check-out) | Fecha seleccionada correctamente (posterior a fecha de llegada)
+9. Diligenciar Número de habitaciones | El valor queda registrado (mínimo 1)
 9. Diligenciar Cantidad de adultos | El valor queda registrado (mínimo 1 por habitación)
 10. Diligenciar Cantidad de menores | El valor queda registrado (0 o más)
 11. Click en el botón Buscar | El sistema muestra la pantalla de disponibilidad con lista de hoteles de HotelBeds
@@ -94,20 +90,24 @@ Para 3 noches: 10,800 × 3 = 32,400 millas
 
 ## 🔄 VARIACIONES SEGÚN ESCENARIO
 
-**Destinos:**
+### Destinos
+
 - Ciudades nacionales (Quito, Guayaquil, Cuenca)
 - Internacionales (Miami, Madrid, Buenos Aires, etc.)
 
-**Habitaciones:**
+### Habitaciones
+
 - 1 habitación
 - Múltiples habitaciones
 
-**Huéspedes:**
+### Huéspedes
+
 - Solo adultos
 - Adultos + menores
 - Grupos
 
-**Políticas de cancelación:**
+### Políticas de cancelación
+
 - Cancelación gratuita
 - Cancelación con cargo
 - No reembolsable
@@ -116,25 +116,23 @@ Para 3 noches: 10,800 × 3 = 32,400 millas
 
 ## ✅ VALIDACIONES CRÍTICAS
 
-✅ **Integridad de datos:** Consistencia entre búsqueda → disponibilidad → detalle → checkout → confirmación → admin  
-✅ **Política de cancelación:** Fecha límite visible y correcta en disponibilidad y detalle  
-✅ **Cálculo de millas:** Millas totales = (millas por noche × noches) × habitaciones  
-✅ **Campos obligatorios:** Datos de huésped principal, contacto, aceptación de términos  
-✅ **Links funcionales:** Términos y condiciones, tratamiento de datos abren correctamente  
-✅ **Estados de reserva:** Confirmada en admin con todos los datos completos  
-✅ **Fechas:** Validación de check-in y check-out, noches calculadas correctamente  
-✅ **Proveedor:** HotelBeds (validar respuesta correcta)  
-✅ **Pago:** 100% Millas (sin fee, sin tarjeta de crédito)
+- ✅ **Flujo completo:** Home → Búsqueda → Disponibilidad → Detalle → Checkout → Confirmación → Admin
+- ✅ **Política cancelación** visible con fecha límite sin gastos
+- ✅ **Cálculo millas:** (millas/noche × noches) × habitaciones | Consistencia en todas las pantallas
+- ✅ **Campos obligatorios** completos: Huésped principal, contacto, términos | Links funcionales
+- ✅ **Emisión automática** 100% millas (sin fee, sin tarjeta) | Estado EMITIDA en admin
+- ✅ **Proveedor HotelBeds:** Respuesta correcta | Fechas y noches validadas
 
 ---
 
 ## 📝 FORMATO DE TÍTULO
 
-```
-[PM] Hoteles - [Noches] - [Destino] - [Característica especial]
+```plaintext
+[PM] Hoteles - [Noches] - [Destino] - [Variante]
 ```
 
 **Ejemplos:**
-- `[PM] Hoteles - 2 noches - Quito - HotelBeds - Cancelación gratuita`
-- `[PM] Hoteles - 5 noches - Miami - 2 habitaciones - 4 adultos`
-- `[PM] Hoteles - 3 noches - Madrid - No reembolsable - 2 adultos + 1 menor`
+
+- `[PM] Hoteles - 2 noches - Quito - Cancelación gratuita`
+- `[PM] Hoteles - 5 noches - Miami - 2 habitaciones`
+- `[PM] Hoteles - 3 noches - Madrid - No reembolsable`
