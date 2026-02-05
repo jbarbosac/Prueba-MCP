@@ -1,4 +1,4 @@
-# � Pichincha Miles - Modelo PPM 100% Millas
+# 🎯 Pichincha Miles - Modelo PPM 100% Millas
 
 > Portal de redención con modelo fijo: 100% Millas + Fee en vuelos
 
