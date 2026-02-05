@@ -4,6 +4,90 @@
 **Portal:** https://pichinchamiles-ec.preprodppm.com/  
 **Tecnología:** Angular (TypeScript/JavaScript)  
 **Modelo de pago:** 100% Millas + Fee de procesamiento (Tarjeta de crédito)  
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)  
+
+---
+
+## 🎟️ LÓGICA DE PROMOCODE EN VUELOS
+
+### TIPOS DE DESCUENTO:
+
+**1️⃣ Descuento Porcentual (%):**
+- Descuento expresado como porcentaje (ej: 5%, 10%, 15%)
+- Se calcula sobre el valor base (Boleto + Fee oculto)
+- Fórmula: Base × (% / 100)
+
+**2️⃣ Descuento Fijo:**
+- Descuento en cantidad específica de millas (ej: 3,000 millas, 5,000 millas)
+- Se resta directamente del valor base
+- Fórmula: Base - Millas fijas
+
+### APLICACIÓN DEL DESCUENTO:
+
+**El descuento del Promocode aplica sobre:**
+- ✅ **Valor del boleto** (en millas)
+- ✅ **Fee oculto** (en millas)
+- ❌ **NO aplica sobre TA** (Tasas Aeroportuarias)
+
+### PROCESO DE CÁLCULO:
+
+```
+1️⃣ Precio total del vuelo en millas (incluye todo)
+2️⃣ Restar las TA equivalentes (convertidas a puntos)
+3️⃣ Sobre el valor resultante (Boleto + Fee oculto) → Aplicar descuento Promocode
+4️⃣ Sumar nuevamente las TA (sin descuento)
+5️⃣ Total final = (Boleto + Fee oculto con descuento) + TA sin descuento
+```
+
+### EJEMPLOS PRÁCTICOS:
+
+**Ejemplo 1 - Descuento Porcentual (10%):**
+
+**Datos iniciales:**
+- Precio total vuelo: **50,000 millas**
+- TA equivalentes: **5,000 millas**
+- Promocode: **10% descuento**
+
+**Cálculo:**
+```
+1. Base de cálculo = 50,000 - 5,000 = 45,000 millas (Boleto + Fee oculto)
+2. Descuento 10% = 45,000 × 0.10 = 4,500 millas
+3. Subtotal con descuento = 45,000 - 4,500 = 40,500 millas
+4. Total final = 40,500 + 5,000 (TA sin descuento) = 45,500 millas
+```
+
+**Ahorro total:** 4,500 millas
+
+---
+
+**Ejemplo 2 - Descuento Fijo (3,000 millas):**
+
+**Datos iniciales:**
+- Precio total vuelo: **50,000 millas**
+- TA equivalentes: **5,000 millas**
+- Promocode: **3,000 millas descuento fijo**
+
+**Cálculo:**
+```
+1. Base de cálculo = 50,000 - 5,000 = 45,000 millas (Boleto + Fee oculto)
+2. Descuento fijo = 3,000 millas
+3. Subtotal con descuento = 45,000 - 3,000 = 42,000 millas
+4. Total final = 42,000 + 5,000 (TA sin descuento) = 47,000 millas
+```
+
+**Ahorro total:** 3,000 millas
+
+### VALIDACIONES CRÍTICAS PROMOCODE:
+
+✅ **Campo presente:** Validar que existe en búsqueda de vuelos  
+✅ **Código válido:** Promocode existente y activo  
+✅ **Tipo de descuento:** Identificar si es % o fijo  
+✅ **Cálculo correcto:** Aplicar fórmula según tipo  
+✅ **Descuento NO sobre TA:** TA deben mantenerse sin modificar  
+✅ **Descuento visible:** Mostrar tipo y valor del descuento en resumen y checkout  
+✅ **Total correcto:** (Boleto + Fee - descuento) + TA  
+✅ **Validación límites:** Descuento no puede exceder el valor base  
 
 ---
 

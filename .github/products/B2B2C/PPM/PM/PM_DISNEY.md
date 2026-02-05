@@ -4,6 +4,8 @@
 **Portal:** https://pichinchamiles-ec.preprodppm.com/?operation=uv  
 **Tecnología:** React (TypeScript/JavaScript)  
 **Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)  
 
 ---
 
