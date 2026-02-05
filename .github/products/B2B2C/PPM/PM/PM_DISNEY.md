@@ -1,10 +1,18 @@
 # 🎡 FLUJO E2E OBLIGATORIO PARA TICKETS DISNEY - PICHINCHA MILES
 
-**Proveedor:** Pichincha Miles Ecuador  
-**Portal:** https://pichinchamiles-ec.preprodppm.com/?operation=uv  
-**Tecnología:** React (TypeScript/JavaScript)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
-**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Proveedor:** Pichincha Miles Ecuador
+
+**Portales:**
+
+- 🧪 **TEST:** https://pichinchamiles-ec.developppm.com/?operation=uv
+- 🎯 **DEMO:** https://pichinchamiles-ec.preprodppm.com/?operation=uv
+
+**Tecnología:** React (TypeScript/JavaScript)
+
+**Modelo de pago:** 100% Millas o Millas + Plata (sin fee, sin tarjeta de crédito)
+
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)
+
 **Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)  
 
 ---
@@ -17,17 +25,20 @@
 
 ## 🎢 TIPOS DE TICKETS DISPONIBLES
 
-**Tickets individuales por parque:**
+### Tickets individuales por parque
+
 - Magic Kingdom
 - Epcot
 - Hollywood Studios
 - Animal Kingdom
 
-**Tickets con múltiples beneficios:**
+### Tickets con múltiples beneficios
+
 - **Park Hopper:** Visita más de 1 parque el mismo día
 - **Park Hopper Plus:** Visita múltiples parques + parques acuáticos + ESPN Sports
 
-**Opciones adicionales:**
+### Opciones adicionales
+
 - Parques acuáticos
 - Experiencia ESPN Sport
 
@@ -37,8 +48,9 @@
 
 **Siempre incluir estos pasos desde login para el flujo de Tickets Disney:**
 
-1. Ingresar al portal https://pichinchamiles-ec.preprodppm.com/?operation=uv | El portal carga correctamente y muestra la pantalla de inicio
-2. Realizar login con un usuario válido | Login exitoso y acceso al home
+1. Ingresar al portal (TEST: https://pichinchamiles-ec.developppm.com/?operation=uv o DEMO: https://pichinchamiles-ec.preprodppm.com/?operation=uv) | El portal carga correctamente y muestra la pantalla de inicio
+2. Ingresar usuario y contraseña válidos según el entorno | Credenciales aceptadas, sistema solicita código OTP
+3. Ingresar código OTP recibido en el correo pruebasotp@ultragroupla.com | Código OTP validado, login exitoso y acceso al home
 3. Click en la opción Disney | Se despliega el formulario de búsqueda para Tickets Disney
 4. Seleccionar Fecha de entrada | Fecha registrada correctamente
 5. Seleccionar Número de pasajeros | Valores registrados correctamente
@@ -64,10 +76,12 @@
 
 ## 🔄 VARIACIONES SEGÚN ESCENARIO
 
-**Proveedor:**
+### Proveedor
+
 - DerbySoft (único)
 
-**Tipos de tickets:**
+### Tipos de tickets
+
 - Park Hopper
 - Park Hopper Plus
 - Magic Kingdom (individual)
@@ -75,42 +89,42 @@
 - Hollywood Studios (individual)
 - Animal Kingdom (individual)
 
-**Opciones adicionales:**
+### Opciones adicionales
+
 - Parques acuáticos
 - Experiencia ESPN Sport
 - Visita más de 1 parque el mismo día (Park Hopper/Plus)
 
-**Participantes:**
+### Participantes
+
 - 1 a N pasajeros (adultos, niños según edad)
 
-**Fechas:**
+### Fechas
+
 - Diferentes fechas de entrada validando disponibilidad
 
 ---
 
 ## ✅ VALIDACIONES CRÍTICAS
 
-✅ **Integridad de datos:** Consistencia entre búsqueda → disponibilidad → selección de ticket → checkout → confirmación → admin  
-✅ **Proveedor:** DerbySoft (validar procesamiento correcto del proveedor)  
-✅ **Tipos de tickets:** Validación correcta de Park Hopper, Park Hopper Plus, entradas individuales por parque  
-✅ **Opciones incluidas:** Verificar que se muestren correctamente las opciones (parques acuáticos, ESPN Sports, multi-parque)  
-✅ **Cálculo de millas:** Millas totales = precio ticket × cantidad de pasajeros  
-✅ **Campos obligatorios:** Datos de pasajeros completos, contacto, aceptación de términos  
-✅ **Links funcionales:** Términos y condiciones, tratamiento de datos abren correctamente  
-✅ **Estados de reserva:** Confirmada en admin con todos los datos completos (ticket, fecha, pasajeros)  
-✅ **Fechas:** Validación de fecha de entrada, disponibilidad para fecha seleccionada  
-✅ **Cantidad pasajeros:** Validación correcta del número de entradas según pasajeros ingresados  
-✅ **Pago:** 100% Millas (sin fee, sin tarjeta de crédito)
+- ✅ **Flujo completo:** Home → Búsqueda → Disponibilidad → Selección ticket → Checkout → Confirmación → Admin
+- ✅ **Tipos tickets:** Park Hopper, Park Hopper Plus, individuales (Magic Kingdom, Epcot, Hollywood, Animal Kingdom)
+- ✅ **Opciones incluidas:** Parques acuáticos, ESPN Sports, multi-parque visibles correctamente
+- ✅ **Cálculo millas:** Precio ticket × cantidad pasajeros | Consistencia en todas pantallas
+- ✅ **Campos obligatorios:** Datos pasajeros completos, contacto, términos | Links funcionales
+- ✅ **Emisión automática** 100% millas (sin fee, sin tarjeta) | Estado EMITIDA
+- ✅ **Proveedor DerbySoft:** Procesamiento correcto | Fecha entrada válida
 
 ---
 
 ## 📝 FORMATO DE TÍTULO
 
-```
-[PM] Disney - [Tipo de ticket] - [Cantidad pasajeros] - [Característica especial]
+```plaintext
+[PM] Disney - [Tipo ticket] - [Pasajeros] - [Variante]
 ```
 
 **Ejemplos:**
-- `[PM] Disney - Park Hopper - 2 adultos + 1 niño - DerbySoft`
+
+- `[PM] Disney - Park Hopper - 2 adultos + 1 niño`
 - `[PM] Disney - Magic Kingdom - 1 adulto - Entrada individual`
-- `[PM] Disney - Park Hopper Plus - 4 adultos - Con parques acuáticos + ESPN`
+- `[PM] Disney - Park Hopper Plus - 4 adultos - Con parques acuáticos`

@@ -10,7 +10,7 @@ Esta carpeta contiene las reglas comunes compartidas para todos los portales mar
 
 **Team Manager:** Oscar Julian Buitrago Castro  
 **Team Lead:** Fernando Zapata Montes  
-**Producto Owner:** Maria Elena Osorio Henao  
+**Producto Owner:** Santiago Alvarez Perez  
 
 ### Equipo QA:
 - Jesus Ernesto Marin Hernandez
@@ -18,12 +18,13 @@ Esta carpeta contiene las reglas comunes compartidas para todos los portales mar
 - Jose Eulises Barbosa Colorado
 
 ### Equipo Frontend:
-- Edwin David Molina Narvaez
-- Oscar Andres Restrepo Echeverri
-- Jorge Eduardo Mora Sepulveda
+- Jeyson Julian Ospina Leon
+- Sergio Alejandro Riaños Acosta
+- Cristian David Velez Torres
 
 ### Equipo Backend:
-- Misael Correa Florez
+- Juan Carlos Gonzalez Sanchez
+- Roger Ricardo Roldan Bonilla
 
 ---
 

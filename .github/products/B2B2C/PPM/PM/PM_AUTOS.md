@@ -1,71 +1,46 @@
 # 🚗 FLUJO E2E OBLIGATORIO PARA RENTA DE AUTOS - PICHINCHA MILES
 
-**Proveedor:** Pichincha Miles Ecuador  
-**Portal:** https://pichinchamiles-ec.preprodppm.com/  
-**Tecnología:** Meteor (JavaScript/Node.js)  
-**Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
-**Promocode:** ❌ NO APLICA (Autos es el único producto PM sin Promocode)  
-**Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)  
+**Proveedor:** Pichincha Miles Ecuador
+
+**Portales:**
+
+- 🧪 **TEST:** https://pichinchamiles-ec.developppm.com/
+- 🎯 **DEMO:** https://pichinchamiles-ec.preprodppm.com/
+
+**Tecnología:** Meteor (JavaScript/Node.js)
+
+**Modelo de pago:** 100% Millas o Millas + Plata (sin fee, sin tarjeta de crédito)
+
+**Promocode:** ❌ NO APLICA (Autos es el único producto PM sin Promocode)
+
+**Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)
+
 **Drop off:** ✅ SÍ APLICA (cargo adicional cuando recogida ≠ devolución)  
 
 ---
 
 ## 📍 DROP OFF (CARGO POR DEVOLUCIÓN EN PUNTO DIFERENTE)
 
-### ¿QUÉ ES EL DROP OFF?
+**Drop off:** Cargo adicional en millas cuando vehículo se recoge en un punto y se entrega en otro.
 
-**Drop off** es un **impuesto/cargo adicional** que se cobra cuando el vehículo se recoge en un punto y se entrega en un punto diferente.
+### Características
 
-### CARACTERÍSTICAS DEL DROP OFF:
+- ✅ Cobro en millas | Solo cuando recogida ≠ devolución | Pago en punto de entrega
+- ✅ Visible en disponibilidad, checkout y confirmación | Desglosado como línea separada
+- ❌ NO aplica si mismo destino (recogida = devolución)
 
-✅ **Se cobra en millas adicionales:** Sumado al costo base de la renta  
-✅ **Solo cuando puntos son diferentes:** Recogida ≠ Devolución  
-✅ **Pago en punto de entrega:** El Drop off se paga en el punto de devolución del vehículo  
-✅ **Visible en disponibilidad:** Incluido en el precio total mostrado  
-✅ **Visible en checkout:** Desglosado como cargo adicional  
-✅ **Incluido en confirmación:** Parte del total de millas canjeadas  
-❌ **No aplica mismo destino:** Si recogida = devolución, NO hay Drop off  
+### Ejemplos
 
-### FLUJOS POSIBLES:
-
-**1️⃣ Mismo destino (SIN Drop off):**
-- Recogida: Aeropuerto Madrid
-- Devolución: Aeropuerto Madrid
-- **Drop off:** ❌ NO APLICA
-- **Millas:** Solo costo base de la renta
-
-**2️⃣ Destino diferente (CON Drop off):**
-- Recogida: Aeropuerto Madrid
-- Devolución: Aeropuerto Barcelona
-- **Drop off:** ✅ SÍ APLICA
-- **Millas:** Costo base + Drop off
-
-### EJEMPLO DE CÁLCULO:
-
-**Renta con Drop off:**
-```
-Costo base 5 días: 25,000 millas
-Cargo Drop off (Madrid → Barcelona): 8,000 millas
-Total a pagar: 33,000 millas
+```plaintext
+CON Drop off (Madrid → Barcelona): 25,000 base + 8,000 drop off = 33,000 millas
+SIN Drop off (mismo destino): 25,000 base + 0 drop off = 25,000 millas
 ```
 
-**Renta sin Drop off:**
-```
-Costo base 5 días: 25,000 millas
-Cargo Drop off: 0 millas (mismo destino)
-Total a pagar: 25,000 millas
-```
+### Validaciones
 
-### VALIDACIONES CRÍTICAS DROP OFF:
-
-✅ **Check activado:** Validar campo "Devolución en otro destino" funcional  
-✅ **Destino diferente:** Permitir ingresar ubicación diferente de devolución  
-✅ **Cargo visible:** Drop off debe aparecer en disponibilidad  
-✅ **Desglose en checkout:** Mostrar Drop off como línea separada  
-✅ **Cálculo correcto:** Total = Base + Drop off  
-✅ **Pago en entrega:** Confirmar que el Drop off se paga en el punto de devolución  
-✅ **Consistencia:** Drop off igual en todas las pantallas (disponibilidad, checkout, confirmación, admin)  
-✅ **Sin Drop off si mismo destino:** NO cobrar cuando recogida = devolución  
+- ✅ Campo "Devolución en otro destino" funcional | Destino diferente permitido
+- ✅ Cargo visible en todas pantallas | Cálculo: Total = Base + Drop off
+- ✅ Pago en entrega | NO cobrar si mismo destino  
 
 ---
 
@@ -84,8 +59,9 @@ Total a pagar: 25,000 millas
 
 **Siempre incluir estos pasos desde login para el flujo de Renta de Autos:**
 
-1. Ingresar a la URL https://pichinchamiles-ec.preprodppm.com/ | Portal cargado correctamente, pantalla principal visible
-2. Realizar login con un usuario válido | Login exitoso y acceso al home del portal
+1. Ingresar al portal (TEST: https://pichinchamiles-ec.developppm.com/ o DEMO: https://pichinchamiles-ec.preprodppm.com/) | Portal cargado correctamente, pantalla principal visible
+2. Ingresar usuario y contraseña válidos según el entorno | Credenciales aceptadas, sistema solicita código OTP
+3. Ingresar código OTP recibido en el correo pruebasotp@ultragroupla.com | Código OTP validado, login exitoso y acceso al home del portal
 3. Click en la opción Renta de Autos | Se despliega la sección de Renta de Autos con el formulario de búsqueda
 4. Diligenciar el campo Lugar de recogida | El campo acepta el dato y muestra sugerencias válidas de ubicaciones
 5. Seleccionar Fecha de recogida | Fecha seleccionada correctamente (no permite fechas pasadas)
@@ -112,23 +88,28 @@ Total a pagar: 25,000 millas
 
 ## 🔄 VARIACIONES SEGÚN ESCENARIO
 
-**Mismo destino vs Otro destino:**
+### Mismo destino vs Otro destino
+
 - **Mismo destino:** Omitir paso 9 (NO activar check "Devolución en otro destino"), omitir paso 12 (NO hay cargo Dropoff)
 - **Otro destino:** INCLUIR paso 9 (Activar check y diligenciar destino diferente) + INCLUIR paso 12 (Validar cargo adicional por Dropoff)
 
-**Proveedor:**
+### Proveedor
+
 - Sabre (único)
 
-**Empresas de servicio:**
+### Empresas de servicio
+
 - Hertz
 - Dollar
 - Thrifty (especificar en título del caso)
 
-**Regiones:**
+### Regiones
+
 - Europa (España, Francia, Reino Unido, Italia, Alemania, Portugal, Países Bajos)
 - Norteamérica (USA, Canadá)
 
-**Duración:**
+### Duración
+
 - 1 día
 - 3 días
 - 5 días
@@ -138,24 +119,23 @@ Total a pagar: 25,000 millas
 
 ## ✅ VALIDACIONES CRÍTICAS
 
-✅ **Integridad de datos:** Consistencia entre checkout → confirmación → admin → Sabre  
-✅ **Cálculo de millas:** Millas canjeadas + Dropoff (si aplica) = total correcto  
-✅ **Cargo Dropoff:** Solo cuando lugar recogida ≠ lugar devolución (incluido en millas totales)  
-✅ **Estados de reserva:** Confirmada en todos los sistemas  
-✅ **Fechas y horas:** Validación de rangos y formatos  
-✅ **Proveedor:** Sabre (validar transacción correcta)  
-✅ **Empresa de servicio:** Hertz, Dollar o Thrifty según corresponda  
-✅ **Pago:** 100% Millas (sin fee, sin tarjeta de crédito)
+- ✅ **Flujo completo:** Home → Búsqueda → Disponibilidad → Checkout → Confirmación → Admin → Sabre
+- ✅ **Cálculo millas:** Millas canjeadas + Dropoff (si aplica) = total correcto
+- ✅ **Cargo Dropoff:** Solo cuando recogida ≠ devolución | Visible en todas pantallas
+- ✅ **Emisión automática** 100% millas (sin fee, sin tarjeta) | Estado EMITIDA
+- ✅ **Proveedor Sabre:** Transacción correcta | Empresa: Hertz, Dollar o Thrifty
+- ✅ **Fechas y horas:** Validación de rangos y formatos correctos
 
 ---
 
 ## 📝 FORMATO DE TÍTULO
 
-```
-[PM] Autos - [Duración] - [Empresa] - [Característica especial]
+```plaintext
+[PM] Autos - [Duración] - [Empresa] - [Variante]
 ```
 
 **Ejemplos:**
-- `[PM] Autos - 5 días - Hertz - Dropoff diferente (Madrid → Barcelona)`
-- `[PM] Autos - 3 días - Dollar - Mismo destino (Miami)`
-- `[PM] Autos - 7 días - Thrifty - Europa - Dropoff Londres → París`
+
+- `[PM] Autos - 5 días - Hertz - Dropoff Madrid → Barcelona`
+- `[PM] Autos - 3 días - Dollar - Mismo destino Miami`
+- `[PM] Autos - 7 días - Thrifty - Dropoff Londres → París`
