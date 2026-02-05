@@ -4,6 +4,68 @@
 **Portal:** https://pichinchamiles-ec.preprodppm.com/  
 **Tecnología:** Meteor (JavaScript/Node.js)  
 **Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Promocode:** ❌ NO APLICA (Autos es el único producto PM sin Promocode)  
+**Markup:** ❌ NO APLICA (solo Hoteles y Actividades tienen Markup)  
+**Drop off:** ✅ SÍ APLICA (cargo adicional cuando recogida ≠ devolución)  
+
+---
+
+## 📍 DROP OFF (CARGO POR DEVOLUCIÓN EN PUNTO DIFERENTE)
+
+### ¿QUÉ ES EL DROP OFF?
+
+**Drop off** es un **impuesto/cargo adicional** que se cobra cuando el vehículo se recoge en un punto y se entrega en un punto diferente.
+
+### CARACTERÍSTICAS DEL DROP OFF:
+
+✅ **Se cobra en millas adicionales:** Sumado al costo base de la renta  
+✅ **Solo cuando puntos son diferentes:** Recogida ≠ Devolución  
+✅ **Pago en punto de entrega:** El Drop off se paga en el punto de devolución del vehículo  
+✅ **Visible en disponibilidad:** Incluido en el precio total mostrado  
+✅ **Visible en checkout:** Desglosado como cargo adicional  
+✅ **Incluido en confirmación:** Parte del total de millas canjeadas  
+❌ **No aplica mismo destino:** Si recogida = devolución, NO hay Drop off  
+
+### FLUJOS POSIBLES:
+
+**1️⃣ Mismo destino (SIN Drop off):**
+- Recogida: Aeropuerto Madrid
+- Devolución: Aeropuerto Madrid
+- **Drop off:** ❌ NO APLICA
+- **Millas:** Solo costo base de la renta
+
+**2️⃣ Destino diferente (CON Drop off):**
+- Recogida: Aeropuerto Madrid
+- Devolución: Aeropuerto Barcelona
+- **Drop off:** ✅ SÍ APLICA
+- **Millas:** Costo base + Drop off
+
+### EJEMPLO DE CÁLCULO:
+
+**Renta con Drop off:**
+```
+Costo base 5 días: 25,000 millas
+Cargo Drop off (Madrid → Barcelona): 8,000 millas
+Total a pagar: 33,000 millas
+```
+
+**Renta sin Drop off:**
+```
+Costo base 5 días: 25,000 millas
+Cargo Drop off: 0 millas (mismo destino)
+Total a pagar: 25,000 millas
+```
+
+### VALIDACIONES CRÍTICAS DROP OFF:
+
+✅ **Check activado:** Validar campo "Devolución en otro destino" funcional  
+✅ **Destino diferente:** Permitir ingresar ubicación diferente de devolución  
+✅ **Cargo visible:** Drop off debe aparecer en disponibilidad  
+✅ **Desglose en checkout:** Mostrar Drop off como línea separada  
+✅ **Cálculo correcto:** Total = Base + Drop off  
+✅ **Pago en entrega:** Confirmar que el Drop off se paga en el punto de devolución  
+✅ **Consistencia:** Drop off igual en todas las pantallas (disponibilidad, checkout, confirmación, admin)  
+✅ **Sin Drop off si mismo destino:** NO cobrar cuando recogida = devolución  
 
 ---
 

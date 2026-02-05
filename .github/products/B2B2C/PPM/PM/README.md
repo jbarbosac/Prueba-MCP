@@ -198,13 +198,13 @@ graph LR
 
 ## 📊 Matriz de Productos
 
-| Producto | Proveedor Principal | Pago | Fee | Emisión | Tecnología |
-|----------|---------------------|------|-----|---------|------------|
-| **Vuelos** | AGGREGATOR NETACTICA, SABRE, EDIFACT | 100% Millas | ✅ TC | Automática | Angular |
-| **Hoteles** | HotelBeds | 100% Millas | ❌ No | Automática | Angular |
-| **Autos** | Sabre (Hertz, Dollar, Thrifty) | 100% Millas | ❌ No | Automática | Meteor |
-| **Actividades** | HotelBeds | 100% Millas | ❌ No | Automática | Angular |
-| **Disney** | DerbySoft | 100% Millas | ❌ No | Automática | React |
+| Producto | Proveedor Principal | Pago | Fee | Emisión | Promocode | Markup | Drop off | Tecnología |
+|----------|---------------------|------|-----|---------|-----------|--------|----------|------------|
+| **Vuelos** | AGGREGATOR NETACTICA, SABRE, EDIFACT | 100% Millas | ✅ TC | Automática | ✅ Sí | ❌ No | ❌ No | Angular |
+| **Hoteles** | HotelBeds | 100% Millas | ❌ No | Automática | ✅ Sí | ✅ Sí | ❌ No | Angular |
+| **Autos** | Sabre (Hertz, Dollar, Thrifty) | 100% Millas | ❌ No | Automática | ❌ No | ❌ No | ✅ Sí | Meteor |
+| **Actividades** | HotelBeds | 100% Millas | ❌ No | Automática | ✅ Sí | ✅ Sí | ❌ No | Angular |
+| **Disney** | DerbySoft | 100% Millas | ❌ No | Automática | ✅ Sí | ❌ No | ❌ No | React |
 
 ---
 
@@ -221,6 +221,7 @@ graph LR
 | **Estados** | Menos estados | Más variados |
 | **Pago efectivo** | ❌ No | ✅ Sí (mixto) |
 | **Slider** | ❌ No existe | ✅ Sí |
+| **Promocode** | ✅ Sí (excepto Autos) | Varía según modelo |
 
 ---
 

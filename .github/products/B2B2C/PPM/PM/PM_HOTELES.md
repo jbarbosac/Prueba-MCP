@@ -4,6 +4,52 @@
 **Portal:** https://pichinchamiles-ec.preprodppm.com/  
 **Tecnología:** Angular (TypeScript/JavaScript)  
 **Modelo de pago:** 100% Millas (sin fee, sin tarjeta de crédito)  
+**Promocode:** ✅ SÍ APLICA (campo opcional en búsqueda)  
+**Markup:** ✅ SÍ APLICA (impuesto/recargo incluido en precio)  
+
+---
+
+## 💰 MARKUP EN HOTELES
+
+### ¿QUÉ ES EL MARKUP?
+
+**Markup** es un impuesto o recargo que se cobra **por debajo** en el servicio de hoteles. Es un costo adicional que está incluido en el precio final mostrado al usuario.
+
+### TIPOS DE MARKUP:
+
+**1️⃣ Markup Porcentual (%):**
+- Se calcula como un porcentaje sobre el precio base
+- Ejemplo: 5%, 8%, 10%
+- Cálculo: `Precio base × (% markup)`
+
+**2️⃣ Markup Fijo:**
+- Cantidad fija de millas que se suma al precio
+- Ejemplo: 2,000 millas, 3,500 millas
+- Cálculo: `Precio base + Markup fijo`
+
+### CARACTERÍSTICAS:
+
+✅ **Incluido en precio:** El precio mostrado en disponibilidad ya incluye el markup  
+✅ **No visible separado:** No aparece como línea separada en el desglose  
+✅ **Aplicado automáticamente:** Se calcula por el sistema  
+✅ **Puede ser % o fijo:** Según configuración del hotel  
+
+### EJEMPLO:
+
+**Hotel con Markup 8%:**
+```
+Precio base por noche: 10,000 millas
+Markup 8%: 10,000 × 0.08 = 800 millas
+Precio final por noche mostrado: 10,800 millas
+
+Para 3 noches: 10,800 × 3 = 32,400 millas
+```
+
+### VALIDACIONES:
+
+✅ **Precio incluye markup:** Validar que el precio mostrado ya tiene el recargo  
+✅ **Cálculo correcto:** Verificar que el markup esté aplicado correctamente  
+✅ **Consistencia:** Precio igual en disponibilidad, resumen, checkout y confirmación  
 
 ---
 
