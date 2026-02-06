@@ -119,6 +119,98 @@
 
 ---
 
+## ✈️ PANTALLA DE DISPONIBILIDAD
+
+**Funcionalidades disponibles:**
+
+### 🧭 BREADCRUMBS (MIGAS DE PAN):
+
+**Navegación según pantalla:**
+
+**En Disponibilidad (Resultados):**
+- Posición actual: **"Resultados"**
+- Navegación disponible: ✅ Home
+- Navegación bloqueada: ❌ Resumen (pantalla futura)
+
+**En Resumen:**
+- Posición actual: **"Resumen"**
+- Navegación disponible: ✅ Home, ✅ Resultados
+- Permite regresar a disponibilidad o inicio
+
+### 🔍 FILTROS:
+
+- **Por precio:** Rango de millas
+- **Por hora de salida del vuelo:** Filtro por horarios de partida
+- **Por hora de regreso del vuelo:** Filtro por horarios de retorno (solo Ida y vuelta)
+- **Por escala:** Directo, 1 escala, 2+ escalas
+- **Por familias tarifarias:** Básica, Estándar, Premium
+- **Por equipaje:** Con/sin equipaje incluido
+
+### 🔄 CAMBIAR BÚSQUEDA:
+
+**Funcionalidad:**
+- Al oprimir "CAMBIAR BÚSQUEDA" → Se abre el buscador
+- Permite modificar criterios de búsqueda original (origen, destino, fechas, pasajeros)
+- Al oprimir nuevamente → Se oculta el buscador
+
+### 💡 INSPIRACIONALES (SABRE EDIFACT):
+
+**Disponibilidad:** Solo para proveedor **Sabre Edifact**
+
+**4 tipos de inspiracionales:**
+
+**1. 💰 Precios por Aerolínea:**
+- Muestra carrusel de aerolíneas
+- Cada aerolínea muestra: "Desde XXXX Millas"
+- Al seleccionar una aerolínea → Filtra solo recomendaciones de esa aerolínea
+- Muestra valor más económico o aproximado
+
+**2. 📅 Fechas Flexibles:**
+- **Ida y vuelta:** Matriz de fecha ida vs fecha vuelta
+- **Solo ida:** Matriz con solo fecha de ida
+- Dentro de la matriz se visualiza el valor más económico para cada combinación
+- Al seleccionar una fecha → Realiza búsqueda con esa fecha específica
+
+**3. 📊 Tendencia de Precios:**
+- Línea de tiempo: Día x Millas entre meses
+- Gráfica de barras para comparar precios
+- Identifica días más caros y más baratos
+- Al seleccionar un punto → Realiza búsqueda con esa fecha
+
+**4. 🗺️ Explorar Destinos:**
+- Sugiere destinos cercanos a la búsqueda original
+- Muestra destinos económicos alternativos
+- Al seleccionar una ubicación → Realiza búsqueda sugerida
+
+### 📝 COMPONENTE RESUMEN DE BÚSQUEDA:
+
+**Información mostrada:**
+- Resumen del trayecto buscado (origen → destino)
+- Cantidad y tipo de pasajeros (adultos, niños, infantes)
+- Clase seleccionada (Económica, Premium Economy, Business, Primera)
+
+### 🎫 CARDS DE RECOMENDACIÓN:
+
+**Visualización:** Lista de vuelos disponibles en formato card
+
+**Cada card muestra:**
+- Información del vuelo (horarios, aerolínea, escalas)
+- Precio en millas + fee de procesamiento
+- Botón "CANJEAR"
+
+**Identificación de Upsell:**
+- Las cards con Upsell muestran un **mini banner** dentro de la card
+- Texto del banner: **"Personaliza tu viaje con esta tarifa"**
+- Icono: ✈️ Avión + ✅ Check
+
+**Modal Upsell:**
+- **Si la card tiene Upsell:** Al hacer click en "CANJEAR" → Muestra modal de Upsell
+  - Modal presenta alternativas más costosas con más beneficios
+  - Después de seleccionar → Continúa a pantalla Resumen
+- **Si la card NO tiene Upsell:** Click en "CANJEAR" → Lleva directo a pantalla Resumen
+
+---
+
 ## 📋 PASOS OBLIGATORIOS DEL FLUJO E2E
 
 **Siempre incluir estos pasos desde login:**
