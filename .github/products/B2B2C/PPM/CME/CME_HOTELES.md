@@ -156,6 +156,19 @@ Acción: Cancelar después de 2 meses → Con cargo
 32. Validar que NO hay voucher disponible para descarga en Admin | Confirmado: sin voucher descargable
 33. Si aplica Copago: Ingresar al portal P2P y validar transacción (valor USD, estado, franquicia, número TC) | Transacción registrada correctamente en P2P
 
+### 🚫 PASOS ADICIONALES PARA CANCELACIÓN DE RESERVA:
+
+**Cancelación desde Admin CME:**
+
+34. En el detalle de la reserva en Admin, validar que se muestra el botón "CANCELAR RESERVA" | Botón visible y habilitado
+35. Click en botón "CANCELAR RESERVA" | Sistema procesa la cancelación
+36. Validar que la reserva cambia a estado CANCELADA | Estado actualizado correctamente
+
+**IMPORTANTE:** 
+- Para HotelBeds NO hay conexión de demo PDN (Pre-Production) disponible
+- La cancelación solo se valida en el Administrador del Marketplace CME
+- No es posible corroborar la cancelación directamente con el proveedor HotelBeds en ambiente de pruebas
+
 ---
 
 ## 🔄 VARIACIONES SEGÚN ESCENARIO
